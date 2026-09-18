@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+  ai-service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: cariq_ai_service
+    ports:
+      - "8000:8000"
+    environment:
+      - ENVIRONMENT=production
+      - AI_PROVIDER=${AI_PROVIDER:-gemini}
+      - AI_MODEL=${AI_MODEL:-gemini-1.5-flash}
+      - AI_API_KEY=${AI_API_KEY:-}
+      - OLLAMA_BASE_URL=http://host.docker.internal:11434
+      - DATABASE_URL=postgresql+asyncpg://postgres:postgres@postgres:5432/cariq_db
+      - VECTOR_DATABASE_URL=postgresql+asyncpg://postgres:postgres@postgres:5432/cariq_vectors
+      - REDIS_URL=redis://redis:6379/0
+      - REDIS_ENABLED=true
+      - VECTOR_STORE_TYPE=memory
+    depends_on:
+      - postgres
+      - redis
+    restart: unless-stopped
+    volumes:
+      - ./data:/app/data
+
+  postgres:
+    image: pgvector/pgvector:pg16
+    container_name: cariq_postgres
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=cariq_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    container_name: cariq_redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+  redis_data:
