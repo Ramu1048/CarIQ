@@ -9,6 +9,7 @@ class Vehicle(BaseModel):
     variant: Optional[str] = None
     body_type: str  # SUV, Sedan, Hatchback, MUV
     segment: Optional[str] = None
+    image_url: Optional[str] = None
     price_min: int = Field(description="Minimum price in INR")
     price_max: int = Field(description="Maximum price in INR")
     ex_showroom_price: int = Field(description="Typical ex-showroom price in INR")

@@ -18,6 +18,7 @@ class VehicleRecommendationItem(BaseModel):
     brand: str
     model: str
     variant: Optional[str] = None
+    image_url: Optional[str] = None
     price_min: int
     price_max: int
     match_score: int = Field(description="Deterministic match score 0-100")

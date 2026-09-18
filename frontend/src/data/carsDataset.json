@@ -1,0 +1,86 @@
+[
+  {
+    "model_name": "Creta",
+    "image_url": "/images/cars/creta.png"
+  },
+  {
+    "model_name": "Grand i10 Nios",
+    "image_url": "/images/cars/grand-i10.jpg"
+  },
+  {
+    "model_name": "i20",
+    "image_url": "/images/cars/i20.jpg"
+  },
+  {
+    "model_name": "Alcazar",
+    "image_url": "/images/cars/alcazar.png"
+  },
+  {
+    "model_name": "Swift",
+    "image_url": "/images/cars/swift.jpg"
+  },
+  {
+    "model_name": "Dzire",
+    "image_url": "/images/cars/dzire.jpg"
+  },
+  {
+    "model_name": "Baleno",
+    "image_url": "/images/cars/baleno.jpg"
+  },
+  {
+    "model_name": "Brezza",
+    "image_url": "/images/cars/brezza.jpg"
+  },
+  {
+    "model_name": "XUV 3XO",
+    "image_url": "/images/cars/xuv300.jpg"
+  },
+  {
+    "model_name": "XUV700",
+    "image_url": "/images/cars/xuv700.jpg"
+  },
+  {
+    "model_name": "Scorpio N",
+    "image_url": "/images/cars/scorpio.jpg"
+  },
+  {
+    "model_name": "Nexon",
+    "image_url": "/images/cars/nexon.jpg"
+  },
+  {
+    "model_name": "Punch",
+    "image_url": "/images/cars/punch.png"
+  },
+  {
+    "model_name": "Nexon EV",
+    "image_url": "/images/cars/nexon-ev.png"
+  },
+  {
+    "model_name": "Punch EV",
+    "image_url": "/images/cars/punch-ev.jpg"
+  },
+  {
+    "model_name": "Seltos",
+    "image_url": "/images/cars/seltos.jpg"
+  },
+  {
+    "model_name": "Carens",
+    "image_url": "/images/cars/carens.jpg"
+  },
+  {
+    "model_name": "Fortuner",
+    "image_url": "/images/cars/fortuner.jpg"
+  },
+  {
+    "model_name": "Innova Crysta",
+    "image_url": "/images/cars/innova-crysta.jpg"
+  },
+  {
+    "model_name": "Thar",
+    "image_url": "/images/cars/thar.jpg"
+  },
+  {
+    "model_name": "Harrier",
+    "image_url": "/images/cars/harrier.jpg"
+  }
+]

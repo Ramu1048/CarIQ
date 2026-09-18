@@ -44,7 +44,12 @@
       "3-cylinder engine sound at high RPMs",
       "Rear seat shoulder room is modest for 3 adults"
     ],
-    "ideal_for": ["Safety conscious buyers", "City and highway mixed driving", "Small families"]
+    "ideal_for": [
+      "Safety conscious buyers",
+      "City and highway mixed driving",
+      "Small families"
+    ],
+    "image_url": "/images/cars/nexon.jpg"
   },
   {
     "id": "maruti_brezza",
@@ -90,7 +95,12 @@
       "Lacks punchy top-end performance compared to turbos",
       "Smaller boot capacity at 328L"
     ],
-    "ideal_for": ["Daily city commuting", "High fuel efficiency seekers", "Low maintenance budget"]
+    "ideal_for": [
+      "Daily city commuting",
+      "High fuel efficiency seekers",
+      "Low maintenance budget"
+    ],
+    "image_url": "/images/cars/brezza.jpg"
   },
   {
     "id": "hyundai_creta",
@@ -136,7 +146,12 @@
       "Top variants are on the pricier side (>18L)",
       "Petrol IVT is tuned for comfort rather than aggressive sporty driving"
     ],
-    "ideal_for": ["Comfort-first buyers", "Tech-savvy families", "Long-distance touring & city driving"]
+    "ideal_for": [
+      "Comfort-first buyers",
+      "Tech-savvy families",
+      "Long-distance touring & city driving"
+    ],
+    "image_url": "/images/cars/creta.png"
   },
   {
     "id": "kia_seltos",
@@ -180,7 +195,12 @@
       "Firm suspension ride compared to Creta",
       "Fuel economy drops quickly in heavy stop-and-go traffic"
     ],
-    "ideal_for": ["Driving enthusiasts", "Modern styling preference", "Highway cruisers"]
+    "ideal_for": [
+      "Driving enthusiasts",
+      "Modern styling preference",
+      "Highway cruisers"
+    ],
+    "image_url": "/images/cars/seltos.jpg"
   },
   {
     "id": "mahindra_xuv700",
@@ -226,7 +246,12 @@
       "Large footprint makes tight city parking challenging",
       "3rd row up reduces boot space to ~240L"
     ],
-    "ideal_for": ["Large families (6-7 people)", "Long-distance highway roadtrips", "Power and safety seekers"]
+    "ideal_for": [
+      "Large families (6-7 people)",
+      "Long-distance highway roadtrips",
+      "Power and safety seekers"
+    ],
+    "image_url": "/images/cars/xuv700.jpg"
   },
   {
     "id": "tata_punch_ev",
@@ -267,7 +292,7 @@
     "warranty_years": 8,
     "warranty_km": 160000,
     "pros": [
-      "Ultra-low running cost (approx ₹1.2 per km)",
+      "Ultra-low running cost (approx \u20b91.2 per km)",
       "5-star Bharat NCAP rating",
       "Punchy 0-100 km/h acceleration with instantaneous torque",
       "Compact footprint ideal for tight city traffic and parking"
@@ -276,7 +301,12 @@
       "Highway range limited to ~280-300 km real-world",
       "Public DC fast charger network density varies by route"
     ],
-    "ideal_for": ["Daily city commuters", "Eco-conscious buyers", "Extremely low running cost seekers"]
+    "ideal_for": [
+      "Daily city commuters",
+      "Eco-conscious buyers",
+      "Extremely low running cost seekers"
+    ],
+    "image_url": "/images/cars/punch-ev.jpg"
   },
   {
     "id": "tata_tiago_ev",
@@ -324,7 +354,11 @@
       "Modest boot space (240L)",
       "Real-world highway range ~210 km"
     ],
-    "ideal_for": ["Budget EV buyers", "First-time car buyers", "Daily office commute"]
+    "ideal_for": [
+      "Budget EV buyers",
+      "First-time car buyers",
+      "Daily office commute"
+    ]
   },
   {
     "id": "maruti_grand_vitara_hybrid",
@@ -362,7 +396,7 @@
     "warranty_km": 100000,
     "pros": [
       "Unbelievable 27.97 km/l ARAI mileage in city & highway",
-      "Self-charging strong hybrid — no plug-in charging anxiety",
+      "Self-charging strong hybrid \u2014 no plug-in charging anxiety",
       "EV mode silence in heavy city traffic",
       "Substantial 210mm ground clearance"
     ],
@@ -370,7 +404,11 @@
       "Hybrid battery under boot floor reduces trunk volume to 265L",
       "Higher upfront acquisition price than non-hybrid variants"
     ],
-    "ideal_for": ["High mileage drivers (>1500 km/month)", "Maximum fuel economy seekers", "No charging plug access"]
+    "ideal_for": [
+      "High mileage drivers (>1500 km/month)",
+      "Maximum fuel economy seekers",
+      "No charging plug access"
+    ]
   },
   {
     "id": "toyota_urban_cruiser_hyryder",
@@ -414,7 +452,11 @@
       "Reduced boot space due to battery placement",
       "Interior plastics feel shared with Maruti models"
     ],
-    "ideal_for": ["High commute users", "Toyota brand loyalty", "Exceptional fuel savings"]
+    "ideal_for": [
+      "High commute users",
+      "Toyota brand loyalty",
+      "Exceptional fuel savings"
+    ]
   },
   {
     "id": "honda_city_ehev",
@@ -460,7 +502,11 @@
       "Sedan low ground clearance (165mm) requires care over monster speed breakers",
       "Boot space reduced to 306L due to battery pack"
     ],
-    "ideal_for": ["Chauffeur-driven executives", "Sedan enthusiasts", "Comfort and mileage lovers"]
+    "ideal_for": [
+      "Chauffeur-driven executives",
+      "Sedan enthusiasts",
+      "Comfort and mileage lovers"
+    ]
   },
   {
     "id": "hyundai_verna",
@@ -496,7 +542,7 @@
     "warranty_years": 3,
     "warranty_km": 100000,
     "pros": [
-      "Massive 528L luggage boot — largest in its class",
+      "Massive 528L luggage boot \u2014 largest in its class",
       "Lightning-fast 158 bhp turbo engine (0-100 in 8.1s)",
       "5-star adult and child crash safety rating",
       "Heated AND ventilated front seats"
@@ -505,7 +551,11 @@
       "Futuristic radical front-end design is polarizing",
       "Sedan ground clearance requires mindful driving over broken roads"
     ],
-    "ideal_for": ["Performance sedan lovers", "Luggage-heavy travelers", "High-speed highway stability"]
+    "ideal_for": [
+      "Performance sedan lovers",
+      "Luggage-heavy travelers",
+      "High-speed highway stability"
+    ]
   },
   {
     "id": "maruti_swift",
@@ -550,7 +600,12 @@
       "AMT gearbox has noticeable head-nod during enthusiastic driving",
       "Boot space is compact (265L)"
     ],
-    "ideal_for": ["First car buyers", "College & office commuters", "Tight budgets under 10 lakh"]
+    "ideal_for": [
+      "First car buyers",
+      "College & office commuters",
+      "Tight budgets under 10 lakh"
+    ],
+    "image_url": "/images/cars/swift.jpg"
   },
   {
     "id": "skoda_kushaq",
@@ -594,7 +649,11 @@
       "Higher maintenance cost than Japanese/Korean rivals",
       "Rear seat is sculpted for 2 adults rather than 3"
     ],
-    "ideal_for": ["Enthusiastic drivers", "Highway dynamics purists", "Solid build quality seekers"]
+    "ideal_for": [
+      "Enthusiastic drivers",
+      "Highway dynamics purists",
+      "Solid build quality seekers"
+    ]
   },
   {
     "id": "toyota_innova_hycross",
@@ -640,7 +699,11 @@
       "Premium price tag above 30 lakh ex-showroom",
       "Long waiting period"
     ],
-    "ideal_for": ["Joint families", "Executive luxury touring", "Long-haul highway comfort"]
+    "ideal_for": [
+      "Joint families",
+      "Executive luxury touring",
+      "Long-haul highway comfort"
+    ]
   },
   {
     "id": "tata_harrier",
@@ -685,6 +748,612 @@
       "No petrol or hybrid engine options available",
       "Heavy steering at low parking speeds"
     ],
-    "ideal_for": ["SUV road presence lovers", "Highway tourers", "High safety requirement"]
+    "ideal_for": [
+      "SUV road presence lovers",
+      "Highway tourers",
+      "High safety requirement"
+    ],
+    "image_url": "/images/cars/harrier.jpg"
+  },
+  {
+    "id": "maruti_dzire",
+    "brand": "Maruti Suzuki",
+    "model": "Dzire",
+    "variant": "ZXi Plus AGS",
+    "body_type": "Sedan",
+    "segment": "Compact Sedan",
+    "image_url": "/images/cars/dzire.jpg",
+    "price_min": 679000,
+    "price_max": 1014000,
+    "ex_showroom_price": 1014000,
+    "fuel_type": "Petrol",
+    "transmission": "Automatic",
+    "engine_displacement_cc": 1197,
+    "power_bhp": 80,
+    "torque_nm": 112,
+    "mileage_kmpl": 25.71,
+    "seating_capacity": 5,
+    "boot_space_litres": 382,
+    "ground_clearance_mm": 163,
+    "safety_rating_ncap": 5,
+    "airbags_count": 6,
+    "features": [
+      "Electric Sunroof (Segment First)",
+      "360 HD View Camera",
+      "9-inch SmartPlay Pro+ Audio",
+      "Wireless Charger",
+      "Rear AC Vents",
+      "Cruise Control"
+    ],
+    "maintenance_cost_annual_inr": 6500,
+    "warranty_years": 3,
+    "warranty_km": 100000,
+    "pros": [
+      "Historic 5-star Global NCAP rating",
+      "Segment-first electric sunroof",
+      "Exceptional 25.71 km/l fuel economy"
+    ],
+    "cons": [
+      "3-cylinder engine produces subtle vibrations under load"
+    ],
+    "ideal_for": [
+      "Daily commuters",
+      "Families wanting top-tier safety",
+      "Sedan lovers on a budget"
+    ]
+  },
+  {
+    "id": "maruti_baleno",
+    "brand": "Maruti Suzuki",
+    "model": "Baleno",
+    "variant": "Alpha AGS",
+    "body_type": "Hatchback",
+    "segment": "Premium Hatchback",
+    "image_url": "/images/cars/baleno.jpg",
+    "price_min": 666000,
+    "price_max": 988000,
+    "ex_showroom_price": 988000,
+    "fuel_type": "Petrol",
+    "transmission": "Automatic",
+    "engine_displacement_cc": 1197,
+    "power_bhp": 89,
+    "torque_nm": 113,
+    "mileage_kmpl": 22.94,
+    "seating_capacity": 5,
+    "boot_space_litres": 318,
+    "ground_clearance_mm": 170,
+    "safety_rating_ncap": 3,
+    "airbags_count": 6,
+    "features": [
+      "Heads-Up Display (HUD)",
+      "360 View Camera",
+      "9-inch SmartPlay Pro+ Audio",
+      "Auto-dimming IRVM",
+      "Rear AC Vents"
+    ],
+    "maintenance_cost_annual_inr": 6200,
+    "warranty_years": 3,
+    "warranty_km": 100000,
+    "pros": [
+      "HUD and 360-degree camera in sub-10 Lakh bracket",
+      "Very spacious rear seat legroom",
+      "Low maintenance costs"
+    ],
+    "cons": [
+      "Lacks sunroof option"
+    ],
+    "ideal_for": [
+      "City dwellers",
+      "First-time premium car buyers",
+      "Value seekers"
+    ]
+  },
+  {
+    "id": "mahindra_scorpio_n",
+    "brand": "Mahindra",
+    "model": "Scorpio-N",
+    "variant": "Z8L 4x4 AT",
+    "body_type": "SUV",
+    "segment": "Mid-Size Ladder-Frame SUV",
+    "image_url": "/images/cars/scorpio.jpg",
+    "price_min": 1385000,
+    "price_max": 2454000,
+    "ex_showroom_price": 2454000,
+    "fuel_type": "Diesel",
+    "transmission": "Automatic",
+    "engine_displacement_cc": 2184,
+    "power_bhp": 172,
+    "torque_nm": 400,
+    "mileage_kmpl": 14.5,
+    "seating_capacity": 7,
+    "boot_space_litres": 460,
+    "ground_clearance_mm": 187,
+    "safety_rating_ncap": 5,
+    "airbags_count": 6,
+    "features": [
+      "4XPLOR Intelligent Terrain Management",
+      "Sony 12-Speaker 3D Audio",
+      "Electric Sunroof",
+      "Dual Zone Climate Control",
+      "AdrenoX AI"
+    ],
+    "maintenance_cost_annual_inr": 11000,
+    "warranty_years": 3,
+    "warranty_km": 100000,
+    "pros": [
+      "5-star Global NCAP adult safety on a rugged ladder frame",
+      "Tremendous 400 Nm torque and authentic 4x4 capability",
+      "Commanding high driving position"
+    ],
+    "cons": [
+      "Firm low-speed ride due to body-on-frame design",
+      "Third row is tight for tall adults on long trips"
+    ],
+    "ideal_for": [
+      "Rugged road and highway touring",
+      "Off-road and adventure enthusiasts",
+      "Large joint families"
+    ]
+  },
+  {
+    "id": "mahindra_xuv_3xo",
+    "brand": "Mahindra",
+    "model": "XUV 3XO",
+    "variant": "AX7 Luxury TGDi AT",
+    "body_type": "SUV",
+    "segment": "Compact SUV",
+    "image_url": "/images/cars/xuv300.jpg",
+    "price_min": 749000,
+    "price_max": 1549000,
+    "ex_showroom_price": 1549000,
+    "fuel_type": "Petrol",
+    "transmission": "Automatic",
+    "engine_displacement_cc": 1197,
+    "power_bhp": 130,
+    "torque_nm": 230,
+    "mileage_kmpl": 20.1,
+    "seating_capacity": 5,
+    "boot_space_litres": 295,
+    "ground_clearance_mm": 201,
+    "safety_rating_ncap": 5,
+    "airbags_count": 6,
+    "features": [
+      "Skyroof Panoramic Sunroof (Segment First)",
+      "Level 2 ADAS",
+      "Harman Kardon 7-Speaker Sound",
+      "Dual 10.25-inch Digital Screens",
+      "Dual Zone AC"
+    ],
+    "maintenance_cost_annual_inr": 7800,
+    "warranty_years": 3,
+    "warranty_km": 100000,
+    "pros": [
+      "Panoramic Skyroof in a sub-4m SUV",
+      "Full Level 2 ADAS radar & camera suite",
+      "Fastest 0-60 km/h in segment (4.5s)"
+    ],
+    "cons": [
+      "Boot capacity is slightly below segment benchmark (295L)"
+    ],
+    "ideal_for": [
+      "Tech-savvy urban drivers",
+      "Safety-first buyers wanting panoramic views",
+      "Performance enthusiasts"
+    ]
+  },
+  {
+    "id": "mahindra_thar",
+    "brand": "Mahindra",
+    "model": "Thar",
+    "variant": "LX Hard Top 4x4 AT",
+    "body_type": "SUV",
+    "segment": "Lifestyle Off-Road SUV",
+    "image_url": "/images/cars/thar.jpg",
+    "price_min": 1135000,
+    "price_max": 1760000,
+    "ex_showroom_price": 1760000,
+    "fuel_type": "Diesel",
+    "transmission": "Automatic",
+    "engine_displacement_cc": 2184,
+    "power_bhp": 130,
+    "torque_nm": 300,
+    "mileage_kmpl": 15.2,
+    "seating_capacity": 4,
+    "boot_space_litres": 600,
+    "ground_clearance_mm": 226,
+    "safety_rating_ncap": 4,
+    "airbags_count": 2,
+    "features": [
+      "Manual 4x4 Shift with Low-Ratio",
+      "Mechanical Locking Differential",
+      "Washable Cabin with Drain Plugs",
+      "7-inch Touchscreen with Adventure Gauges"
+    ],
+    "maintenance_cost_annual_inr": 9500,
+    "warranty_years": 3,
+    "warranty_km": 100000,
+    "pros": [
+      "Unmatched street presence and off-road capability",
+      "226mm ground clearance and 650mm water wading",
+      "Strong resale value"
+    ],
+    "cons": [
+      "Stiff bouncy suspension on uneven tarmac",
+      "Strict 4-seater with difficult rear ingress"
+    ],
+    "ideal_for": [
+      "Adventure seekers",
+      "Off-roaders",
+      "Lifestyle enthusiasts"
+    ]
+  },
+  {
+    "id": "toyota_fortuner",
+    "brand": "Toyota",
+    "model": "Fortuner",
+    "variant": "Legender 4x4 AT",
+    "body_type": "SUV",
+    "segment": "Full-Size Premium SUV",
+    "image_url": "/images/cars/fortuner.jpg",
+    "price_min": 3343000,
+    "price_max": 5144000,
+    "ex_showroom_price": 5144000,
+    "fuel_type": "Diesel",
+    "transmission": "Automatic",
+    "engine_displacement_cc": 2755,
+    "power_bhp": 201,
+    "torque_nm": 500,
+    "mileage_kmpl": 14.4,
+    "seating_capacity": 7,
+    "boot_space_litres": 296,
+    "ground_clearance_mm": 225,
+    "safety_rating_ncap": 5,
+    "airbags_count": 7,
+    "features": [
+      "Catamaran Quad-LED Headlamps",
+      "JBL 11-Speaker Audio with Subwoofer",
+      "Hands-Free Kick Tailgate",
+      "Ventilated Front Seats",
+      "Active Traction Control (A-TRC)"
+    ],
+    "maintenance_cost_annual_inr": 14000,
+    "warranty_years": 3,
+    "warranty_km": 100000,
+    "pros": [
+      "Legendary Toyota reliability and indestructible build",
+      "Mighty 500 Nm torque engine",
+      "Best-in-class resale value in India"
+    ],
+    "cons": [
+      "Steep price tag exceeding 50 Lakhs on-road",
+      "Lacks panoramic sunroof and Level 2 ADAS at this price point"
+    ],
+    "ideal_for": [
+      "Executive leaders",
+      "Rugged long-distance touring",
+      "Long-term vehicle ownership (10+ years)"
+    ]
+  },
+  {
+    "id": "toyota_innova_crysta",
+    "brand": "Toyota",
+    "model": "Innova Crysta",
+    "variant": "ZX 7-Seater",
+    "body_type": "MUV",
+    "segment": "Premium MPV",
+    "image_url": "/images/cars/innova-crysta.jpg",
+    "price_min": 1999000,
+    "price_max": 2655000,
+    "ex_showroom_price": 2655000,
+    "fuel_type": "Diesel",
+    "transmission": "Manual",
+    "engine_displacement_cc": 2393,
+    "power_bhp": 148,
+    "torque_nm": 343,
+    "mileage_kmpl": 15.1,
+    "seating_capacity": 7,
+    "boot_space_litres": 300,
+    "ground_clearance_mm": 178,
+    "safety_rating_ncap": 5,
+    "airbags_count": 7,
+    "features": [
+      "2nd Row Captain Seats with Ottoman Armrests",
+      "Automatic Climate Control with Rear Vents",
+      "8-Way Power Driver Seat",
+      "Ambient Illuminated Roof Lighting"
+    ],
+    "maintenance_cost_annual_inr": 9000,
+    "warranty_years": 3,
+    "warranty_km": 100000,
+    "pros": [
+      "Gold standard passenger ride comfort across all 3 rows",
+      "Bulletproof 2.4L GD diesel engine that easily lasts 500,000 km",
+      "Outstanding highway stability"
+    ],
+    "cons": [
+      "Manual transmission only in current model",
+      "No petrol or automatic variant available in Crysta"
+    ],
+    "ideal_for": [
+      "Long distance highway family trips",
+      "Chauffeur-driven executives",
+      "Fleet and luxury operators"
+    ]
+  },
+  {
+    "id": "hyundai_grand_i10_nios",
+    "brand": "Hyundai",
+    "model": "Grand i10 Nios",
+    "variant": "Asta AMT",
+    "body_type": "Hatchback",
+    "segment": "Compact Hatchback",
+    "image_url": "/images/cars/grand-i10.jpg",
+    "price_min": 592000,
+    "price_max": 856000,
+    "ex_showroom_price": 856000,
+    "fuel_type": "Petrol",
+    "transmission": "AMT",
+    "engine_displacement_cc": 1197,
+    "power_bhp": 82,
+    "torque_nm": 114,
+    "mileage_kmpl": 20.7,
+    "seating_capacity": 5,
+    "boot_space_litres": 260,
+    "ground_clearance_mm": 165,
+    "safety_rating_ncap": 3,
+    "airbags_count": 6,
+    "features": [
+      "8-inch Touchscreen Display",
+      "Wireless Phone Charger",
+      "Smart Key with Push Button Start",
+      "Fast USB Type-C Charger"
+    ],
+    "maintenance_cost_annual_inr": 5800,
+    "warranty_years": 3,
+    "warranty_km": 100000,
+    "pros": [
+      "6 airbags standard across all variants",
+      "Refined 4-cylinder engine with zero vibrations",
+      "Compact size for effortless city parking"
+    ],
+    "cons": [
+      "Soft highway suspension can feel floaty at high speeds"
+    ],
+    "ideal_for": [
+      "City commuters",
+      "First-time buyers",
+      "College students and nuclear families"
+    ]
+  },
+  {
+    "id": "hyundai_i20",
+    "brand": "Hyundai",
+    "model": "i20",
+    "variant": "Asta (O) IVT",
+    "body_type": "Hatchback",
+    "segment": "Premium Hatchback",
+    "image_url": "/images/cars/i20.jpg",
+    "price_min": 704000,
+    "price_max": 1121000,
+    "ex_showroom_price": 1121000,
+    "fuel_type": "Petrol",
+    "transmission": "CVT",
+    "engine_displacement_cc": 1197,
+    "power_bhp": 87,
+    "torque_nm": 115,
+    "mileage_kmpl": 20.0,
+    "seating_capacity": 5,
+    "boot_space_litres": 311,
+    "ground_clearance_mm": 170,
+    "safety_rating_ncap": 4,
+    "airbags_count": 6,
+    "features": [
+      "Voice-enabled Electric Sunroof",
+      "Bose 7-Speaker Premium Sound System",
+      "10.25-inch Touchscreen Navigation",
+      "Wireless Smartphone Charger with Cooling Pad"
+    ],
+    "maintenance_cost_annual_inr": 6800,
+    "warranty_years": 3,
+    "warranty_km": 100000,
+    "pros": [
+      "Bose 7-speaker audio system delivers crisp sound",
+      "Electric sunroof and 10.25-inch screen",
+      "Ultra-smooth IVT automatic transmission"
+    ],
+    "cons": [
+      "Slightly premium price for a hatchback"
+    ],
+    "ideal_for": [
+      "Audio lovers",
+      "Urban professionals",
+      "Discerning hatchback buyers"
+    ]
+  },
+  {
+    "id": "hyundai_alcazar",
+    "brand": "Hyundai",
+    "model": "Alcazar",
+    "variant": "Signature 1.5 Turbo DCT",
+    "body_type": "SUV",
+    "segment": "Executive 3-Row SUV",
+    "image_url": "/images/cars/alcazar.png",
+    "price_min": 1678000,
+    "price_max": 2150000,
+    "ex_showroom_price": 2150000,
+    "fuel_type": "Petrol",
+    "transmission": "DCT",
+    "engine_displacement_cc": 1482,
+    "power_bhp": 160,
+    "torque_nm": 253,
+    "mileage_kmpl": 18.0,
+    "seating_capacity": 6,
+    "boot_space_litres": 180,
+    "ground_clearance_mm": 200,
+    "safety_rating_ncap": 5,
+    "airbags_count": 6,
+    "features": [
+      "Level 2 ADAS Suite",
+      "1st & 2nd Row Ventilated Captain Seats",
+      "Voice-controlled Panoramic Sunroof",
+      "Bose 8-Speaker Audio System",
+      "Dual 10.25-inch Screens"
+    ],
+    "maintenance_cost_annual_inr": 8800,
+    "warranty_years": 3,
+    "warranty_km": 100000,
+    "pros": [
+      "Ventilated captain seats in 2nd row",
+      "Full Level 2 ADAS safety suite",
+      "Potent 160 bhp turbo-petrol engine with DCT"
+    ],
+    "cons": [
+      "3rd row legroom is best suited for children on long drives"
+    ],
+    "ideal_for": [
+      "Chauffeur-driven executives",
+      "Tech-loving 6-seater families",
+      "Highway cruisers"
+    ]
+  },
+  {
+    "id": "kia_carens",
+    "brand": "Kia",
+    "model": "Carens",
+    "variant": "X-Line 1.5 Turbo DCT",
+    "body_type": "MUV",
+    "segment": "Recreational 3-Row Vehicle",
+    "image_url": "/images/cars/carens.jpg",
+    "price_min": 1052000,
+    "price_max": 1967000,
+    "ex_showroom_price": 1967000,
+    "fuel_type": "Petrol",
+    "transmission": "DCT",
+    "engine_displacement_cc": 1482,
+    "power_bhp": 158,
+    "torque_nm": 253,
+    "mileage_kmpl": 16.5,
+    "seating_capacity": 6,
+    "boot_space_litres": 216,
+    "ground_clearance_mm": 195,
+    "safety_rating_ncap": 4,
+    "airbags_count": 6,
+    "features": [
+      "Electric One-Touch Tumble 2nd Row Seats",
+      "Bose 8-Speaker Audio",
+      "Ventilated Front Seats",
+      "Sky Light Electric Sunroof",
+      "Smart Pure Air Purifier with Virus Protection"
+    ],
+    "maintenance_cost_annual_inr": 8200,
+    "warranty_years": 3,
+    "warranty_km": 100000,
+    "pros": [
+      "Electric one-touch tumble makes 3rd row access effortless",
+      "Best ride comfort in the sub-20L 3-row category",
+      "6 airbags and all-wheel disc brakes standard"
+    ],
+    "cons": [
+      "Body shape looks more MPV than upright SUV"
+    ],
+    "ideal_for": [
+      "Comfort-oriented 6/7-member families",
+      "Airport runs and road trips",
+      "Elderly passenger comfort"
+    ]
+  },
+  {
+    "id": "tata_punch",
+    "brand": "Tata",
+    "model": "Punch",
+    "variant": "Creative Flagship AMT",
+    "body_type": "SUV",
+    "segment": "Sub-Compact Micro SUV",
+    "image_url": "/images/cars/punch.png",
+    "price_min": 613000,
+    "price_max": 1020000,
+    "ex_showroom_price": 1020000,
+    "fuel_type": "Petrol",
+    "transmission": "AMT",
+    "engine_displacement_cc": 1199,
+    "power_bhp": 86,
+    "torque_nm": 115,
+    "mileage_kmpl": 20.09,
+    "seating_capacity": 5,
+    "boot_space_litres": 366,
+    "ground_clearance_mm": 187,
+    "safety_rating_ncap": 5,
+    "airbags_count": 6,
+    "features": [
+      "Voice-assisted Sunroof",
+      "10.25-inch Infotainment Screen",
+      "Wireless Android Auto & Apple CarPlay",
+      "Wireless Phone Charger",
+      "Cooled Glove Box"
+    ],
+    "maintenance_cost_annual_inr": 6000,
+    "warranty_years": 3,
+    "warranty_km": 100000,
+    "pros": [
+      "5-star Global NCAP safety rating",
+      "187mm ground clearance easily tackles bad potholes",
+      "90-degree wide opening doors"
+    ],
+    "cons": [
+      "Engine is modest for quick highway overtakes"
+    ],
+    "ideal_for": [
+      "Budget-conscious safety seekers",
+      "First-time SUV buyers",
+      "Rough country roads"
+    ]
+  },
+  {
+    "id": "tata_nexon_ev",
+    "brand": "Tata",
+    "model": "Nexon EV",
+    "variant": "Empowered Plus LR",
+    "body_type": "SUV",
+    "segment": "Electric Compact SUV",
+    "image_url": "/images/cars/nexon-ev.png",
+    "price_min": 1449000,
+    "price_max": 1949000,
+    "ex_showroom_price": 1949000,
+    "fuel_type": "Electric",
+    "transmission": "Automatic",
+    "battery_capacity_kwh": 40.5,
+    "claimed_range_km": 465,
+    "real_world_range_km": 360,
+    "power_bhp": 143,
+    "torque_nm": 215,
+    "mileage_kmpl": 0.0,
+    "seating_capacity": 5,
+    "boot_space_litres": 350,
+    "ground_clearance_mm": 190,
+    "safety_rating_ncap": 5,
+    "airbags_count": 6,
+    "features": [
+      "12.3-inch Cinematic Screen by HARMAN",
+      "Ventilated Front Seats",
+      "V2V and V2L Vehicle-to-Load Power",
+      "Voice-assisted Panoramic Sunroof",
+      "Arcade.ev App Suite"
+    ],
+    "maintenance_cost_annual_inr": 4000,
+    "warranty_years": 8,
+    "warranty_km": 160000,
+    "pros": [
+      "Market leader with proven battery durability",
+      "V2L function powers appliances on camping trips",
+      "Instant torque and silent ride"
+    ],
+    "cons": [
+      "Long highway trips require planning charging stops"
+    ],
+    "ideal_for": [
+      "High daily mileage drivers (>50 km/day)",
+      "Tech enthusiasts",
+      "Eco-conscious buyers"
+    ]
   }
 ]
