@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   AppBar,
   Toolbar,
@@ -17,25 +17,22 @@ import {
   DialogTitle,
   DialogContent,
   TextField,
-  InputAdornment,
   Divider,
 } from '@mui/material';
-import FlashOnIcon from '@mui/icons-material/FlashOn';
-import SearchIcon from '@mui/icons-material/Search';
-import NotificationsIcon from '@mui/icons-material/Notifications';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import CompareArrowsIcon from '@mui/icons-material/CompareArrows';
+import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
-import DarkModeIcon from '@mui/icons-material/DarkMode';
-import LightModeIcon from '@mui/icons-material/LightMode';
-import ReplayIcon from '@mui/icons-material/Replay';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import PersonIcon from '@mui/icons-material/Person';
-import LockOpenIcon from '@mui/icons-material/LockOpen';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import CompareArrowsIcon from '@mui/icons-material/CompareArrows';
+import ReplayIcon from '@mui/icons-material/Replay';
 
 import { useAuth } from '../../context/AuthContext';
 import { useWishlist } from '../../context/WishlistContext';
-import { useAppTheme } from '../../context/ThemeContext';
+import { AuthModal, AuthMode } from '../auth/AuthModal';
+import SecurityIcon from '@mui/icons-material/Security';
+
+const NAVY = '#1e3a5f';
 
 interface NavbarProps {
   currentTab: number;
@@ -50,92 +47,97 @@ export const Navbar: React.FC<NavbarProps> = ({
   onReplayIntro,
   onOpenLocations,
 }) => {
-  const { user, isAuthenticated, isAdmin, login, register, logout, toggleRole } = useAuth();
+  const { user, isAuthenticated, isAdmin, logout, toggleRole } = useAuth();
   const { wishlist, compareList } = useWishlist();
-  const { mode, toggleTheme } = useAppTheme();
 
   const [authModalOpen, setAuthModalOpen] = useState(false);
-  const [isRegisterMode, setIsRegisterMode] = useState(false);
-  const [authEmail, setAuthEmail] = useState('');
-  const [authPassword, setAuthPassword] = useState('');
-  const [authName, setAuthName] = useState('');
+  const [authInitialMode, setAuthInitialMode] = useState<AuthMode>('customer_login');
   const [userMenuAnchor, setUserMenuAnchor] = useState<null | HTMLElement>(null);
 
-  const handleAuthSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    try {
-      if (isRegisterMode) {
-        await register({
-          email: authEmail,
-          password: authPassword,
-          first_name: authName || 'Rahul',
-          last_name: 'Sharma',
-        });
-      } else {
-        const fd = new FormData();
-        fd.append('username', authEmail);
-        fd.append('password', authPassword);
-        await login(fd);
-      }
-      setAuthModalOpen(false);
-      setAuthEmail('');
-      setAuthPassword('');
-      setAuthName('');
-    } catch {
-      alert('Authentication failed. Please check credentials.');
-    }
+  useEffect(() => {
+    const handleOpenAdmin = () => {
+      setAuthInitialMode('admin_login');
+      setAuthModalOpen(true);
+    };
+    const handleOpenRegister = () => {
+      setAuthInitialMode('customer_register');
+      setAuthModalOpen(true);
+    };
+    const handleOpenLogin = () => {
+      setAuthInitialMode('customer_login');
+      setAuthModalOpen(true);
+    };
+    window.addEventListener('cariq_open_admin_auth', handleOpenAdmin);
+    window.addEventListener('cariq_open_customer_register', handleOpenRegister);
+    window.addEventListener('cariq_open_customer_login', handleOpenLogin);
+    return () => {
+      window.removeEventListener('cariq_open_admin_auth', handleOpenAdmin);
+      window.removeEventListener('cariq_open_customer_register', handleOpenRegister);
+      window.removeEventListener('cariq_open_customer_login', handleOpenLogin);
+    };
+  }, []);
+
+  const openCustomerLogin = () => {
+    setAuthInitialMode('customer_login');
+    setAuthModalOpen(true);
+  };
+
+  const openCustomerRegister = () => {
+    setAuthInitialMode('customer_register');
+    setAuthModalOpen(true);
+  };
+
+  const openAdminLogin = () => {
+    setAuthInitialMode('admin_login');
+    setAuthModalOpen(true);
   };
 
   return (
     <>
       <AppBar
         position="sticky"
+        elevation={0}
         sx={{
-          bgcolor: mode === 'dark' ? 'rgba(7, 11, 20, 0.85)' : 'rgba(255, 255, 255, 0.85)',
+          bgcolor: 'rgba(255, 255, 255, 0.96)',
           backdropFilter: 'blur(16px)',
-          borderBottom: mode === 'dark' ? '1px solid rgba(255, 255, 255, 0.08)' : '1px solid rgba(0, 0, 0, 0.08)',
-          boxShadow: 'none',
+          borderBottom: '1px solid #e2e8f0',
+          boxShadow: '0 1px 8px rgba(15, 23, 42, 0.06)',
           color: 'text.primary',
           zIndex: 1100,
         }}
       >
-        <Toolbar sx={{ justifyContent: 'space-between', minHeight: { xs: 68, md: 76 }, px: { xs: 2, md: 3 } }}>
-          {/* Logo */}
+        <Toolbar sx={{ justifyContent: 'space-between', minHeight: { xs: 64, md: 72 }, px: { xs: 2, md: 4 } }}>
+
+          {/* ── Logo ─────────────────────────────────────────────────── */}
           <Box
             onClick={() => onTabChange(0)}
-            sx={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: 1.5,
-              cursor: 'pointer',
-              userSelect: 'none',
-            }}
+            sx={{ display: 'flex', alignItems: 'center', gap: 1.5, cursor: 'pointer', userSelect: 'none' }}
           >
             <Box
               sx={{
-                width: 38,
-                height: 38,
+                width: 40,
+                height: 40,
                 borderRadius: '10px',
-                background: 'linear-gradient(135deg, #00e5ff 0%, #0072ff 100%)',
+                background: `linear-gradient(135deg, ${NAVY} 0%, #2d5a9e 100%)`,
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                boxShadow: '0 0 16px rgba(0, 229, 255, 0.5)',
+                boxShadow: '0 4px 14px rgba(30, 58, 95, 0.35)',
               }}
             >
-              <FlashOnIcon sx={{ color: '#000', fontSize: 24 }} />
+              <DirectionsCarIcon sx={{ color: '#fff', fontSize: 22 }} />
             </Box>
             <Box>
-              <Typography variant="h6" sx={{ fontWeight: 800, letterSpacing: 0.5, lineHeight: 1.1 }}>
-                Car<span style={{ color: '#00e5ff' }}>IQ</span>
+              <Typography variant="h6" sx={{ fontWeight: 800, letterSpacing: 0.3, lineHeight: 1.1, color: '#0f172a' }}>
+                Car<span style={{ color: NAVY }}>IQ</span>
               </Typography>
-              <Typography variant="caption" sx={{ color: 'text.secondary', fontSize: '0.65rem', letterSpacing: 1.5, textTransform: 'uppercase' }}>
+              <Typography variant="caption" sx={{ color: '#94a3b8', fontSize: '0.6rem', letterSpacing: 1.8, textTransform: 'uppercase' }}>
                 Automotive AI
               </Typography>
             </Box>
           </Box>
 
-          {/* Navigation Tabs */}
+          {/* ── Navigation Tabs ──────────────────────────────────────── */}
           <Tabs
             value={currentTab}
             onChange={(_, val) => onTabChange(val)}
@@ -143,18 +145,19 @@ export const Navbar: React.FC<NavbarProps> = ({
             scrollButtons="auto"
             sx={{
               '& .MuiTabs-indicator': {
-                height: 3,
-                borderRadius: '3px 3px 0 0',
-                bgcolor: '#00e5ff',
-                boxShadow: '0 0 10px #00e5ff',
+                height: 2,
+                borderRadius: '2px 2px 0 0',
+                bgcolor: NAVY,
               },
               '& .MuiTab-root': {
-                minWidth: { xs: 70, sm: 100 },
-                fontWeight: 600,
-                fontSize: '0.9rem',
+                minWidth: { xs: 70, sm: 90 },
+                fontWeight: 500,
+                fontSize: '0.88rem',
                 textTransform: 'none',
-                color: 'text.secondary',
-                '&.Mui-selected': { color: '#00e5ff' },
+                color: '#64748b',
+                py: 2.5,
+                '&.Mui-selected': { color: NAVY, fontWeight: 700 },
+                '&:hover': { color: NAVY, background: 'rgba(30, 58, 95, 0.04)' },
               },
             }}
           >
@@ -163,7 +166,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             <Tab label="AI Advisor" />
             <Tab
               label={
-                <Badge badgeContent={compareList.length} color="secondary" sx={{ '& .MuiBadge-badge': { fontSize: '0.65rem' } }}>
+                <Badge badgeContent={compareList.length} color="primary" sx={{ '& .MuiBadge-badge': { fontSize: '0.6rem' } }}>
                   Compare
                 </Badge>
               }
@@ -171,39 +174,46 @@ export const Navbar: React.FC<NavbarProps> = ({
             <Tab label="EMI & Finance" />
             <Tab
               label={
-                <Badge badgeContent={wishlist.length} color="error" sx={{ '& .MuiBadge-badge': { fontSize: '0.65rem' } }}>
+                <Badge badgeContent={wishlist.length} color="error" sx={{ '& .MuiBadge-badge': { fontSize: '0.6rem' } }}>
                   Wishlist
                 </Badge>
               }
             />
             <Tab label="My Bookings" />
-            {isAdmin && <Tab icon={<AdminPanelSettingsIcon sx={{ fontSize: 18 }} />} iconPosition="start" label="Admin" />}
+            {isAdmin && <Tab icon={<AdminPanelSettingsIcon sx={{ fontSize: 17 }} />} iconPosition="start" label="Admin" />}
           </Tabs>
 
-          {/* Right Action Icons & Auth */}
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-            {/* Replay Welcome Intro */}
+          {/* ── Right Actions ─────────────────────────────────────────── */}
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
             <Tooltip title="Replay 3D Welcome Intro">
-              <IconButton onClick={onReplayIntro} size="small" sx={{ color: 'text.secondary' }}>
+              <IconButton onClick={onReplayIntro} size="small" sx={{ color: '#64748b', '&:hover': { color: NAVY, bgcolor: 'rgba(30,58,95,0.06)' } }}>
                 <ReplayIcon fontSize="small" />
               </IconButton>
             </Tooltip>
 
-            {/* Service Centers Finder */}
-            <Tooltip title="Find Authorized Service Centers">
-              <IconButton onClick={onOpenLocations} size="small" sx={{ color: 'text.secondary' }}>
+            <Tooltip title="Service Centers Near You">
+              <IconButton onClick={onOpenLocations} size="small" sx={{ color: '#64748b', '&:hover': { color: NAVY, bgcolor: 'rgba(30,58,95,0.06)' } }}>
                 <LocationOnIcon fontSize="small" />
               </IconButton>
             </Tooltip>
 
-            {/* Theme Toggle */}
-            <Tooltip title={`Switch to ${mode === 'dark' ? 'Light' : 'Dark'} Mode`}>
-              <IconButton onClick={toggleTheme} size="small" sx={{ color: 'text.secondary' }}>
-                {mode === 'dark' ? <LightModeIcon fontSize="small" /> : <DarkModeIcon fontSize="small" />}
+            <Tooltip title="Wishlist">
+              <IconButton size="small" onClick={() => onTabChange(5)} sx={{ color: '#64748b', '&:hover': { color: '#ef4444', bgcolor: 'rgba(239,68,68,0.06)' } }}>
+                <Badge badgeContent={wishlist.length} color="error" sx={{ '& .MuiBadge-badge': { fontSize: '0.6rem' } }}>
+                  <FavoriteIcon fontSize="small" />
+                </Badge>
               </IconButton>
             </Tooltip>
 
-            {/* User Account Button */}
+            <Tooltip title="Compare Cars">
+              <IconButton size="small" onClick={() => onTabChange(3)} sx={{ color: '#64748b', '&:hover': { color: NAVY, bgcolor: 'rgba(30,58,95,0.06)' } }}>
+                <Badge badgeContent={compareList.length} color="primary" sx={{ '& .MuiBadge-badge': { fontSize: '0.6rem' } }}>
+                  <CompareArrowsIcon fontSize="small" />
+                </Badge>
+              </IconButton>
+            </Tooltip>
+
+            {/* User Account */}
             {isAuthenticated && user ? (
               <>
                 <Box
@@ -214,30 +224,32 @@ export const Navbar: React.FC<NavbarProps> = ({
                     gap: 1,
                     ml: 1,
                     p: 0.6,
-                    pr: 1.5,
+                    pr: 1.4,
                     borderRadius: 50,
-                    bgcolor: mode === 'dark' ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.04)',
+                    border: '1.5px solid #e2e8f0',
                     cursor: 'pointer',
-                    '&:hover': { bgcolor: mode === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.08)' },
+                    bgcolor: '#f8fafc',
+                    transition: 'all 0.2s',
+                    '&:hover': { borderColor: NAVY, bgcolor: 'rgba(30,58,95,0.04)' },
                   }}
                 >
                   <Avatar
                     sx={{
-                      width: 32,
-                      height: 32,
-                      bgcolor: user.role === 'admin' ? '#ff3366' : '#00e5ff',
-                      color: user.role === 'admin' ? '#fff' : '#000',
-                      fontSize: '0.85rem',
+                      width: 30,
+                      height: 30,
+                      bgcolor: user.role === 'admin' ? '#ef4444' : NAVY,
+                      color: '#fff',
+                      fontSize: '0.8rem',
                       fontWeight: 700,
                     }}
                   >
                     {user.first_name?.[0] || 'U'}
                   </Avatar>
                   <Box sx={{ display: { xs: 'none', md: 'block' } }}>
-                    <Typography variant="body2" sx={{ fontWeight: 600, lineHeight: 1.1 }}>
+                    <Typography variant="body2" sx={{ fontWeight: 700, lineHeight: 1.1, fontSize: '0.82rem', color: '#0f172a' }}>
                       {user.first_name}
                     </Typography>
-                    <Typography variant="caption" sx={{ color: user.role === 'admin' ? '#ff3366' : '#00e5ff', fontWeight: 600 }}>
+                    <Typography variant="caption" sx={{ color: user.role === 'admin' ? '#ef4444' : NAVY, fontWeight: 600, fontSize: '0.6rem', letterSpacing: 0.8 }}>
                       {user.role.toUpperCase()}
                     </Typography>
                   </Box>
@@ -251,124 +263,148 @@ export const Navbar: React.FC<NavbarProps> = ({
                     paper: {
                       sx: {
                         mt: 1.5,
-                        minWidth: 180,
-                        bgcolor: mode === 'dark' ? '#0f172a' : '#ffffff',
-                        border: '1px solid rgba(255,255,255,0.1)',
+                        minWidth: 190,
+                        borderRadius: '12px',
+                        border: '1px solid #e2e8f0',
+                        boxShadow: '0 8px 24px rgba(15, 23, 42, 0.12)',
                       },
                     },
                   }}
                 >
-                  <MenuItem onClick={() => { toggleRole(); setUserMenuAnchor(null); }}>
-                    Switch to {user.role === 'admin' ? 'Customer' : 'Admin'} Mode
-                  </MenuItem>
+                  {user.role === 'admin' ? (
+                    <>
+                      <MenuItem
+                        onClick={() => {
+                          onTabChange(7);
+                          setUserMenuAnchor(null);
+                        }}
+                        sx={{ fontSize: '0.88rem', fontWeight: 700, color: '#2563eb' }}
+                      >
+                        <AdminPanelSettingsIcon sx={{ fontSize: 18, mr: 1, color: '#2563eb' }} />
+                        Admin Control Center
+                      </MenuItem>
+                      <MenuItem
+                        onClick={() => {
+                          toggleRole();
+                          setUserMenuAnchor(null);
+                        }}
+                        sx={{ fontSize: '0.85rem', color: '#64748b' }}
+                      >
+                        Switch to Customer View
+                      </MenuItem>
+                    </>
+                  ) : (
+                    <>
+                      <MenuItem
+                        onClick={() => {
+                          onTabChange(6);
+                          setUserMenuAnchor(null);
+                        }}
+                        sx={{ fontSize: '0.88rem', fontWeight: 600, color: NAVY }}
+                      >
+                        My Bookings & Receipts
+                      </MenuItem>
+                      <MenuItem
+                        onClick={() => {
+                          onTabChange(5);
+                          setUserMenuAnchor(null);
+                        }}
+                        sx={{ fontSize: '0.85rem', color: '#64748b' }}
+                      >
+                        My Wishlist
+                      </MenuItem>
+                      <MenuItem
+                        onClick={() => {
+                          openAdminLogin();
+                          setUserMenuAnchor(null);
+                        }}
+                        sx={{ fontSize: '0.85rem', color: '#2563eb', fontWeight: 600 }}
+                      >
+                        <SecurityIcon sx={{ fontSize: 16, mr: 1 }} />
+                        Switch to Admin Portal
+                      </MenuItem>
+                    </>
+                  )}
                   <Divider />
-                  <MenuItem onClick={() => { logout(); setUserMenuAnchor(null); }}>
+                  <MenuItem
+                    onClick={() => {
+                      logout();
+                      setUserMenuAnchor(null);
+                    }}
+                    sx={{ fontSize: '0.88rem', color: '#ef4444', fontWeight: 600 }}
+                  >
                     Sign Out
                   </MenuItem>
                 </Menu>
               </>
             ) : (
-              <Button
-                variant="contained"
-                size="small"
-                startIcon={<PersonIcon />}
-                onClick={() => setAuthModalOpen(true)}
-                sx={{ ml: 1, fontWeight: 700 }}
-              >
-                Sign In
-              </Button>
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, ml: 1 }}>
+                <Button
+                  variant="outlined"
+                  size="small"
+                  startIcon={<SecurityIcon sx={{ fontSize: 16 }} />}
+                  onClick={openAdminLogin}
+                  sx={{
+                    fontWeight: 700,
+                    fontSize: '0.78rem',
+                    color: '#2563eb',
+                    borderColor: '#bfdbfe',
+                    bgcolor: '#eff6ff',
+                    borderRadius: '8px',
+                    px: 1.5,
+                    display: { xs: 'none', sm: 'inline-flex' },
+                    '&:hover': { bgcolor: '#dbeafe', borderColor: '#2563eb' },
+                  }}
+                >
+                  Admin Portal
+                </Button>
+
+                <Button
+                  variant="text"
+                  size="small"
+                  onClick={openCustomerRegister}
+                  sx={{
+                    fontWeight: 700,
+                    fontSize: '0.82rem',
+                    color: NAVY,
+                    borderRadius: '8px',
+                    px: 1.2,
+                    display: { xs: 'none', md: 'inline-flex' },
+                    '&:hover': { bgcolor: 'rgba(30,58,95,0.05)' },
+                  }}
+                >
+                  Register
+                </Button>
+
+                <Button
+                  variant="contained"
+                  size="small"
+                  startIcon={<PersonIcon sx={{ fontSize: 18 }} />}
+                  onClick={openCustomerLogin}
+                  sx={{
+                    fontWeight: 700,
+                    fontSize: '0.82rem',
+                    borderRadius: '8px',
+                    bgcolor: NAVY,
+                    px: 1.8,
+                    '&:hover': { bgcolor: '#152943' },
+                  }}
+                >
+                  Sign In
+                </Button>
+              </Box>
             )}
           </Box>
         </Toolbar>
       </AppBar>
 
-      {/* Auth Dialog (Login / Register) */}
-      <Dialog
+      {/* Unified Auth Modal with Customer Sign In, Register, & Admin Portal */}
+      <AuthModal
         open={authModalOpen}
         onClose={() => setAuthModalOpen(false)}
-        maxWidth="xs"
-        fullWidth
-        slotProps={{
-          paper: {
-            sx: {
-              borderRadius: '20px',
-              bgcolor: mode === 'dark' ? '#0f172a' : '#ffffff',
-              border: '1px solid rgba(0, 229, 255, 0.2)',
-              p: 1,
-            },
-          },
-        }}
-      >
-        <DialogTitle sx={{ textAlign: 'center', pb: 1 }}>
-          <Typography variant="h5" sx={{ fontWeight: 800 }}>
-            {isRegisterMode ? 'Create CarIQ Account' : 'Welcome to CarIQ'}
-          </Typography>
-          <Typography variant="caption" sx={{ color: 'text.secondary' }}>
-            {isRegisterMode ? 'Access personalized recommendations & purchases' : 'Sign in to access saved cars, financing & orders'}
-          </Typography>
-        </DialogTitle>
-        <DialogContent>
-          <Box component="form" onSubmit={handleAuthSubmit} sx={{ mt: 1, display: 'flex', flexDirection: 'column', gap: 2 }}>
-            {isRegisterMode && (
-              <TextField
-                label="Full Name"
-                variant="outlined"
-                fullWidth
-                value={authName}
-                onChange={(e) => setAuthName(e.target.value)}
-                required
-              />
-            )}
-            <TextField
-              label="Email Address"
-              type="email"
-              variant="outlined"
-              fullWidth
-              value={authEmail}
-              onChange={(e) => setAuthEmail(e.target.value)}
-              placeholder="e.g. demo@cariq.in (or admin@cariq.in for admin)"
-              required
-            />
-            <TextField
-              label="Password"
-              type="password"
-              variant="outlined"
-              fullWidth
-              value={authPassword}
-              onChange={(e) => setAuthPassword(e.target.value)}
-              placeholder="••••••••"
-              required
-            />
-
-            <Button
-              type="submit"
-              variant="contained"
-              size="large"
-              fullWidth
-              sx={{ mt: 1, py: 1.4, fontWeight: 700 }}
-            >
-              {isRegisterMode ? 'Register Now' : 'Sign In'}
-            </Button>
-
-            <Box sx={{ textAlign: 'center', mt: 1 }}>
-              <Button
-                variant="text"
-                size="small"
-                onClick={() => setIsRegisterMode(!isRegisterMode)}
-                sx={{ color: '#00e5ff' }}
-              >
-                {isRegisterMode ? 'Already have an account? Sign In' : "Don't have an account? Register"}
-              </Button>
-            </Box>
-
-            <Box sx={{ p: 1.5, bgcolor: 'rgba(0, 229, 255, 0.08)', borderRadius: '10px', textAlign: 'center' }}>
-              <Typography variant="caption" sx={{ color: 'text.secondary' }}>
-                💡 Tip: Use <b>admin@cariq.in</b> to test Admin Dashboard privileges!
-              </Typography>
-            </Box>
-          </Box>
-        </DialogContent>
-      </Dialog>
+        initialMode={authInitialMode}
+        onAdminLoginSuccess={() => onTabChange(7)}
+      />
     </>
   );
 };

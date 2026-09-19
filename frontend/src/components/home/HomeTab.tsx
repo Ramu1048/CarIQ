@@ -21,16 +21,20 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import CompareArrowsIcon from '@mui/icons-material/CompareArrows';
 import SpeedIcon from '@mui/icons-material/Speed';
 import LocalGasStationIcon from '@mui/icons-material/LocalGasStation';
-import SecurityIcon from '@mui/icons-material/Security';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import VerifiedIcon from '@mui/icons-material/Verified';
 import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrowDown';
 import ViewInArIcon from '@mui/icons-material/ViewInAr';
+import CalculateIcon from '@mui/icons-material/Calculate';
+import SecurityIcon from '@mui/icons-material/Security';
 
 import { CylinderCarCarousel } from './CylinderCarCarousel';
 import { Car3DViewer } from '../3d/Car3DViewer';
-import { Vehicle, VehicleSummary } from '../../types';
+import { Vehicle } from '../../types';
 import { useWishlist } from '../../context/WishlistContext';
+
+const NAVY   = '#1e3a5f';
+const AMBER  = '#f59e0b';
 
 interface HomeTabProps {
   vehicles: Vehicle[];
@@ -43,9 +47,36 @@ interface HomeTabProps {
 const QUICK_SEARCH_PILLS = [
   'Safe automatic SUV under 20 lakh',
   'Electric cars with 400km+ range',
-  '7-seater family car with panoramic sunroof',
-  'Low maintenance daily city car',
+  '7-seater family car with sunroof',
+  'Low maintenance city car',
   'High ground clearance under 15 lakh',
+];
+
+const VALUE_PROPS = [
+  {
+    icon: <AutoAwesomeIcon />,
+    color: NAVY,
+    bg: '#eff6ff',
+    border: '#dbeafe',
+    title: 'AI Multi-Factor Matching',
+    desc: 'Our neural engine extracts your driving habits, luggage needs, and budget to calculate an objective match score.',
+  },
+  {
+    icon: <VerifiedIcon />,
+    color: '#10b981',
+    bg: '#f0fdf4',
+    border: '#bbf7d0',
+    title: 'Verified Real-World Specs',
+    desc: 'Bharat NCAP crash ratings, ARAI fuel economy, ground clearance, and service costs — without dealership bias.',
+  },
+  {
+    icon: <CalculateIcon />,
+    color: AMBER,
+    bg: '#fffbeb',
+    border: '#fde68a',
+    title: 'Digital Booking & Finance',
+    desc: 'Interactive EMI calculator, instant KYC upload, secure token deposit, and real-time delivery tracking.',
+  },
 ];
 
 export const HomeTab: React.FC<HomeTabProps> = ({
@@ -64,92 +95,104 @@ export const HomeTab: React.FC<HomeTabProps> = ({
     onNavigateToAI(searchQuery);
   };
 
-  const handlePillClick = (pill: string) => {
-    onNavigateToAI(pill);
-  };
-
   const scrollToSection = (id: string) => {
-    const el = document.getElementById(id);
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
   return (
-    <Box sx={{ pb: 10 }}>
-      {/* Hero Showcase Section */}
+    <Box sx={{ pb: 10, bgcolor: '#f8fafc' }}>
+
+      {/* ── Hero Section ───────────────────────────────────────────── */}
       <Box
         sx={{
-          pt: { xs: 4, md: 6 },
-          pb: { xs: 4, md: 6 },
-          background: 'radial-gradient(ellipse at top, rgba(0, 229, 255, 0.08) 0%, transparent 70%)',
+          pt: { xs: 6, md: 8 },
+          pb: { xs: 6, md: 8 },
+          background: 'linear-gradient(160deg, #f0f6ff 0%, #ffffff 50%, #fff8f0 100%)',
+          borderBottom: '1px solid #e2e8f0',
         }}
       >
         <Container maxWidth="xl">
-          {/* Header Title & Subtitle */}
-          <Box sx={{ textAlign: 'center', mb: { xs: 3, md: 4 }, maxWidth: 880, mx: 'auto' }}>
+          <Box sx={{ textAlign: 'center', maxWidth: 820, mx: 'auto' }}>
+
+            {/* Badge chip */}
             <Chip
-              icon={<AutoAwesomeIcon sx={{ color: '#00e5ff !important' }} />}
-              label="AI-POWERED AUTOMOTIVE DISCOVERY PLATFORM"
+              icon={<AutoAwesomeIcon sx={{ color: `${NAVY} !important`, fontSize: 15 }} />}
+              label="AI-POWERED AUTOMOTIVE DISCOVERY"
               sx={{
-                bgcolor: 'rgba(0, 229, 255, 0.1)',
-                color: '#00e5ff',
+                bgcolor: '#eff6ff',
+                color: NAVY,
                 fontWeight: 700,
-                border: '1px solid rgba(0, 229, 255, 0.3)',
-                mb: 2,
-                px: 1,
+                fontSize: '0.7rem',
+                border: `1px solid #bfdbfe`,
+                letterSpacing: 0.8,
+                mb: 3,
+                px: 0.5,
               }}
             />
+
+            {/* Headline */}
             <Typography
               variant="h1"
               sx={{
-                fontSize: { xs: '2.4rem', sm: '3.4rem', md: '4.2rem' },
+                fontSize: { xs: '2.2rem', sm: '3rem', md: '3.8rem' },
                 fontWeight: 900,
                 lineHeight: 1.15,
-                mb: 2,
+                color: '#0f172a',
+                mb: 2.5,
               }}
             >
-              Intelligent Car Buying, <br />
-              <span style={{ color: '#00e5ff' }}>Engineered for You.</span>
-            </Typography>
-            <Typography variant="h6" sx={{ color: 'text.secondary', fontWeight: 400, fontSize: { xs: '1rem', md: '1.2rem' } }}>
-              Ask in natural language, explore the interactive 3D cylindrical fleet, test aerodynamics, and lock down financing with transparent on-road pricing.
+              Intelligent Car Buying,{' '}
+              <Box component="span" sx={{ color: NAVY }}>
+                Engineered for You.
+              </Box>
             </Typography>
 
-            {/* Smart NLP Search Bar */}
+            <Typography
+              variant="h6"
+              sx={{ color: '#64748b', fontWeight: 400, fontSize: { xs: '1rem', md: '1.15rem' }, lineHeight: 1.7, mb: 4 }}
+            >
+              Ask in plain language, explore the 3D fleet, simulate aerodynamics, and lock down financing
+              with transparent on-road pricing.
+            </Typography>
+
+            {/* Search bar */}
             <Box
               component="form"
               onSubmit={handleSearchSubmit}
               sx={{
-                mt: 3.5,
                 display: 'flex',
                 alignItems: 'center',
-                p: 0.8,
-                bgcolor: 'background.paper',
+                p: '6px 6px 6px 0',
+                bgcolor: '#ffffff',
                 borderRadius: '50px',
-                border: '1px solid rgba(0, 229, 255, 0.35)',
-                boxShadow: '0 8px 30px rgba(0, 229, 255, 0.15)',
-                maxWidth: 680,
+                border: '1.5px solid #e2e8f0',
+                boxShadow: '0 4px 24px rgba(30, 58, 95, 0.1)',
+                maxWidth: 660,
                 mx: 'auto',
+                '&:focus-within': {
+                  borderColor: NAVY,
+                  boxShadow: '0 4px 24px rgba(30, 58, 95, 0.18)',
+                },
+                transition: 'all 0.25s ease',
               }}
             >
               <TextField
                 fullWidth
                 variant="standard"
-                placeholder="Ask CarIQ e.g. 'Safe automatic SUV under 20 lakh'..."
+                placeholder="Ask CarIQ — e.g. 'Safe automatic SUV under ₹20 lakh'..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 slotProps={{
                   input: {
                     disableUnderline: true,
                     startAdornment: (
-                      <InputAdornment position="start" sx={{ pl: 2 }}>
-                        <SearchIcon sx={{ color: '#00e5ff' }} />
+                      <InputAdornment position="start" sx={{ pl: 2.5 }}>
+                        <SearchIcon sx={{ color: '#94a3b8', fontSize: 22 }} />
                       </InputAdornment>
                     ),
                   },
                 }}
-                sx={{ input: { fontSize: '1rem', py: 1.2 } }}
+                sx={{ input: { fontSize: '0.97rem', py: 1.2, color: '#0f172a' } }}
               />
               <Button
                 type="submit"
@@ -157,9 +200,11 @@ export const HomeTab: React.FC<HomeTabProps> = ({
                 sx={{
                   borderRadius: '50px',
                   px: { xs: 2.5, sm: 4 },
-                  py: 1.2,
+                  py: 1.3,
                   whiteSpace: 'nowrap',
                   fontWeight: 700,
+                  fontSize: '0.88rem',
+                  flexShrink: 0,
                 }}
               >
                 Ask AI
@@ -167,324 +212,272 @@ export const HomeTab: React.FC<HomeTabProps> = ({
             </Box>
 
             {/* Quick Pills */}
-            <Box sx={{ mt: 2.5, display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 1 }}>
-              <Typography variant="caption" sx={{ color: 'text.secondary', alignSelf: 'center', mr: 0.5 }}>
-                Try asking:
+            <Box sx={{ mt: 3, display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 1 }}>
+              <Typography variant="caption" sx={{ color: '#94a3b8', alignSelf: 'center', mr: 0.5, fontWeight: 500 }}>
+                Try:
               </Typography>
               {QUICK_SEARCH_PILLS.map((pill) => (
                 <Chip
                   key={pill}
                   label={pill}
-                  onClick={() => handlePillClick(pill)}
+                  onClick={() => onNavigateToAI(pill)}
                   size="small"
                   sx={{
                     cursor: 'pointer',
-                    bgcolor: 'rgba(255, 255, 255, 0.05)',
-                    border: '1px solid rgba(255, 255, 255, 0.12)',
+                    bgcolor: '#ffffff',
+                    border: '1px solid #e2e8f0',
+                    color: '#475569',
+                    fontWeight: 500,
                     transition: 'all 0.2s',
                     '&:hover': {
-                      bgcolor: 'rgba(0, 229, 255, 0.15)',
-                      borderColor: '#00e5ff',
-                      color: '#00e5ff',
+                      bgcolor: '#eff6ff',
+                      borderColor: '#bfdbfe',
+                      color: NAVY,
                     },
                   }}
                 />
               ))}
             </Box>
 
-            {/* Scroll Down to Cylindrical Showroom Anchor Button */}
-            <Box sx={{ mt: 4, display: 'flex', justifyContent: 'center' }}>
+            {/* Scroll CTA */}
+            <Box sx={{ mt: 5, display: 'flex', justifyContent: 'center' }}>
               <Button
                 variant="outlined"
                 onClick={() => scrollToSection('cylinder-showroom')}
-                endIcon={<KeyboardDoubleArrowDownIcon sx={{ animation: 'bounceDown 1.6s infinite ease-in-out' }} />}
+                endIcon={
+                  <KeyboardDoubleArrowDownIcon
+                    sx={{
+                      animation: 'bounceDown 1.6s infinite ease-in-out',
+                      '@keyframes bounceDown': {
+                        '0%, 100%': { transform: 'translateY(0)' },
+                        '50%': { transform: 'translateY(5px)' },
+                      },
+                    }}
+                  />
+                }
                 sx={{
-                  borderColor: 'rgba(0, 229, 255, 0.4)',
-                  color: '#00e5ff',
+                  borderColor: '#cbd5e1',
+                  color: '#475569',
                   borderRadius: '30px',
-                  px: 3,
-                  py: 1,
-                  fontWeight: 700,
+                  px: 3.5,
+                  py: 1.1,
+                  fontWeight: 600,
                   fontSize: '0.85rem',
-                  letterSpacing: '0.04em',
-                  backdropFilter: 'blur(8px)',
-                  bgcolor: 'rgba(0, 229, 255, 0.05)',
-                  boxShadow: '0 4px 20px rgba(0, 229, 255, 0.12)',
-                  transition: 'all 0.3s ease',
                   '&:hover': {
-                    borderColor: '#00e5ff',
-                    bgcolor: 'rgba(0, 229, 255, 0.15)',
-                    transform: 'translateY(2px)',
-                    boxShadow: '0 6px 25px rgba(0, 229, 255, 0.25)',
-                  },
-                  '@keyframes bounceDown': {
-                    '0%, 100%': { transform: 'translateY(0)' },
-                    '50%': { transform: 'translateY(5px)' },
+                    borderColor: NAVY,
+                    color: NAVY,
+                    bgcolor: 'rgba(30, 58, 95, 0.04)',
                   },
                 }}
               >
-                Scroll Down to 3D Cylinder Showroom
+                Explore 3D Showroom
               </Button>
             </Box>
-          </Box>
-
-          {/* 3D Cylindrical Car Carousel Showroom */}
-          <Box id="cylinder-showroom" sx={{ mb: 10, scrollMarginTop: '80px' }}>
-            <CylinderCarCarousel
-              vehicles={vehicles}
-              onSelectVehicle={onSelectVehicle}
-              onStartPurchase={onStartPurchase}
-            />
-          </Box>
-
-          {/* 3D Aerodynamics & Interior Customizer Studio */}
-          <Box id="aerodynamics-studio" sx={{ mb: 10, scrollMarginTop: '80px' }}>
-            <Box sx={{ mb: 3, display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 1 }}>
-              <Box>
-                <Chip
-                  icon={<ViewInArIcon sx={{ fontSize: 16, color: '#00e5ff !important' }} />}
-                  label="INTERACTIVE STUDIO"
-                  size="small"
-                  sx={{ bgcolor: 'rgba(0, 229, 255, 0.1)', color: '#00e5ff', fontWeight: 700, mb: 0.5 }}
-                />
-                <Typography variant="h4" sx={{ fontWeight: 800 }}>
-                  Aerodynamics & Color Customizer
-                </Typography>
-                <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                  Simulate wind tunnel airflow streams, inspect chassis geometry, and toggle exterior hues in real time.
-                </Typography>
-              </Box>
-            </Box>
-            <Car3DViewer />
-          </Box>
-
-          {/* Value Propositions Strip */}
-          <Grid container spacing={3} sx={{ mb: 8 }}>
-            <Grid size={{ xs: 12, md: 4 }}>
-              <Card sx={{ p: 3, height: '100%' }}>
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb: 1.5 }}>
-                  <Box
-                    sx={{
-                      width: 44,
-                      height: 44,
-                      borderRadius: '12px',
-                      bgcolor: 'rgba(0, 229, 255, 0.1)',
-                      color: '#00e5ff',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                    }}
-                  >
-                    <AutoAwesomeIcon />
-                  </Box>
-                  <Typography variant="h6" sx={{ fontWeight: 700 }}>
-                    AI Multi-Factor Matching
-                  </Typography>
-                </Box>
-                <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                  Our neural recommendation engine extracts your actual driving habits, luggage needs, and budget to calculate an objective match score.
-                </Typography>
-              </Card>
-            </Grid>
-
-            <Grid size={{ xs: 12, md: 4 }}>
-              <Card sx={{ p: 3, height: '100%' }}>
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb: 1.5 }}>
-                  <Box
-                    sx={{
-                      width: 44,
-                      height: 44,
-                      borderRadius: '12px',
-                      bgcolor: 'rgba(0, 230, 118, 0.1)',
-                      color: '#00e676',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                    }}
-                  >
-                    <VerifiedIcon />
-                  </Box>
-                  <Typography variant="h6" sx={{ fontWeight: 700 }}>
-                    Verified Real-World Specs
-                  </Typography>
-                </Box>
-                <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                  Bharat NCAP crash ratings, ARAI and user-reported fuel economy, ground clearance, and service costs without dealership bias.
-                </Typography>
-              </Card>
-            </Grid>
-
-            <Grid size={{ xs: 12, md: 4 }}>
-              <Card sx={{ p: 3, height: '100%' }}>
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb: 1.5 }}>
-                  <Box
-                    sx={{
-                      width: 44,
-                      height: 44,
-                      borderRadius: '12px',
-                      bgcolor: 'rgba(255, 183, 3, 0.1)',
-                      color: '#ffb703',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                    }}
-                  >
-                    <SpeedIcon />
-                  </Box>
-                  <Typography variant="h6" sx={{ fontWeight: 700 }}>
-                    Digital Booking & Finance
-                  </Typography>
-                </Box>
-                <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                  Interactive loan amortization calculator, instant KYC document upload, secure token deposit, and real-time delivery tracking.
-                </Typography>
-              </Card>
-            </Grid>
-          </Grid>
-
-          {/* Featured Cars Section */}
-          <Box sx={{ mb: 6 }}>
-            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', mb: 3 }}>
-              <Box>
-                <Typography variant="caption" sx={{ color: '#00e5ff', fontWeight: 700, letterSpacing: 1.5, textTransform: 'uppercase' }}>
-                  TOP RATED IN INDIA
-                </Typography>
-                <Typography variant="h4" sx={{ fontWeight: 800 }}>
-                  Featured Vehicles
-                </Typography>
-              </Box>
-              <Button
-                variant="text"
-                endIcon={<ArrowForwardIcon />}
-                onClick={() => onNavigateToCatalog()}
-                sx={{ color: '#00e5ff', fontWeight: 700 }}
-              >
-                View All Cars
-              </Button>
-            </Box>
-
-            <Grid container spacing={3}>
-              {vehicles.slice(0, 3).map((vehicle) => {
-                const inWishlist = isInWishlist(vehicle.id);
-                const inCompare = isInCompare(vehicle.id);
-
-                return (
-                  <Grid size={{ xs: 12, md: 4 }} key={vehicle.id}>
-                    <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column', position: 'relative' }}>
-                      {/* Top Action Floating Icons */}
-                      <Box sx={{ position: 'absolute', top: 12, right: 12, zIndex: 5, display: 'flex', gap: 0.5 }}>
-                        <Tooltip title={inCompare ? 'Remove from Compare' : 'Add to Compare'}>
-                          <IconButton
-                            size="small"
-                            onClick={() => toggleCompare(vehicle)}
-                            sx={{
-                              bgcolor: inCompare ? '#00e5ff' : 'rgba(15, 23, 42, 0.7)',
-                              color: inCompare ? '#000' : '#fff',
-                              backdropFilter: 'blur(8px)',
-                              '&:hover': { bgcolor: '#00e5ff', color: '#000' },
-                            }}
-                          >
-                            <CompareArrowsIcon fontSize="small" />
-                          </IconButton>
-                        </Tooltip>
-
-                        <Tooltip title={inWishlist ? 'Remove from Wishlist' : 'Add to Wishlist'}>
-                          <IconButton
-                            size="small"
-                            onClick={() => (inWishlist ? removeFromWishlist(vehicle.id) : addToWishlist(vehicle))}
-                            sx={{
-                              bgcolor: inWishlist ? '#ff3366' : 'rgba(15, 23, 42, 0.7)',
-                              color: '#fff',
-                              backdropFilter: 'blur(8px)',
-                              '&:hover': { bgcolor: '#ff3366' },
-                            }}
-                          >
-                            {inWishlist ? <FavoriteIcon fontSize="small" /> : <FavoriteBorderIcon fontSize="small" />}
-                          </IconButton>
-                        </Tooltip>
-                      </Box>
-
-                      {/* Image */}
-                      <CardMedia
-                        component="img"
-                        height="220"
-                        image={vehicle.primary_image_url || 'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=800&q=80'}
-                        alt={vehicle.model_name}
-                        sx={{ objectFit: 'cover', cursor: 'pointer' }}
-                        onClick={() => onSelectVehicle(vehicle)}
-                      />
-
-                      <CardContent sx={{ flexGrow: 1, p: 2.5 }}>
-                        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 1 }}>
-                          <Box>
-                            <Typography variant="caption" sx={{ color: 'text.secondary', fontWeight: 600, textTransform: 'uppercase' }}>
-                              {vehicle.brand?.name}
-                            </Typography>
-                            <Typography
-                              variant="h6"
-                              sx={{ fontWeight: 800, cursor: 'pointer', '&:hover': { color: '#00e5ff' } }}
-                              onClick={() => onSelectVehicle(vehicle)}
-                            >
-                              {vehicle.model_name}
-                            </Typography>
-                          </Box>
-                          <Chip
-                            label={`${vehicle.safety_rating || 5}★ Safety`}
-                            size="small"
-                            sx={{ bgcolor: 'rgba(0, 230, 118, 0.15)', color: '#00e676', fontWeight: 700 }}
-                          />
-                        </Box>
-
-                        {/* Specs row */}
-                        <Box sx={{ display: 'flex', gap: 1.5, my: 2, flexWrap: 'wrap' }}>
-                          <Chip
-                            icon={<LocalGasStationIcon sx={{ fontSize: 16 }} />}
-                            label={vehicle.fuel_type.toUpperCase()}
-                            size="small"
-                            variant="outlined"
-                          />
-                          <Chip
-                            icon={<SpeedIcon sx={{ fontSize: 16 }} />}
-                            label={vehicle.transmission.toUpperCase()}
-                            size="small"
-                            variant="outlined"
-                          />
-                          <Chip
-                            label={vehicle.ev_range_km ? `${vehicle.ev_range_km} km Range` : `${vehicle.mileage_kmpl || 18.5} km/l`}
-                            size="small"
-                            variant="outlined"
-                          />
-                        </Box>
-
-                        {/* Price & Booking Button */}
-                        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', pt: 1, borderTop: '1px solid rgba(255, 255, 255, 0.08)' }}>
-                          <Box>
-                            <Typography variant="caption" sx={{ color: 'text.secondary', display: 'block', lineHeight: 1 }}>
-                              EX-SHOWROOM
-                            </Typography>
-                            <Typography variant="h6" sx={{ fontWeight: 800, color: '#00e5ff' }}>
-                              ₹{(vehicle.ex_showroom_price / 100000).toFixed(2)} Lakh
-                            </Typography>
-                          </Box>
-
-                          <Button
-                            variant="contained"
-                            size="small"
-                            onClick={() => onStartPurchase(vehicle)}
-                            sx={{ fontWeight: 700 }}
-                          >
-                            Book Now
-                          </Button>
-                        </Box>
-                      </CardContent>
-                    </Card>
-                  </Grid>
-                );
-              })}
-            </Grid>
           </Box>
         </Container>
       </Box>
+
+      <Container maxWidth="xl" sx={{ pt: 6 }}>
+
+        {/* ── 3D Carousel ───────────────────────────────────────────── */}
+        <Box id="cylinder-showroom" sx={{ mb: 10, scrollMarginTop: '80px' }}>
+          <CylinderCarCarousel
+            vehicles={vehicles}
+            onSelectVehicle={onSelectVehicle}
+            onStartPurchase={onStartPurchase}
+          />
+        </Box>
+
+        {/* ── 3D Aerodynamics Studio ────────────────────────────────── */}
+        <Box id="aerodynamics-studio" sx={{ mb: 10, scrollMarginTop: '80px' }}>
+          <Box sx={{ mb: 3, display: 'flex', alignItems: 'flex-start', gap: 2, justifyContent: 'space-between', flexWrap: 'wrap' }}>
+            <Box>
+              <Chip
+                icon={<ViewInArIcon sx={{ fontSize: 15, color: `${NAVY} !important` }} />}
+                label="INTERACTIVE STUDIO"
+                size="small"
+                sx={{ bgcolor: '#eff6ff', color: NAVY, fontWeight: 700, border: '1px solid #bfdbfe', mb: 1 }}
+              />
+              <Typography variant="h4" sx={{ fontWeight: 800, color: '#0f172a' }}>
+                Aerodynamics & Color Customizer
+              </Typography>
+              <Typography variant="body2" sx={{ color: '#64748b', mt: 0.5 }}>
+                Simulate wind tunnel airflow, inspect chassis geometry, and toggle exterior colours in real time.
+              </Typography>
+            </Box>
+          </Box>
+          <Car3DViewer />
+        </Box>
+
+        {/* ── Value Propositions ────────────────────────────────────── */}
+        <Grid container spacing={3} sx={{ mb: 10 }}>
+          {VALUE_PROPS.map((vp) => (
+            <Grid size={{ xs: 12, md: 4 }} key={vp.title}>
+              <Card sx={{ p: 3.5, height: '100%', border: `1px solid ${vp.border}` }}>
+                <Box
+                  sx={{
+                    width: 48,
+                    height: 48,
+                    borderRadius: '12px',
+                    bgcolor: vp.bg,
+                    color: vp.color,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    mb: 2,
+                  }}
+                >
+                  {vp.icon}
+                </Box>
+                <Typography variant="h6" sx={{ fontWeight: 700, color: '#0f172a', mb: 1 }}>
+                  {vp.title}
+                </Typography>
+                <Typography variant="body2" sx={{ color: '#64748b', lineHeight: 1.7 }}>
+                  {vp.desc}
+                </Typography>
+              </Card>
+            </Grid>
+          ))}
+        </Grid>
+
+        {/* ── Featured Vehicles ─────────────────────────────────────── */}
+        <Box sx={{ mb: 8 }}>
+          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', mb: 4 }}>
+            <Box>
+              <Typography variant="overline" sx={{ color: NAVY, fontWeight: 700, letterSpacing: 2, display: 'block' }}>
+                TOP RATED IN INDIA
+              </Typography>
+              <Typography variant="h4" sx={{ fontWeight: 800, color: '#0f172a', lineHeight: 1.2 }}>
+                Featured Vehicles
+              </Typography>
+            </Box>
+            <Button
+              variant="text"
+              endIcon={<ArrowForwardIcon />}
+              onClick={() => onNavigateToCatalog()}
+              sx={{ color: NAVY, fontWeight: 700 }}
+            >
+              View All Cars
+            </Button>
+          </Box>
+
+          <Grid container spacing={3}>
+            {vehicles.slice(0, 3).map((vehicle) => {
+              const inWishlist = isInWishlist(vehicle.id);
+              const inCompare  = isInCompare(vehicle.id);
+
+              return (
+                <Grid size={{ xs: 12, md: 4 }} key={vehicle.id}>
+                  <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column', position: 'relative', overflow: 'hidden' }}>
+
+                    {/* Floating action icons */}
+                    <Box sx={{ position: 'absolute', top: 12, right: 12, zIndex: 5, display: 'flex', gap: 0.6 }}>
+                      <Tooltip title={inCompare ? 'Remove from Compare' : 'Add to Compare'}>
+                        <IconButton
+                          size="small"
+                          onClick={() => toggleCompare(vehicle)}
+                          sx={{
+                            bgcolor: inCompare ? NAVY : 'rgba(255,255,255,0.92)',
+                            color: inCompare ? '#fff' : '#475569',
+                            boxShadow: '0 2px 8px rgba(15,23,42,0.12)',
+                            '&:hover': { bgcolor: NAVY, color: '#fff' },
+                          }}
+                        >
+                          <CompareArrowsIcon fontSize="small" />
+                        </IconButton>
+                      </Tooltip>
+                      <Tooltip title={inWishlist ? 'Remove from Wishlist' : 'Save to Wishlist'}>
+                        <IconButton
+                          size="small"
+                          onClick={() => (inWishlist ? removeFromWishlist(vehicle.id) : addToWishlist(vehicle))}
+                          sx={{
+                            bgcolor: inWishlist ? '#fef2f2' : 'rgba(255,255,255,0.92)',
+                            color: inWishlist ? '#ef4444' : '#475569',
+                            boxShadow: '0 2px 8px rgba(15,23,42,0.12)',
+                            '&:hover': { bgcolor: '#fef2f2', color: '#ef4444' },
+                          }}
+                        >
+                          {inWishlist ? <FavoriteIcon fontSize="small" /> : <FavoriteBorderIcon fontSize="small" />}
+                        </IconButton>
+                      </Tooltip>
+                    </Box>
+
+                    {/* Fuel type badge */}
+                    <Box sx={{ position: 'absolute', top: 12, left: 12, zIndex: 5 }}>
+                      <Chip
+                        label={vehicle.fuel_type.toUpperCase()}
+                        size="small"
+                        sx={{
+                          bgcolor: vehicle.fuel_type.toLowerCase() === 'electric' ? '#f0fdf4' : '#fffff',
+                          color: vehicle.fuel_type.toLowerCase() === 'electric' ? '#10b981' : '#475569',
+                          border: '1px solid',
+                          borderColor: vehicle.fuel_type.toLowerCase() === 'electric' ? '#bbf7d0' : '#e2e8f0',
+                          fontWeight: 700,
+                          fontSize: '0.65rem',
+                          boxShadow: '0 1px 4px rgba(15,23,42,0.08)',
+                        }}
+                      />
+                    </Box>
+
+                    {/* Vehicle image */}
+                    <CardMedia
+                      component="img"
+                      height="200"
+                      image={vehicle.primary_image_url || 'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=800&q=80'}
+                      alt={vehicle.model_name}
+                      sx={{ objectFit: 'cover', cursor: 'pointer', bgcolor: '#f8fafc' }}
+                      onClick={() => onSelectVehicle(vehicle)}
+                    />
+
+                    <CardContent sx={{ flexGrow: 1, p: 3 }}>
+                      {/* Brand + Safety */}
+                      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 0.5 }}>
+                        <Typography variant="caption" sx={{ color: '#94a3b8', fontWeight: 600, textTransform: 'uppercase', letterSpacing: 0.8 }}>
+                          {vehicle.brand?.name}
+                        </Typography>
+                        <Chip
+                          icon={<SecurityIcon sx={{ fontSize: 12, color: '#10b981 !important' }} />}
+                          label={`${vehicle.safety_rating || 5}★`}
+                          size="small"
+                          sx={{ bgcolor: '#f0fdf4', color: '#10b981', fontWeight: 700, fontSize: '0.68rem', border: '1px solid #bbf7d0' }}
+                        />
+                      </Box>
+
+                      <Typography
+                        variant="h6"
+                        sx={{ fontWeight: 800, cursor: 'pointer', color: '#0f172a', mb: 1.5, '&:hover': { color: NAVY } }}
+                        onClick={() => onSelectVehicle(vehicle)}
+                      >
+                        {vehicle.model_name}
+                      </Typography>
+
+                      {/* Specs chips */}
+                      <Box sx={{ display: 'flex', gap: 1, mb: 2.5, flexWrap: 'wrap' }}>
+                        <Chip icon={<LocalGasStationIcon sx={{ fontSize: 13 }} />} label={vehicle.fuel_type.toUpperCase()} size="small" variant="outlined" sx={{ fontSize: '0.7rem' }} />
+                        <Chip icon={<SpeedIcon sx={{ fontSize: 13 }} />} label={vehicle.transmission.toUpperCase()} size="small" variant="outlined" sx={{ fontSize: '0.7rem' }} />
+                        <Chip label={vehicle.ev_range_km ? `${vehicle.ev_range_km} km` : `${vehicle.mileage_kmpl || 18.5} km/l`} size="small" variant="outlined" sx={{ fontSize: '0.7rem' }} />
+                      </Box>
+
+                      {/* Price + CTA */}
+                      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', pt: 2, borderTop: '1px solid #f1f5f9' }}>
+                        <Box>
+                          <Typography variant="caption" sx={{ color: '#94a3b8', display: 'block', lineHeight: 1, fontWeight: 600 }}>EX-SHOWROOM</Typography>
+                          <Typography variant="h6" sx={{ fontWeight: 800, color: NAVY }}>
+                            ₹{(vehicle.ex_showroom_price / 100000).toFixed(2)} L
+                          </Typography>
+                        </Box>
+                        <Button variant="contained" size="small" onClick={() => onStartPurchase(vehicle)} sx={{ fontWeight: 700, px: 2.5 }}>
+                          Book Now
+                        </Button>
+                      </Box>
+                    </CardContent>
+                  </Card>
+                </Grid>
+              );
+            })}
+          </Grid>
+        </Box>
+      </Container>
     </Box>
   );
 };

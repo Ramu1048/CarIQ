@@ -33,25 +33,25 @@ export interface RagResponse {
   suggestedFollowups: string[];
   domainUsed: RagDomain;
   intent: string;
+  isOffTopic?: boolean;
 }
 
-// ── VERIFIED KNOWLEDGE CHUNKS (Extracted from Technical Manuals & Road Test Logs) ──
+// ── KNOWLEDGE BASE ──────────────────────────────────────────────────────────
 export const KNOWLEDGE_BASE_CHUNKS: KnowledgeChunk[] = [
-  // 1. Safety Standards & Bharat NCAP
   {
     id: 'kb-safety-01',
     source: 'Bharat NCAP & Global NCAP Official Crash Protocol 2024',
     category: 'safety',
     title: 'Frontal & Side Impact Crash Protocols',
     content:
-      'Bharat NCAP and Global NCAP test frontal offset impact at 64 km/h with 40% deformable barrier overlap. Side mobile barrier strikes vehicle at 50 km/h with a 1,400 kg cart. Side pole impact is tested at 29 km/h for head and curtain airbag protection. A 5-star rating requires minimum adult occupant score of 27/34 and child occupant score of 41/49, plus ESC standard fitment.',
+      'Bharat NCAP and Global NCAP test frontal offset impact at 64 km/h with 40% deformable barrier overlap. Side mobile barrier strikes at 50 km/h with a 1,400 kg cart. Side pole impact tested at 29 km/h for head and curtain airbag protection. 5-star rating requires adult score of 27/34 and child score of 41/49, plus ESC as standard.',
     keyFacts: [
       '64 km/h frontal offset crash test speed',
-      '50 km/h side barrier impact with 1,400 kg cart',
+      '50 km/h side barrier impact (1,400 kg cart)',
       'Side pole impact at 29 km/h for curtain airbag evaluation',
-      'ESC and 6 airbags mandated for top 5-star Bharat NCAP rating',
+      'ESC + 6 airbags required for 5-star Bharat NCAP',
     ],
-    tags: ['ncap', 'safety', 'crash test', 'airbags', 'bharat ncap', 'global ncap', '5 star', 'protection'],
+    tags: ['ncap', 'safety', 'crash test', 'airbags', 'bharat ncap', 'global ncap', '5 star', 'protection', 'stars'],
   },
   {
     id: 'kb-safety-02',
@@ -59,14 +59,14 @@ export const KNOWLEDGE_BASE_CHUNKS: KnowledgeChunk[] = [
     category: 'safety',
     title: 'Active Safety & Level 2 ADAS Capabilities',
     content:
-      'Active safety systems prevent accidents before they occur. Level 2 ADAS includes Autonomous Emergency Braking (AEB), Adaptive Cruise Control with Stop & Go (ACC), Lane Keeping Assist (LKA), Blind Spot View Monitor (BVM), and Rear Cross-Traffic Alert (RCTA). Vehicles like Tata Safari/Harrier, Mahindra XUV700, and Hyundai Creta integrate radar-camera fusion sensors with millisecond response time.',
+      'Level 2 ADAS includes Autonomous Emergency Braking (AEB), Adaptive Cruise Control (ACC), Lane Keeping Assist (LKA), Blind Spot View Monitor (BVM), and Rear Cross-Traffic Alert (RCTA). Radar-camera fusion sensors with millisecond response time. Tata Safari/Harrier, Mahindra XUV700, and Hyundai Creta all offer Level 2 ADAS.',
     keyFacts: [
-      'Level 2 ADAS features radar-camera sensor fusion',
-      'AEB detects pedestrians, cyclists, and vehicles at speeds up to 80 km/h',
-      'Blind Spot View Monitor projects video directly to digital cluster on turn-signal',
-      'Reinforced ultra-high-strength steel monocoque absorbs up to 70% collision kinetic energy',
+      'AEB detects pedestrians and vehicles up to 80 km/h',
+      'Lane Keeping Assist with active lane centering',
+      'Blind Spot Monitor projects rear-camera feed on digital cluster',
+      'Ultra-high-strength steel monocoque absorbs 70% collision energy',
     ],
-    tags: ['adas', 'active safety', 'radar', 'camera', 'aeb', 'lane keep', 'emergency braking'],
+    tags: ['adas', 'active safety', 'radar', 'aeb', 'lane keep', 'emergency braking', 'level 2'],
   },
   {
     id: 'kb-safety-03',
@@ -74,16 +74,16 @@ export const KNOWLEDGE_BASE_CHUNKS: KnowledgeChunk[] = [
     category: 'safety',
     brand: 'Tata Motors',
     vehicleId: 'v-nexon',
-    title: 'Tata Nexon & Safari 5-Star Structural Integrity',
+    title: 'Tata Nexon 5-Star Crash Safety Data',
     content:
-      'Tata Nexon achieved full 5-Star ratings in both Adult (32.22/34) and Child Occupant (44.52/49) safety tests. Its structure and footwell area were rated as stable and capable of withstanding further loadings. 6 airbags, electronic stability program (ESP), roll-over mitigation, and ISOFIX child mounts are standard on every variant.',
+      'Tata Nexon achieved 5-Star in Adult (32.22/34) and Child (44.52/49) safety tests. Structure rated stable under load. 6 airbags, ESP, roll-over mitigation, ISOFIX child mounts standard on all variants. Ground clearance of 208 mm prevents underbody damage on Indian roads.',
     keyFacts: [
-      'Nexon Adult protection: 32.22 / 34 (Full 5 Stars)',
-      'Nexon Child protection: 44.52 / 49 (Full 5 Stars)',
-      '6 Airbags and ESP standard across all trim levels',
-      'Class-leading 208 mm ground clearance prevents underbody battery/sump damage',
+      'Nexon Adult protection: 32.22/34 — Full 5 Stars',
+      'Nexon Child protection: 44.52/49 — Full 5 Stars',
+      '6 Airbags + ESP standard across all trims',
+      '208 mm ground clearance — best in compact SUV segment',
     ],
-    tags: ['tata', 'nexon', 'safety', '5 star', 'bharat ncap', 'crash test', 'suv', 'harrier', 'safari'],
+    tags: ['tata', 'nexon', 'safety', '5 star', 'bharat ncap', 'crash', 'suv'],
   },
   {
     id: 'kb-safety-04',
@@ -91,118 +91,110 @@ export const KNOWLEDGE_BASE_CHUNKS: KnowledgeChunk[] = [
     category: 'safety',
     brand: 'Mahindra',
     vehicleId: 'v-xuv700',
-    title: 'Mahindra XUV700 & Scorpio-N High-Strength Steel Architecture',
+    title: 'Mahindra XUV700 5-Star Safety Architecture',
     content:
-      'The Mahindra XUV700 scored 5 Stars for Adult Occupant Safety (16.03/17) and 4 Stars Child Protection with the Safer Choice Award. Built on a monocoque platform using 70% high-strength and ultra-high-strength steels. Equipped with Level 2 ADAS, 7 airbags including driver knee airbag, and personalized overspeed voice warning.',
+      'Mahindra XUV700 scored 5 Stars for Adult (16.03/17) and 4 Stars for Child occupant protection with Global NCAP Safer Choice Award. 70% high-strength steel construction. 7 airbags including driver knee airbag. Level 2 ADAS with radar+camera fusion.',
     keyFacts: [
-      'XUV700 Adult score: 16.03/17 with Global NCAP Safer Choice Award',
-      '7 Airbags including driver knee airbag on AX7 Luxury variant',
-      'Radar + vision camera ADAS with active lane centering and auto emergency braking',
-      'Customizable personalized overspeed voice alert system',
+      'XUV700 Adult score: 16.03/17 — Global NCAP Safer Choice',
+      '7 Airbags including driver knee airbag (AX7 Luxury)',
+      'Radar + vision ADAS: AEB, active lane centering, emergency braking',
+      'Personalized overspeed voice alert system',
     ],
-    tags: ['mahindra', 'xuv700', 'scorpio-n', 'safety', 'adas', '5 star', 'airbags'],
+    tags: ['mahindra', 'xuv700', 'scorpio', 'safety', 'adas', '5 star', 'airbags'],
   },
-
-  // 2. Electric Vehicles (EV) Tech & Range
   {
     id: 'kb-ev-01',
     source: 'Indian EV Technology & Battery Degradation Benchmark 2024',
     category: 'ev',
-    title: 'LFP vs NMC Battery Chemistry & Degradation Cycles',
+    title: 'LFP Battery Chemistry & Degradation in Indian Conditions',
     content:
-      'Modern Indian mass-market EVs (Tata Nexon EV, Punch EV, Curvv EV, MG ZS EV) utilize Lithium-Iron-Phosphate (LFP) prismatic cells. LFP chemistry offers higher thermal stability in extreme ambient temperatures (up to 55°C) and supports 1,500 to 2,000 full discharge-charge cycles. This delivers 300,000 to 450,000 km of real-world lifespan before capacity drops to 80%. OEM warranties standardly cover 8 Years / 160,000 km.',
+      'Indian market EVs (Tata Nexon EV, Punch EV, MG ZS EV) use LFP (Lithium-Iron-Phosphate) prismatic cells with high thermal stability up to 55°C. Supports 1,500–2,000 full charge cycles, equivalent to 300,000–450,000 km before 80% capacity. OEM warranty: 8 Years or 160,000 km on battery and motor.',
     keyFacts: [
-      'LFP battery chemistry with high thermal runaway resistance up to 55°C',
-      '1,500 - 2,000 charge cycles before reaching 80% state of health',
-      'Equivalent to 300,000 km to 450,000 km battery operational life',
-      '8 Year / 160,000 km manufacturer battery & motor warranty standard',
+      'LFP chemistry: thermal stability up to 55°C',
+      '1,500–2,000 full charge cycles (300,000–450,000 km life)',
+      '8 Year / 160,000 km manufacturer battery & motor warranty',
+      'IP67-sealed battery pack with liquid cooling',
     ],
-    tags: ['ev', 'electric', 'battery', 'lfp', 'nmc', 'degradation', 'warranty', 'lifespan', 'charging'],
+    tags: ['ev', 'electric', 'battery', 'lfp', 'degradation', 'warranty', 'range', 'charging', 'nexon ev'],
   },
   {
     id: 'kb-ev-02',
-    source: 'Real-World EV Telemetry & ARAI vs Highway Range Testing',
+    source: 'Real-World EV Telemetry & ARAI Range Testing 2024',
     category: 'ev',
     vehicleId: 'v-nexon-ev',
     brand: 'Tata Motors',
-    title: 'Tata Nexon EV & Punch EV Real World Highway Range',
+    title: 'Tata Nexon EV Real-World Highway Range & Charging',
     content:
-      'The Tata Nexon EV Long Range features a 40.5 kWh battery with ARAI certified range of 465 km. In real-world mixed city/highway driving with full air conditioning, it achieves 290 - 330 km on a single charge. Running cost is ₹1.10 to ₹1.40 per km on home solar/AC charging versus ₹7.50 to ₹9.00 per km for petrol SUVs. DC Fast Charging (50 kW) reaches 10% to 80% in 56 minutes.',
+      'Tata Nexon EV Long Range: 40.5 kWh battery, ARAI range 465 km. Real-world mixed city+highway: 290–330 km with full AC. Running cost ₹1.10–₹1.40/km on home charging vs ₹7.50–₹9.00/km for petrol SUV. DC 50kW fast charge: 10%–80% in 56 minutes. V2L and V2V bidirectional power output available.',
     keyFacts: [
-      'ARAI range: 465 km | Real-world highway/city: 290 - 330 km',
-      'Running cost: ₹1.10 - ₹1.40 / km vs ₹8.00+ for petrol equivalent',
-      'DC 50 kW fast charge from 10% to 80% in 56 minutes',
-      'V2L (Vehicle-to-Load) and V2V (Vehicle-to-Vehicle) bidirectional power output',
+      'ARAI range: 465 km | Real-world: 290–330 km',
+      'Running cost: ₹1.10–₹1.40/km vs ₹8+ for petrol',
+      'DC 50kW fast charge: 10%–80% in 56 minutes',
+      'V2L output: power external appliances from the car',
     ],
-    tags: ['nexon ev', 'punch ev', 'range', 'charging', 'arai', 'cost per km', 'real world', 'battery'],
+    tags: ['nexon ev', 'punch ev', 'range', 'charging', 'cost per km', 'real world', 'fast charge', 'electric'],
   },
-
-  // 3. Mileage, Fuel Economy & ARAI Telemetry
   {
     id: 'kb-mileage-01',
     source: 'ARAI Real Driving Emissions (RDE) Fuel Telemetry Logbook',
     category: 'mileage',
-    title: 'Strong Hybrid vs Mild Hybrid vs Pure Petrol Fuel Efficiency',
+    title: 'Strong Hybrid vs Petrol vs Diesel Fuel Economy',
     content:
-      'Strong Hybrid vehicles like the Maruti Suzuki Grand Vitara Strong Hybrid and Toyota Urban Cruiser Hyryder utilize an Atkinson-cycle 1.5L petrol engine coupled with an electric motor and lithium-ion battery. In urban stop-and-go traffic, the vehicle operates in pure EV mode up to 50-60% of the drive cycle, delivering 27.97 km/l ARAI certified mileage (22 - 25 km/l real-world city). Mild hybrids only assist during initial acceleration and yield 19 - 21 km/l ARAI.',
+      'Strong Hybrid (Grand Vitara / Hyryder): Atkinson-cycle 1.5L engine + electric motor + Li-ion battery. Runs in EV mode 50–55% of urban driving. ARAI mileage: 27.97 km/l. Real-world city: 22–25 km/l. Single-tank range: 1,000+ km. No plug-in charging needed — fully self-charging via regenerative braking.',
     keyFacts: [
-      'Strong Hybrid ARAI: 27.97 km/l | Real-world city: 22 - 25 km/l',
-      'Runs up to 55% of urban driving duration in zero-emission pure EV mode',
-      'No external plug-in charging required (regenerative self-charging)',
-      '1,000+ km single-tank range on a 45-litre petrol fuel tank',
+      'Strong Hybrid ARAI: 27.97 km/l | Real city: 22–25 km/l',
+      'Pure EV mode: 50–55% of urban driving distance',
+      'No plug-in charging needed — fully self-charging',
+      'Single-tank 1,000+ km range on 45L tank',
     ],
     tags: ['mileage', 'hybrid', 'strong hybrid', 'grand vitara', 'hyryder', 'fuel economy', 'arai', 'kmpl'],
   },
   {
     id: 'kb-mileage-02',
-    source: 'Indian Compact SUV Real-World Mileage Benchmarks',
+    source: 'Indian Compact SUV Real-World Mileage Benchmarks 2024',
     category: 'mileage',
     title: 'Petrol & Diesel Real-World Fuel Economy Rankings',
     content:
-      'In the compact SUV segment: Maruti Suzuki Brezza (1.5L Petrol Smart Hybrid) delivers 19.89 km/l (Manual) and 17.38 km/l (Automatic). Hyundai Creta 1.5L NA Petrol gives 17.4 km/l, while Creta 1.5L CRDi Diesel yields 21.8 km/l. Tata Nexon 1.2L Turbo Petrol yields 17.01 km/l and Nexon 1.5L Diesel delivers 23.23 km/l. For high monthly running exceeding 1,500 km, Strong Hybrid or Diesel offers the lowest 5-year total cost of ownership.',
+      'Maruti Brezza 1.5L Petrol: 19.89 km/l (MT), 17.38 km/l (AT). Hyundai Creta 1.5L Petrol: 17.4 km/l, Diesel: 21.8 km/l. Tata Nexon 1.2T Petrol: 17.01 km/l, Diesel: 23.23 km/l. For 1,500+ km monthly commute, diesel or strong hybrid offers lowest 5-year total cost of ownership.',
     keyFacts: [
-      'Maruti Brezza Petrol: 19.89 km/l MT, 17.38 km/l AT',
-      'Hyundai Creta Diesel: 21.8 km/l MT | Petrol: 17.4 km/l MT',
-      'Tata Nexon Diesel: 23.23 km/l MT | Turbo Petrol: 17.01 km/l',
-      'Threshold for Diesel/Hybrid viability: 1,500+ km monthly commute',
+      'Brezza Petrol: 19.89 km/l MT | 17.38 km/l AT',
+      'Creta Diesel: 21.8 km/l MT | Petrol Turbo: 17.4 km/l',
+      'Nexon Diesel: 23.23 km/l | Turbo Petrol: 17.01 km/l',
+      'Diesel/Hybrid breakeven: 1,500+ km monthly commute',
     ],
-    tags: ['mileage', 'creta', 'brezza', 'nexon', 'diesel', 'petrol', 'tco', 'fuel efficiency'],
+    tags: ['mileage', 'creta', 'brezza', 'nexon', 'diesel', 'petrol', 'fuel efficiency', 'arai'],
   },
-
-  // 4. EMI, Loan & Financing Rules
   {
     id: 'kb-finance-01',
-    source: 'Reserve Bank of India Automotive Lending & Financial Guidelines',
+    source: 'Reserve Bank of India Automotive Lending Guidelines 2024',
     category: 'finance',
-    title: 'The 20/4/10 Rule for Smart Car Purchasing in India',
+    title: '20/4/10 Rule & Section 80EEB EV Tax Deduction',
     content:
-      'Automotive financial experts recommend the 20/4/10 rule: 1) Minimum 20% down payment to prevent negative equity as the vehicle depreciates; 2) Loan tenure not exceeding 4 years (48 months) to minimize total interest paid; 3) Total vehicle expenses (monthly EMI + fuel + insurance) should not exceed 10% of gross monthly household income. For EV buyers, Section 80EEB provides income tax deductions up to ₹1.50 Lakh on loan interest paid.',
+      'The 20/4/10 Rule: 1) Minimum 20% down payment to prevent negative equity; 2) Loan tenure max 4 years (48 months) to minimize interest; 3) Total vehicle expense (EMI + fuel + insurance) must not exceed 10% of gross monthly household income. EV buyers: Section 80EEB allows income tax deduction up to ₹1.50 Lakh on loan interest. Average car loan: 8.75%–9.40% p.a.',
     keyFacts: [
-      '20/4/10 Rule: 20% down payment, 4-year maximum loan tenure, max 10% income on car expenses',
-      'Section 80EEB: Income tax rebate up to ₹1,50,000 on EV loan interest',
-      'Average car loan interest rate: 8.75% - 9.40% per annum on reducing balance',
-      'On-road price includes Ex-Showroom + RTO Road Tax (8-14%) + Comprehensive Insurance + Fastag',
+      '20/4/10 Rule: 20% down, 4-year max loan, 10% income cap on vehicle costs',
+      'Section 80EEB: ₹1,50,000 tax deduction on EV loan interest',
+      'Car loan rate: 8.75%–9.40% p.a. on reducing balance',
+      'On-road = Ex-Showroom + RTO (8–14%) + Insurance + Fastag',
     ],
     tags: ['emi', 'loan', 'finance', '20/4/10', 'tax', '80eeb', 'down payment', 'interest rate', 'budget'],
   },
-
-  // 5. Model Specs Deep Dives
   {
     id: 'kb-specs-01',
-    source: 'Hyundai Creta 2024 Facelift Technical OEM Manual',
+    source: 'Hyundai Creta 2024 Facelift OEM Technical Manual',
     category: 'specs',
     brand: 'Hyundai',
     vehicleId: 'v-creta',
-    title: 'Hyundai Creta 1.5 Turbo vs NA Specs & Features',
+    title: 'Hyundai Creta SX(O) Turbo Full Specifications',
     content:
-      'The Hyundai Creta SX (O) Turbo is powered by a 1.5L Turbo GDi petrol engine churning out 160 bhp and 253 Nm of torque mated to a 7-speed Dual Clutch Transmission (DCT). It features 19 Level-2 ADAS autonomous functions, integrated twin 10.25-inch curved digital displays, Bose 8-speaker audio, ventilated front seats, voice-controlled panoramic sunroof, and 190 mm ground clearance with 433L boot capacity.',
+      'Hyundai Creta SX(O) Turbo: 1.5L Turbo GDi, 160 bhp, 253 Nm, 7-speed DCT. 19 Level-2 ADAS features, twin 10.25-inch curved screens, Bose 8-speaker audio, ventilated front seats, voice panoramic sunroof, 190 mm ground clearance, 433L boot. Price: ₹19.99 Lakh ex-showroom.',
     keyFacts: [
-      '1.5L Turbo GDi Petrol: 160 bhp & 253 Nm with 7-speed DCT',
-      'Level 2 ADAS with 19 autonomous driving and collision-avoidance features',
-      'Twin 10.25-inch curved screens & 8-speaker Bose audio',
-      'Boot space: 433 Litres | Ground clearance: 190 mm',
+      '1.5L Turbo GDi: 160 bhp & 253 Nm | 7-speed DCT',
+      'Level 2 ADAS with 19 autonomous driving features',
+      'Twin 10.25-inch curved screens + 8-speaker Bose audio',
+      '433L boot | 190 mm ground clearance',
     ],
-    tags: ['creta', 'hyundai', 'turbo', 'dct', 'adas', 'specs', 'panoramic sunroof', 'bose'],
+    tags: ['creta', 'hyundai', 'turbo', 'dct', 'adas', 'specs', 'sunroof'],
   },
   {
     id: 'kb-specs-02',
@@ -210,127 +202,365 @@ export const KNOWLEDGE_BASE_CHUNKS: KnowledgeChunk[] = [
     category: 'specs',
     brand: 'Maruti Suzuki',
     vehicleId: 'v-brezza',
-    title: 'Maruti Suzuki Brezza 1.5L Smart Hybrid Specs & Reliability',
+    title: 'Maruti Brezza ZXi+ Smart Hybrid Specs & Reliability',
     content:
-      'The Maruti Suzuki Brezza ZXi+ is powered by the proven 1.5L K15C Smart Hybrid naturally aspirated petrol engine producing 103 bhp and 137 Nm torque. Available with 5-speed Manual or 6-speed torque converter automatic with paddle shifters. Equipped with 360-degree camera, Heads-Up Display (HUD), electric sunroof, 4-Star Global NCAP safety rating, and lowest 5-year scheduled maintenance cost in the sub-4m SUV segment (~₹6,500/year).',
+      'Maruti Brezza ZXi+: 1.5L K15C Smart Hybrid, 103 bhp, 137 Nm. 5-speed MT or 6-speed AT with paddle shifters. 360° camera, Head-Up Display, electric sunroof, 4-Star NCAP. Lowest 5-year maintenance cost in sub-4m SUV segment: ~₹6,500/year.',
     keyFacts: [
-      '1.5L K15C Smart Hybrid: 103 bhp & 137 Nm torque',
-      '6-speed Torque Converter Automatic with steering paddle shifters',
-      'Segment-first Head-Up Display (HUD) and 360-degree camera',
-      'Lowest segment scheduled maintenance cost (~₹6,500 per year)',
+      '1.5L K15C Smart Hybrid: 103 bhp & 137 Nm',
+      '6-speed Torque Converter AT with paddle shifters',
+      'Segment-first Head-Up Display (HUD) + 360° camera',
+      'Lowest maintenance cost: ~₹6,500/year',
     ],
-    tags: ['brezza', 'maruti suzuki', 'smart hybrid', 'hud', 'specs', 'maintenance', 'reliability'],
+    tags: ['brezza', 'maruti', 'smart hybrid', 'hud', 'maintenance', 'reliability', 'specs'],
   },
-  {
-    id: 'kb-specs-03',
-    source: 'Toyota Urban Cruiser Hyryder / Innova Hycross Architecture',
-    category: 'specs',
-    brand: 'Toyota',
-    vehicleId: 'v-hyryder',
-    title: 'Toyota Hybrid Powertrain Reliability & e-Drive Transaxle',
-    content:
-      'Toyota Self-Charging Hybrid Electric Vehicles utilize a planetary e-CVT transaxle without belts or clutches, virtually eliminating transmission wear. The electric motor delivers 141 Nm of instantaneous low-end torque for quick traffic overtakes. The lithium-ion battery pack is backed by Toyota 8-Year / 160,000 km warranty with an expected lifespan matching the vehicle chassis life (15+ years).',
-    keyFacts: [
-      'Self-charging e-CVT transaxle with zero friction belts or clutch plates',
-      'Instantaneous 141 Nm torque from permanent magnet synchronous motor',
-      '8 Year / 160,000 km hybrid battery warranty',
-      'Proven global Toyota hybrid durability exceeding 15 years in high heat climates',
-    ],
-    tags: ['toyota', 'hyryder', 'hycross', 'hybrid', 'reliability', 'e-cvt', 'battery warranty'],
-  },
-
-  // 6. Pre-Delivery Inspection & FAQ
   {
     id: 'kb-faq-01',
-    source: 'CarIQ Automotive Buying & Pre-Delivery Inspection (PDI) Guide',
+    source: 'CarIQ Pre-Delivery Inspection (PDI) & Buying Guide',
     category: 'faq',
-    title: 'Pre-Delivery Inspection (PDI) 50-Point Checklist',
+    title: 'PDI Checklist & Car Buying Process',
     content:
-      'Never register or disburse full vehicle payment before completing a physical daylight PDI at the dealer stockyard. Check: 1) Vehicle Identification Number (VIN) to verify manufacturing month & year; 2) Odometer reading (must be under 50-70 km); 3) Paint thickness & panel gaps for transit damage repair; 4) Check tire manufacturing date stamps (DOT code); 5) Test electrical components, air conditioning, sunroof seals, and all infotainment functions; 6) Verify toolkit, spare tire, and OEM warranty booklet.',
+      'Before taking delivery: 1) Verify 17-digit VIN for manufacturing month/year; 2) Odometer must be under 50–70 km; 3) Check panel gaps and paint in daylight for transit damage; 4) Verify tire DOT date codes; 5) Test all electrical, AC, sunroof seals, infotainment; 6) Confirm toolkit, spare tire, warranty booklet. Never pay full amount before PDI sign-off.',
     keyFacts: [
-      'Verify 17-digit VIN to confirm exact vehicle month and year of manufacture',
-      'Legitimate delivery odometer reading must not exceed 50 - 70 km',
-      'Inspect panel gaps and rubber door beadings in bright daylight for repainting',
-      'Do not disburse balance loan/payment until PDI sign-off form is approved',
+      'Verify VIN to confirm exact manufacturing month and year',
+      'Delivery odometer must not exceed 50–70 km',
+      'Check panel gaps in bright daylight for repainted panels',
+      'Do not pay balance until PDI sign-off form is complete',
     ],
-    tags: ['pdi', 'pre delivery inspection', 'checklist', 'vin', 'delivery', 'odometer', 'inspection', 'faq'],
+    tags: ['pdi', 'delivery', 'inspection', 'buying', 'process', 'vin', 'checklist', 'new car'],
   },
 ];
 
-// ── RAG RETRIEVAL & GROUNDING ENGINE ──────────────────────────────────────────
+// ── MODEL NAME ALIASES ────────────────────────────────────────────────────────
+// Maps common query words → dataset model slugs / IDs for fuzzy matching
+const MODEL_ALIASES: Record<string, string[]> = {
+  // Tata
+  'v-nexon-ev': ['tata nexon ev lr', 'tata nexon ev', 'nexon ev long range', 'nexon ev lr', 'nexon ev', 'nexon electric', 'electric nexon', 'नेक्सॉन ईवी', 'नेक्सन ईवी'],
+  'v-punch-ev': ['tata punch ev lr', 'tata punch ev', 'punch ev long range', 'punch ev', 'punch electric', 'electric punch', 'पंच ईवी'],
+  'v-nexon':    ['tata nexon fearless', 'tata nexon dca', 'tata nexon', 'nexon', 'नेक्सॉन', 'नेक्सन'],
+  'v-punch':    ['tata punch creative', 'tata punch amt', 'tata punch', 'punch', 'पंच'],
+  'v-harrier':  ['tata harrier dark', 'tata harrier', 'harrier', 'हैरियर'],
 
+  // Hyundai
+  'v-creta':    ['hyundai creta turbo', 'hyundai creta sx', 'hyundai creta', 'creta turbo', 'creta sx', 'creta', 'क्रेटा'],
+  'v-alcazar':  ['hyundai alcazar signature', 'hyundai alcazar', 'alcazar', 'अल्काजार'],
+  'v-i20':      ['hyundai i20 asta', 'hyundai i20 ivt', 'hyundai i20', 'i20 asta', 'i20 n line', 'i20', 'आई20'],
+  'v-i10':      ['hyundai grand i10 nios', 'grand i10 nios', 'hyundai grand i10', 'grand i10', 'i10 nios', 'i10', 'आई10'],
+
+  // Maruti Suzuki
+  'v-swift':    ['maruti suzuki swift', 'maruti swift amt', 'maruti swift', 'swift zxi', 'swift', 'स्विफ्ट'],
+  'v-dzire':    ['maruti suzuki dzire', 'maruti dzire ags', 'maruti dzire', 'dzire zxi', 'dzire', 'डिज़ायर', 'डिजायर'],
+  'v-baleno':   ['maruti suzuki baleno', 'maruti baleno alpha', 'maruti baleno', 'baleno alpha', 'baleno', 'बलेनो'],
+  'v-brezza':   ['maruti suzuki brezza', 'maruti brezza zxi', 'maruti brezza', 'vitara brezza', 'brezza', 'ब्रेज़ा', 'ब्रेजा'],
+
+  // Mahindra
+  'v-xuv700':   ['mahindra xuv700 ax7', 'mahindra xuv700', 'mahindra xuv 700', 'xuv700 ax7', 'xuv700', 'xuv 700', 'एक्सयूवी700'],
+  'v-scorpio':  ['mahindra scorpio-n', 'mahindra scorpio n', 'mahindra scorpio', 'scorpio-n z8l', 'scorpio-n', 'scorpio n', 'scorpio', 'स्कॉर्पियो एन', 'स्कॉर्पियो'],
+  'v-thar':     ['mahindra thar 4x4', 'mahindra thar lx', 'mahindra thar roxx', 'mahindra thar', 'thar roxx', 'thar 4x4', 'thar lx', 'thar', 'थार'],
+  'v-xuv300':   ['mahindra xuv 3xo', 'mahindra xuv3xo', 'mahindra xuv300', 'xuv 3xo ax7', 'xuv 3xo', 'xuv3xo', 'xuv 300', 'xuv300', '3xo', '3एक्सओ'],
+
+  // Toyota
+  'v-fortuner': ['toyota fortuner legender', 'toyota fortuner 4x4', 'toyota fortuner', 'fortuner legender', 'fortuner', 'फॉर्च्यूनर'],
+  'v-innova':   ['toyota innova crysta', 'toyota innova hycross', 'toyota innova', 'innova crysta zx', 'innova crysta', 'innova hycross', 'innova', 'इनोवा'],
+
+  // Kia
+  'v-seltos':   ['kia seltos x-line', 'kia seltos turbo', 'kia seltos', 'seltos x-line', 'seltos', 'सेल्टोस'],
+  'v-carens':   ['kia carens x-line', 'kia carens turbo', 'kia carens', 'carens x-line', 'carens', 'कैरेन्स', 'कारेंस'],
+};
+
+// ── RAG ENGINE CLASS ─────────────────────────────────────────────────────────
 export class RagKnowledgeEngine {
   private chunks: KnowledgeChunk[] = KNOWLEDGE_BASE_CHUNKS;
   private vehicles: Vehicle[] = CARS_DATASET;
 
   /**
-   * Search knowledge base using hybrid lexical + semantic token matching
+   * Finds a specific vehicle by matching query against MODEL_ALIASES.
+   * Sorts aliases descending by length so specific names ('nexon ev') match before ('nexon').
    */
+  private findVehicleByQuery(q: string): Vehicle | null {
+    // 1. Flatten all (alias, vehicleId) and sort longest alias first
+    const aliasList: { alias: string; vehicleId: string }[] = [];
+    for (const [vehicleId, aliases] of Object.entries(MODEL_ALIASES)) {
+      for (const alias of aliases) {
+        aliasList.push({ alias, vehicleId });
+      }
+    }
+    aliasList.sort((a, b) => b.alias.length - a.alias.length);
+
+    for (const item of aliasList) {
+      // Regex check with word boundary if single token, or substring if multi-word
+      if (item.alias.includes(' ')) {
+        if (q.includes(item.alias)) {
+          const v = this.vehicles.find((veh) => veh.id === item.vehicleId);
+          if (v) return v;
+        }
+      } else {
+        const regex = new RegExp(`\\b${item.alias}\\b`, 'i');
+        if (regex.test(q)) {
+          const v = this.vehicles.find((veh) => veh.id === item.vehicleId);
+          if (v) return v;
+        }
+      }
+    }
+
+    // 2. Fallback: direct model_name match
+    for (const v of this.vehicles) {
+      const nameLower = v.model_name.toLowerCase();
+      const firstWord = nameLower.split(' ')[0];
+      if (firstWord.length > 3) {
+        const regex = new RegExp(`\\b${firstWord}\\b`, 'i');
+        if (regex.test(q)) return v;
+      }
+    }
+
+    return null;
+  }
+
+  /**
+   * Detects what attribute the user is asking about for a specific car.
+   * Returns a resolved answer string, or null if it's not a specific attribute query.
+   */
+  private resolveSpecificQuery(query: string, q: string): { answer: string; vehicle: Vehicle } | null {
+    const v = this.findVehicleByQuery(q);
+    if (!v) return null;
+
+    const carName = `${v.brand.name} ${v.model_name}`;
+    const price = `₹${(v.ex_showroom_price / 100000).toFixed(2)} Lakh`;
+    const onRoad = v.on_road_price_approx ? `₹${(v.on_road_price_approx / 100000).toFixed(2)} Lakh` : null;
+    const isEv = v.fuel_type === 'electric' || v.fuel_type === 'ev' || (v.ev_range_km && v.ev_range_km > 0);
+
+    // ── MILEAGE / FUEL EFFICIENCY ────────────────────────────────────────────
+    if (
+      q.match(/\b(mileage|milage|milege|fuel efficiency|fuel economy|kmpl|km\/l|consumption|average|avg|mpg)\b/) ||
+      q.includes('माइलेज') || q.includes('औसत') || q.includes('kitna deti hai') || q.includes('kitna average')
+    ) {
+      if (isEv) {
+        return {
+          vehicle: v,
+          answer:
+            `### ${carName} — EV Range & Efficiency\n\n` +
+            `The **${carName}** is fully electric and does not have a traditional fuel mileage figure. Here are the key efficiency metrics:\n\n` +
+            `- **ARAI Certified Range**: ${v.ev_range_km} km on a full charge\n` +
+            `- **Battery Capacity**: ${v.battery_capacity_kwh ? `${v.battery_capacity_kwh} kWh` : 'approx. 40 kWh'}\n` +
+            `- **Real-World Range**: Approximately ${Math.round((v.ev_range_km || 400) * 0.68)}–${Math.round((v.ev_range_km || 400) * 0.72)} km in mixed city+highway driving with full AC\n` +
+            `- **Running Cost**: Roughly ₹1.10–₹1.40 per km on home charging (residential tariff)\n` +
+            `- **Charging Time**: 10%–80% in ~56 minutes on a 50kW DC fast charger\n\n` +
+            `> Compared to a petrol equivalent at ₹8–9/km, the ${v.model_name} saves approximately ₹4–5 Lakh in fuel costs over 60,000 km.`,
+        };
+      }
+      const mt = v.mileage_kmpl;
+      const atPenalty = v.transmission === 'automatic' ? (mt ? (mt - 1.5).toFixed(2) : null) : null;
+      return {
+        vehicle: v,
+        answer:
+          `### ${carName} — Fuel Efficiency & Mileage\n\n` +
+          `The **${carName}** delivers **${mt} km/l** (ARAI certified) with its ${v.engine_cc}cc ${v.fuel_type} engine.\n\n` +
+          `**Breakdown by driving condition:**\n` +
+          `- **Highway cruising** (80–100 km/h): approximately **${mt ? (mt * 1.05).toFixed(1) : '--'}–${mt ? (mt * 1.12).toFixed(1) : '--'} km/l**\n` +
+          `- **City stop-and-go traffic**: approximately **${mt ? (mt * 0.70).toFixed(1) : '--'}–${mt ? (mt * 0.80).toFixed(1) : '--'} km/l**\n` +
+          (atPenalty ? `- **Automatic variant** (this trim): approximately **${atPenalty} km/l** real-world average\n` : '') +
+          `- **Fuel Tank Range**: approximately **${mt ? Math.round(mt * 44) : '--'} km** on a full 44L tank\n\n` +
+          `> The ARAI figure of ${mt} km/l is tested under standard certified conditions. Real-world mileage typically runs 15–20% lower in heavy urban traffic with air conditioning active.`,
+      };
+    }
+
+    // ── PRICE / COST ─────────────────────────────────────────────────────────
+    if (
+      q.match(/\b(price|cost|how much|rate|ex.?showroom|on.?road|lakh|pricing|worth)\b/) ||
+      q.includes('कीमत') || q.includes('दाम') || q.includes('भाव') || q.includes('मूल्य') ||
+      q.includes('keemat') || q.includes('kimat') || q.includes('daam') || q.includes('bhav') || q.includes('kitne ki')
+    ) {
+      const variantInfo = v.variants && v.variants.length > 0
+        ? `\n\n**Available Variants:**\n` +
+          v.variants.map((vr) =>
+            `- **${vr.name}**: ₹${(vr.ex_showroom_price / 100000).toFixed(2)} Lakh (ex-showroom)${vr.is_top_variant ? ' *(Top Variant)*' : vr.is_base_variant ? ' *(Base Variant)*' : ''}`
+          ).join('\n')
+        : '';
+      return {
+        vehicle: v,
+        answer:
+          `### ${carName} — Price Details\n\n` +
+          `The **${carName}** is priced at **${price}** (ex-showroom, Delhi) for the top-spec variant shown.\n\n` +
+          `- **Ex-Showroom (Top Variant)**: ${price}\n` +
+          (onRoad ? `- **Approx. On-Road Price**: ${onRoad} *(includes RTO, insurance, TCS)*\n` : '') +
+          variantInfo +
+          `\n\n> On-road price varies by state (RTO rates differ). Add approximately ₹1.5–2.5 Lakh for registration, insurance, and accessories on top of the ex-showroom price.`,
+      };
+    }
+
+    // ── SAFETY ───────────────────────────────────────────────────────────────
+    if (
+      q.match(/\b(safety|saftey|safe|crash|ncap|airbag|airbags|rating|star|stars|adas|protection)\b/) ||
+      q.includes('सुरक्षा') || q.includes('सेफ्टी') || q.includes('suraksha')
+    ) {
+      return {
+        vehicle: v,
+        answer:
+          `### ${carName} — Safety Rating & Features\n\n` +
+          `The **${carName}** has a **${v.safety_rating || 5}-Star NCAP safety rating**, making it one of the ${v.safety_rating === 5 ? 'safest' : 'well-rated'} vehicles in its segment.\n\n` +
+          `**Safety Systems Included:**\n` +
+          (v.safety_features || []).map((sf) => `- ${sf}`).join('\n') +
+          `\n\n**Key Structural Highlights:**\n` +
+          `- ${v.engine_cc ? `${v.engine_cc}cc` : ''} body uses high-strength steel for occupant protection\n` +
+          `- Ground clearance of ${v.ground_clearance_mm || 180} mm prevents underbody trauma on Indian roads\n` +
+          (v.safety_rating === 5
+            ? `\n> The 5-Star Bharat NCAP rating is the highest possible — awarded only to vehicles that pass 64 km/h frontal offset and 50 km/h side barrier crash tests with excellent occupant scores.`
+            : ''),
+      };
+    }
+
+    // ── EV / RANGE / BATTERY ─────────────────────────────────────────────────
+    if (
+      q.match(/\b(range|battery|electric|ev|charging|charge|kwh)\b/) ||
+      q.includes('रेंज') || q.includes('बैटरी') || q.includes('चार्जिंग')
+    ) {
+      if (isEv) {
+        return {
+          vehicle: v,
+          answer:
+            `### ${carName} — Battery & Range\n\n` +
+            `- **ARAI Certified Range**: ${v.ev_range_km} km\n` +
+            `- **Battery**: ${v.battery_capacity_kwh ? `${v.battery_capacity_kwh} kWh LFP prismatic cells` : 'LFP prismatic battery pack'}\n` +
+            `- **Real-World Range** (mixed driving, AC on): ~${Math.round((v.ev_range_km || 400) * 0.68)}–${Math.round((v.ev_range_km || 400) * 0.72)} km\n` +
+            `- **Motor Power**: ${v.horsepower} bhp | ${v.torque_nm} Nm (instant torque)\n` +
+            `- **DC Fast Charge** (50 kW CCS2): 10%–80% in approximately 56 minutes\n` +
+            `- **AC Home Charge** (7.2 kW): 0%–100% in approximately 6 hours\n` +
+            `- **OEM Battery Warranty**: 8 Years / 1,60,000 km\n\n` +
+            `> Battery uses LFP chemistry with thermal stability up to 55°C — well suited for Indian summer conditions. IP67 sealed pack prevents water/dust damage.`,
+        };
+      }
+    }
+
+    // ── ENGINE / PERFORMANCE / POWER ─────────────────────────────────────────
+    if (
+      q.match(/\b(engine|power|bhp|torque|performance|horsepower|hp|cc|rpm|acceleration|transmission|gearbox)\b/) ||
+      q.includes('इंजन') || q.includes('पावर')
+    ) {
+      return {
+        vehicle: v,
+        answer:
+          `### ${carName} — Engine & Performance\n\n` +
+          `The **${carName}** is powered by a **${v.engine_cc}cc ${v.fuel_type === 'diesel' ? 'diesel' : 'petrol'} engine**:\n\n` +
+          `- **Maximum Power**: ${v.horsepower} bhp\n` +
+          `- **Peak Torque**: ${v.torque_nm} Nm\n` +
+          `- **Transmission**: ${v.transmission === 'automatic' ? 'Automatic' : 'Manual'} (${v.model_name.includes('DCA') ? '7-speed DCA' : v.model_name.includes('DCT') ? '7-speed DCT' : v.model_name.includes('AMT') || v.model_name.includes('AGS') ? '5/6-speed AMT' : '5-speed MT'})\n` +
+          `- **Fuel Type**: ${v.fuel_type.charAt(0).toUpperCase() + v.fuel_type.slice(1)}\n` +
+          `- **ARAI Mileage**: ${v.mileage_kmpl ? `${v.mileage_kmpl} km/l` : `${v.ev_range_km} km range (EV)`}\n\n` +
+          `> With ${v.horsepower || 120} bhp and ${v.torque_nm || 200} Nm, the ${v.model_name} is ${(v.horsepower ?? 0) > 150 ? 'a strong performer suitable for highway overtaking and loaded driving' : 'well-suited for city and highway driving with adequate punch for Indian conditions'}.`,
+      };
+    }
+
+    // ── SPECIFICATIONS / OVERVIEW ─────────────────────────────────────────────
+    if (q.match(/\b(spec|specification|feature|detail|overview|tell me about|what is|about|spefic)\b/)) {
+      return {
+        vehicle: v,
+        answer:
+          `### ${carName} — Full Specifications\n\n` +
+          `${v.description}\n\n` +
+          `**Key Specs:**\n` +
+          `- **Price**: ${price} (ex-showroom)\n` +
+          `- **Body Type**: ${v.body_type.toUpperCase()} | **Seating**: ${v.seating_capacity} seats\n` +
+          `- **Engine**: ${v.engine_cc ? `${v.engine_cc}cc` : 'Electric Motor'} ${v.fuel_type} | **Power**: ${v.horsepower || 120} bhp | **Torque**: ${v.torque_nm || 200} Nm\n` +
+          `- **Transmission**: ${v.transmission}\n` +
+          (isEv ? `- **Range**: ${v.ev_range_km} km (ARAI)\n` : `- **Mileage**: ${v.mileage_kmpl} km/l (ARAI)\n`) +
+          `- **Safety**: ${v.safety_rating || 5}★ NCAP\n` +
+          `- **Ground Clearance**: ${v.ground_clearance_mm || 180} mm\n` +
+          `- **Boot Space**: ${v.boot_space_litres || 350} litres\n\n` +
+          `**Top Features:**\n` +
+          (v.features || []).slice(0, 5).map((f) => `- ${f}`).join('\n'),
+      };
+    }
+
+    // ── FEATURES / EQUIPMENT ──────────────────────────────────────────────────
+    if (q.match(/\b(feature|equipment|variant|options|sunroof|screen|camera|audio|sound|infotainment)\b/)) {
+      return {
+        vehicle: v,
+        answer:
+          `### ${carName} — Features & Equipment\n\n` +
+          `**Comfort & Technology:**\n` +
+          (v.features || []).map((f) => `- ${f}`).join('\n') +
+          `\n\n**Safety Equipment:**\n` +
+          (v.safety_features || []).map((sf) => `- ${sf}`).join('\n') +
+          (v.has_sunroof ? `\n\n> Sunroof: Yes — this trim includes a ${v.features?.find(f => f.toLowerCase().includes('sunroof')) || 'electric sunroof'}.` : ''),
+      };
+    }
+
+    // ── DIMENSIONS / SPACE / CLEARANCE ───────────────────────────────────────
+    if (
+      q.match(/\b(ground clearance|boot|luggage|space|dimension|dimensions|size|seating|seat|seats|legroom|tall)\b/) ||
+      q.includes('ग्राउंड क्लीयरेंस') || q.includes('बूट स्पेस')
+    ) {
+      const gc = v.ground_clearance_mm || 180;
+      const boot = v.boot_space_litres || 350;
+      return {
+        vehicle: v,
+        answer:
+          `### ${carName} — Dimensions & Space\n\n` +
+          `- **Ground Clearance**: ${gc} mm — ${gc >= 200 ? 'excellent for rough Indian roads and speed breakers' : gc >= 180 ? 'good for most Indian road conditions' : 'adequate for city driving'}\n` +
+          `- **Boot Space**: ${boot} litres — ${boot >= 400 ? 'segment-leading cargo capacity' : boot >= 350 ? 'spacious for family luggage' : 'adequate for urban use'}\n` +
+          `- **Seating**: ${v.seating_capacity} seats\n` +
+          `- **Body Style**: ${v.body_type.toUpperCase()}\n\n` +
+          `> The ${v.model_name} offers ${gc} mm ground clearance which is ${gc >= 200 ? 'best-in-class' : 'competitive'} for the segment.`,
+      };
+    }
+
+    return null; // No specific attribute match — fall through to general answer
+  }
+
+  /** Hybrid lexical + tag-weighted search */
   public searchChunks(query: string, domain: RagDomain = 'all', topK: number = 4): Citation[] {
     const tokens = this.tokenize(query);
-    const scoredChunks: { chunk: KnowledgeChunk; score: number }[] = [];
+    const scored: { chunk: KnowledgeChunk; score: number }[] = [];
 
     for (const chunk of this.chunks) {
-      // Domain filter check
+      // Domain filter
       if (domain !== 'all') {
-        if (domain === 'safety' && chunk.category !== 'safety') continue;
-        if (domain === 'ev' && chunk.category !== 'ev') continue;
-        if (domain === 'mileage' && chunk.category !== 'mileage') continue;
-        if (domain === 'finance' && chunk.category !== 'finance') continue;
+        const domainMap: Record<string, string[]> = {
+          safety: ['safety'],
+          ev: ['ev'],
+          mileage: ['mileage'],
+          finance: ['finance'],
+          comparison: ['specs', 'safety', 'ev', 'mileage'],
+        };
+        if (domainMap[domain] && !domainMap[domain].includes(chunk.category)) continue;
       }
 
       let score = 0;
-      const contentLower = chunk.content.toLowerCase();
-      const titleLower = chunk.title.toLowerCase();
-      const sourceLower = chunk.source.toLowerCase();
+      const contentLower = (chunk.content + ' ' + chunk.title).toLowerCase();
 
-      // Check token matches with weights
       for (const token of tokens) {
-        if (titleLower.includes(token)) score += 3.5;
-        if (contentLower.includes(token)) score += 2.0;
-        if (sourceLower.includes(token)) score += 1.5;
-        if (chunk.tags.some((t) => t.includes(token))) score += 2.5;
-        if (chunk.keyFacts.some((f) => f.toLowerCase().includes(token))) score += 2.8;
+        if (chunk.title.toLowerCase().includes(token)) score += 4;
+        if (contentLower.includes(token)) score += 2;
+        if (chunk.tags.some((t) => t.includes(token) || token.includes(t))) score += 3;
+        if (chunk.keyFacts.some((f) => f.toLowerCase().includes(token))) score += 3;
       }
 
-      // Bonus for exact entity matching
-      if (chunk.brand && query.toLowerCase().includes(chunk.brand.toLowerCase())) {
-        score += 4.0;
-      }
-      if (chunk.vehicleId && query.toLowerCase().includes(chunk.vehicleId.replace('v-', ''))) {
-        score += 5.0;
+      // Brand/model entity boosting
+      if (chunk.brand) {
+        const brandLower = chunk.brand.toLowerCase();
+        if (query.toLowerCase().includes(brandLower.split(' ')[0])) score += 5;
       }
 
-      if (score > 0) {
-        scoredChunks.push({ chunk, score });
-      }
+      if (score > 0) scored.push({ chunk, score });
     }
 
-    // Sort descending by score
-    scoredChunks.sort((a, b) => b.score - a.score);
+    scored.sort((a, b) => b.score - a.score);
 
-    // If query has no direct hits, fall back to domain chunks
-    let finalChunks = scoredChunks.slice(0, topK);
-    if (finalChunks.length === 0) {
-      finalChunks = this.chunks
-        .filter((c) => (domain === 'all' ? true : c.category === domain))
+    // Fallback: return top domain chunks
+    let result = scored.slice(0, topK);
+    if (result.length === 0) {
+      result = this.chunks
+        .filter((c) => domain === 'all' || domain === 'comparison' || c.category === domain)
         .slice(0, topK)
-        .map((c) => ({ chunk: c, score: 5.0 }));
+        .map((c) => ({ chunk: c, score: 3 }));
     }
 
-    // Format citations
-    return finalChunks.map((item) => {
-      // Pick best relevant snippet
-      const firstFact = item.chunk.keyFacts[0] || item.chunk.content.slice(0, 180);
-      const snippet = `${firstFact}. ${item.chunk.content.slice(0, 160)}...`;
-
-      // Normalize score to percentage 82% - 99%
-      const normalizedScore = Math.min(99, Math.max(82, Math.round(75 + item.score * 3.5)));
-
+    return result.map((item) => {
+      const snippet = item.chunk.keyFacts.slice(0, 2).join(' • ');
+      const normalizedScore = Math.min(99, Math.max(82, Math.round(75 + item.score * 2.5)));
       return {
         document: item.chunk.source,
         section: item.chunk.title,
-        snippet,
+        snippet: snippet || item.chunk.content.slice(0, 180),
         relevanceScore: normalizedScore,
         category: item.chunk.category,
         tags: item.chunk.tags,
@@ -338,19 +568,17 @@ export class RagKnowledgeEngine {
     });
   }
 
-  /**
-   * Match vehicles from dataset based on user criteria
-   */
+  /** Vehicle matching with filters */
   public matchVehicles(query: string, maxResults: number = 3): Vehicle[] {
     const q = query.toLowerCase();
     let candidates = [...this.vehicles];
 
-    // Filter by Brand
+    // Brand filter
     if (q.includes('tata')) {
       candidates = candidates.filter((v) => v.brand.name.toLowerCase().includes('tata'));
     } else if (q.includes('hyundai')) {
       candidates = candidates.filter((v) => v.brand.name.toLowerCase().includes('hyundai'));
-    } else if (q.includes('maruti')) {
+    } else if (q.includes('maruti') || q.includes('suzuki')) {
       candidates = candidates.filter((v) => v.brand.name.toLowerCase().includes('maruti'));
     } else if (q.includes('mahindra')) {
       candidates = candidates.filter((v) => v.brand.name.toLowerCase().includes('mahindra'));
@@ -360,40 +588,44 @@ export class RagKnowledgeEngine {
       candidates = candidates.filter((v) => v.brand.name.toLowerCase().includes('kia'));
     }
 
-    // Filter by EV / Electric
-    if (q.includes('ev') || q.includes('electric')) {
-      const evMatches = candidates.filter((v) => v.fuel_type === 'electric' || (v.ev_range_km && v.ev_range_km > 0));
+    // EV filter
+    if (q.includes('ev') || q.includes('electric') || q.includes('battery')) {
+      const evMatches = candidates.filter(
+        (v) => v.fuel_type === 'electric' || (v.ev_range_km && v.ev_range_km > 0)
+      );
       if (evMatches.length > 0) candidates = evMatches;
     }
 
-    // Filter by SUV
+    // Body type
     if (q.includes('suv')) {
-      const suvMatches = candidates.filter((v) => v.body_type === 'suv');
-      if (suvMatches.length > 0) candidates = suvMatches;
+      const m = candidates.filter((v) => v.body_type === 'suv');
+      if (m.length > 0) candidates = m;
+    } else if (q.includes('hatchback')) {
+      const m = candidates.filter((v) => v.body_type === 'hatchback');
+      if (m.length > 0) candidates = m;
     }
 
-    // Filter by Automatic
-    if (q.includes('automatic') || q.includes('amt') || q.includes('dct')) {
-      const atMatches = candidates.filter((v) => v.transmission === 'automatic');
-      if (atMatches.length > 0) candidates = atMatches;
+    // Transmission
+    if (q.includes('automatic') || q.includes('dct') || q.includes('amt')) {
+      const m = candidates.filter((v) => v.transmission === 'automatic');
+      if (m.length > 0) candidates = m;
     }
 
-    // Filter by Budget
-    if (q.includes('under 10 lakh') || q.includes('under 10l') || q.includes('10 lakh')) {
-      candidates = candidates.filter((v) => v.ex_showroom_price <= 1000000);
-    } else if (q.includes('under 15 lakh') || q.includes('under 15l') || q.includes('15 lakh')) {
-      candidates = candidates.filter((v) => v.ex_showroom_price <= 1500000);
-    } else if (q.includes('under 20 lakh') || q.includes('under 20l') || q.includes('20 lakh')) {
-      candidates = candidates.filter((v) => v.ex_showroom_price <= 2000000);
-    } else if (q.includes('under 25 lakh') || q.includes('under 25l') || q.includes('25 lakh')) {
-      candidates = candidates.filter((v) => v.ex_showroom_price <= 2500000);
+    // Budget
+    const budgetMatch = q.match(/under\s+(\d+)\s*lakh/i) || q.match(/(\d+)\s*lakh/i);
+    if (budgetMatch) {
+      const limit = parseInt(budgetMatch[1]) * 100000;
+      const budgetFiltered = candidates.filter((v) => v.ex_showroom_price <= limit);
+      if (budgetFiltered.length > 0) candidates = budgetFiltered;
     }
 
-    // Filter by Safety
-    if (q.includes('safe') || q.includes('safety') || q.includes('5 star') || q.includes('5-star')) {
+    // Sorting
+    if (q.includes('safe') || q.includes('safety') || q.includes('star') || q.includes('ncap')) {
       candidates.sort((a, b) => (b.safety_rating || 0) - (a.safety_rating || 0));
-    } else if (q.includes('mileage') || q.includes('fuel efficient') || q.includes('average')) {
+    } else if (q.includes('mileage') || q.includes('fuel') || q.includes('kmpl') || q.includes('efficient')) {
       candidates.sort((a, b) => (b.mileage_kmpl || 0) - (a.mileage_kmpl || 0));
+    } else if (q.includes('cheap') || q.includes('affordable') || q.includes('budget') || q.includes('price')) {
+      candidates.sort((a, b) => a.ex_showroom_price - b.ex_showroom_price);
     } else {
       candidates.sort((a, b) => (b.popularity_score || 0) - (a.popularity_score || 0));
     }
@@ -401,215 +633,437 @@ export class RagKnowledgeEngine {
     return candidates.slice(0, maxResults);
   }
 
-  /**
-   * Main RAG Query Processor: Retrieves Knowledge, Matches Vehicles, Grounds Response
-   */
+  /** Off-topic guard: returns true if the query is automotive-related */
+  private isAutomotiveQuery(q: string): boolean {
+    // Primary automotive keywords — any match means it's on-topic
+    const AUTOMOTIVE_KEYWORDS = [
+      // Vehicle types & body styles
+      'car', 'cars', 'vehicle', 'vehicles', 'automobile', 'suv', 'suvs', 'sedan', 'sedans',
+      'hatchback', 'crossover', 'mpv', 'truck', 'pickup', 'van', 'coupe', 'convertible',
+      // Brands (India market)
+      'tata', 'hyundai', 'maruti', 'suzuki', 'mahindra', 'toyota', 'kia',
+      'honda', 'volkswagen', 'skoda', 'renault', 'nissan', 'ford', 'jeep',
+      'mg', 'bmw', 'audi', 'mercedes', 'volvo', 'lexus', 'land rover',
+      // Popular models (all 21 dataset models + common queries)
+      'nexon', 'creta', 'brezza', 'xuv', 'harrier', 'safari', 'punch',
+      'seltos', 'sonet', 'venue', 'i20', 'swift', 'baleno', 'ertiga',
+      'scorpio', 'bolero', 'innova', 'fortuner', 'glanza', 'hyryder',
+      'vitara', 'curvv', 'altroz', 'tigor', 'tiago', 'kwid', 'duster',
+      'thar', 'carens', 'alcazar', '3xo', 'xuv3xo', 'dzire', 'i10', 'nios',
+      // Powertrain & fuel
+      'petrol', 'diesel', 'electric', 'hybrid', 'ev', 'cng', 'fuel',
+      'engine', 'bhp', 'torque', 'power', 'turbo', 'arai', 'mileage',
+      'milage', 'milege', 'kmpl', 'range', 'battery', 'charging', 'fast charge', 'kwh',
+      // Transmission
+      'automatic', 'manual', 'amt', 'dct', 'dca', 'cvt', 'gearbox', 'transmission',
+      // Safety
+      'safety', 'saftey', 'airbag', 'airbags', 'ncap', 'adas', 'crash', 'esp', 'abs', 'ebd',
+      'bharat ncap', 'global ncap', 'seatbelt', 'collision',
+      // Finance
+      'emi', 'loan', 'down payment', 'interest', 'insurance', 'rto',
+      'on road', 'ex showroom', 'lakh', 'price', 'cost', 'afford', 'budget', 'rate',
+      // Buying process
+      'buy', 'purchase', 'booking', 'delivery', 'pdi', 'test drive', 'dealer',
+      'showroom', 'service', 'maintenance', 'warranty',
+      // Technical
+      'ground clearance', 'boot space', 'seating', 'sunroof', 'infotainment',
+      'horsepower', 'hp', 'cc', 'rpm', 'suspension', 'brake', 'tyre', 'wheel',
+      // Spefic typo handling
+      'spefic',
+      // Hindi / Devanagari automotive keywords
+      'कार', 'गाड़ी', 'गाड़ी', 'नेक्सॉन', 'क्रेटा', 'स्विफ्ट', 'थार', 'स्कॉर्पियो', 'पंच',
+      'ब्रेज़ा', 'ब्रेजा', 'फॉर्च्यूनर', 'इनोवा', 'बलेनो', 'माइलेज', 'कीमत', 'सुरक्षा',
+      'औसत', 'इंजन', 'बैटरी', 'रेंज', 'दाम', 'भाव',
+      // Hinglish automotive keywords
+      'gadi', 'gaadi', 'gaari', 'vahan', 'keemat', 'kimat', 'daam', 'bhav', 'suraksha',
+      'kitna deti hai', 'kitna mileage', 'kitna average',
+    ];
+
+    return AUTOMOTIVE_KEYWORDS.some((kw) => q.includes(kw));
+  }
+
+  /** Checks if query contains non-English alphabets/scripts */
+  public detectNonEnglishScript(text: string): { hasNonEnglish: boolean; scriptName?: string } {
+    if (/[\u0900-\u097F]/.test(text)) return { hasNonEnglish: true, scriptName: 'Hindi / Devanagari (हिन्दी)' };
+    if (/[\u0C00-\u0C7F]/.test(text)) return { hasNonEnglish: true, scriptName: 'Telugu (తెలుగు)' };
+    if (/[\u0B80-\u0BFF]/.test(text)) return { hasNonEnglish: true, scriptName: 'Tamil (தமிழ்)' };
+    if (/[\u0C80-\u0CFF]/.test(text)) return { hasNonEnglish: true, scriptName: 'Kannada (ಕನ್ನಡ)' };
+    if (/[\u0D00-\u0D7F]/.test(text)) return { hasNonEnglish: true, scriptName: 'Malayalam (മലയാളം)' };
+    if (/[\u0980-\u09FF]/.test(text)) return { hasNonEnglish: true, scriptName: 'Bengali (বাংলা)' };
+    if (/[\u0A80-\u0AFF]/.test(text)) return { hasNonEnglish: true, scriptName: 'Gujarati (ગુજરાતી)' };
+    if (/[\u0A00-\u0A7F]/.test(text)) return { hasNonEnglish: true, scriptName: 'Punjabi (ਪੰਜਾਬੀ)' };
+    if (/[\u0600-\u06FF]/.test(text)) return { hasNonEnglish: true, scriptName: 'Urdu / Arabic (اردو)' };
+    if (/[\u0400-\u04FF]/.test(text)) return { hasNonEnglish: true, scriptName: 'Cyrillic' };
+    if (/[\u4E00-\u9FFF\u3040-\u30FF\uAC00-\uD7AF]/.test(text)) return { hasNonEnglish: true, scriptName: 'East Asian' };
+    if (/[^\x00-\x7F\u20B9\u2605\u2022\u2014\u2013\u2018\u2019\u201C\u201D]/.test(text)) {
+      return { hasNonEnglish: true, scriptName: 'Non-English Alphabets' };
+    }
+    return { hasNonEnglish: false };
+  }
+
+  /** Full RAG query pipeline */
   public async processRagQuery(query: string, domain: RagDomain = 'all'): Promise<RagResponse> {
     const startTime = performance.now();
-    const cleanQuery = query.trim();
-    const qLower = cleanQuery.toLowerCase();
+    const q = query.toLowerCase().trim();
+    const nonEnglish = this.detectNonEnglishScript(query);
 
-    // 1. Retrieve Knowledge Chunks
-    const citations = this.searchChunks(cleanQuery, domain, 4);
-
-    // 2. Retrieve Matched Vehicles
-    const matchedVehicles = this.matchVehicles(cleanQuery, 3);
-
-    // 3. Determine Intent
-    let intent = 'recommendation';
-    if (qLower.includes('compare') || qLower.includes(' vs ') || qLower.includes('versus')) {
-      intent = 'comparison';
-    } else if (qLower.includes('emi') || qLower.includes('loan') || qLower.includes('interest') || qLower.includes('down payment')) {
-      intent = 'finance';
-    } else if (qLower.includes('safe') || qLower.includes('crash') || qLower.includes('ncap')) {
-      intent = 'safety';
-    } else if (qLower.includes('ev') || qLower.includes('electric') || qLower.includes('battery') || qLower.includes('range')) {
-      intent = 'ev_tech';
-    } else if (qLower.includes('mileage') || qLower.includes('hybrid') || qLower.includes('kmpl')) {
-      intent = 'mileage';
+    // ── GREETINGS & INTRODUCTIONS ──────────────────────────────────────────────
+    const GREETING_PATTERNS = [
+      /^hi\b/i, /^hello\b/i, /^hey\b/i, /^greetings\b/i,
+      /^good (morning|afternoon|evening)\b/i, /^namaste\b/i,
+      /^help\b/i, /^who are you\b/i, /^what can you do\b/i,
+    ];
+    if (GREETING_PATTERNS.some((p) => p.test(q))) {
+      const latencyMs = Math.max(10, Math.round(performance.now() - startTime + 8));
+      return {
+        answer:
+          `### Hello! Welcome to CarIQ AI Advisor\n\n` +
+          `I am your intelligent automotive co-pilot, powered by verified Bharat NCAP crash reports, ARAI fuel economy data, and our 21-vehicle dataset.\n\n` +
+          `**How can I help you today?**\n` +
+          `- **Specific Car Queries**: Ask *"What is the mileage of Tata Nexon?"*, *"Safety rating of Scorpio-N"*, or *"Price of Creta"*\n` +
+          `- **Head-to-Head Comparisons**: Ask *"Compare Tata Nexon vs Hyundai Creta"*\n` +
+          `- **EV Tech & Battery Life**: Ask *"Real-world highway range of Nexon EV"*\n` +
+          `- **Car Financing**: Ask *"Calculate EMI for ₹18 Lakh car with 20% down payment"*\n\n` +
+          `Feel free to ask any question about cars!`,
+        confidenceScore: 99,
+        latencyMs,
+        sources: [],
+        matchedVehicles: this.vehicles.slice(0, 3),
+        suggestedFollowups: [
+          'What is the mileage of Tata Nexon?',
+          'Compare Tata Nexon vs Hyundai Creta',
+          'Safest automatic SUV under ₹20 Lakh',
+          'Real-world highway range of Nexon EV',
+        ],
+        domainUsed: domain,
+        intent: 'greeting',
+      };
     }
 
-    // 4. Generate RAG Grounded Answer
-    const answer = this.generateGroundedAnswer(cleanQuery, intent, citations, matchedVehicles);
+    // ── NON-ENGLISH NON-AUTOMOTIVE SCRIPT GUARD ────────────────────────────────
+    // When input contains non-English alphabets and is not an automotive query
+    if (!this.isAutomotiveQuery(q) && nonEnglish.hasNonEnglish) {
+      const latencyMs = Math.max(8, Math.round(performance.now() - startTime + 5));
+      return {
+        answer:
+          `### Non-English Alphabets Detected / गैर-अंग्रेजी वर्णमाला सूचना\n\n` +
+          `Your question contains non-English alphabets (**${nonEnglish.scriptName}**).\n\n` +
+          `CarIQ AI Advisor is currently specialized for automotive queries in **English** and **Romanized text (Hinglish)**.\n\n` +
+          `- **To get verified specifications, mileage, or pricing**, please ask in English or Romanized script:\n` +
+          `  - *"What is the mileage of Tata Nexon?"* (या *"Nexon ka mileage kitna hai?"*)\n` +
+          `  - *"Tata Nexon vs Hyundai Creta"* (या *"Nexon aur Creta me kaunsi achhi hai?"*)\n` +
+          `  - *"Safest SUV under ₹20 Lakh"*\n` +
+          `  - *"Price of Mahindra Thar"* (या *"Thar ki on road price kitni hai?"*)\n\n` +
+          `> Note: You can ask directly in Hindi for any car model name like *"नेक्सॉन का माइलेज"* or *"क्रेटा की कीमत"*!`,
+        confidenceScore: 0,
+        latencyMs,
+        sources: [],
+        matchedVehicles: [],
+        suggestedFollowups: [
+          'What is the mileage of Tata Nexon?',
+          'Compare Tata Nexon vs Hyundai Creta',
+          'Safest automatic SUV under ₹20 Lakh',
+          'Calculate EMI for ₹18 Lakh car',
+        ],
+        domainUsed: domain,
+        intent: 'non_english_script',
+        isOffTopic: true,
+      };
+    }
 
-    // 5. Generate Dynamic Follow-up Suggestions
-    const suggestedFollowups = this.generateFollowups(intent, matchedVehicles, cleanQuery);
+    // ── OFF-TOPIC GUARD ───────────────────────────────────────────────────────
+    // If the question is not related to cars/automotive, return explicit notice:
+    // "it is not related to this website answer not found"
+    if (!this.isAutomotiveQuery(q)) {
+      const latencyMs = Math.max(8, Math.round(performance.now() - startTime + 5));
+      return {
+        answer:
+          `### Topic Not Found\n\n` +
+          `Your question — *"${query}"* — is not related to this website (CarIQ). Answer not found.\n\n` +
+          `CarIQ AI Advisor is specialized exclusively in:\n\n` +
+          `- Specific car model queries (mileage, engine specs, price, features)\n` +
+          `- Car buying guidance & model comparisons\n` +
+          `- Bharat NCAP / Global NCAP crash safety ratings & airbags\n` +
+          `- Real-world fuel efficiency & ARAI mileage telemetry\n` +
+          `- Electric vehicle (EV) battery degradation, range & DC fast charging\n` +
+          `- Car loan financing & EMI calculations (20/4/10 rule)\n\n` +
+          `Please ask a question related to vehicles, car models, safety, fuel economy, EV technology, or car financing.`,
+        confidenceScore: 0,
+        latencyMs,
+        sources: [],
+        matchedVehicles: [],
+        suggestedFollowups: [
+          'What is the mileage of Tata Nexon?',
+          'Compare Tata Nexon vs Hyundai Creta',
+          'Safest automatic SUV under ₹20 Lakh',
+          'Calculate EMI for ₹18 Lakh car',
+        ],
+        domainUsed: domain,
+        intent: 'off_topic',
+        isOffTopic: true,
+      };
+    }
 
-    const latencyMs = Math.round(performance.now() - startTime + 14);
-    const avgConfidence = citations.length > 0
-      ? Math.round(citations.reduce((acc, c) => acc + c.relevanceScore, 0) / citations.length)
-      : 95;
+    // ── SPECIFIC MODEL QUERY RESOLVER ─────────────────────────────────────────
+    // Handles precise questions like "mileage of nexon", "nexon ev range", etc.
+    // Skip if user explicitly asks for a comparison ("nexon vs creta")
+    const isComparison = q.includes('compare') || q.includes(' vs ') || q.includes('versus') || q.includes('difference between');
+    if (!isComparison) {
+      const specificResult = this.resolveSpecificQuery(query, q);
+      if (specificResult) {
+        const latencyMs = Math.max(12, Math.round(performance.now() - startTime + 10));
+        const sv = specificResult.vehicle;
+        const carName = `${sv.brand.name} ${sv.model_name}`;
+        return {
+          answer: specificResult.answer,
+          confidenceScore: 99,
+          latencyMs,
+          sources: [
+            {
+              document: `${sv.brand.name} ${sv.model_name} — CarIQ Verified Dataset`,
+              section: `Official OEM Specifications & ARAI Certified Data`,
+              snippet: `Ex-showroom: ₹${(sv.ex_showroom_price / 100000).toFixed(2)} Lakh | ${sv.mileage_kmpl ? `${sv.mileage_kmpl} km/l` : `${sv.ev_range_km} km range`} | ${sv.safety_rating}★ NCAP | ${sv.horsepower} bhp`,
+              relevanceScore: 99,
+              category: 'specs',
+              tags: [sv.brand.name.toLowerCase(), sv.model_name.split(' ')[0].toLowerCase(), 'verified', 'dataset'],
+            },
+          ],
+          matchedVehicles: [sv],
+          suggestedFollowups: [
+            `What is the price of ${carName}?`,
+            `${carName} safety rating and airbags`,
+            `${carName} engine and performance specs`,
+            `Compare ${sv.model_name} with top competitor`,
+          ],
+          domainUsed: domain,
+          intent: 'specific_lookup',
+        };
+      }
+    }
+
+    // Detect intent
+    let intent = 'recommendation';
+    if ((q.includes('compare') || q.includes(' vs ') || q.includes('versus') || q.includes('difference between'))) {
+      intent = 'comparison';
+    } else if (q.includes('emi') || q.includes('loan') || q.includes('interest') || q.includes('down payment') || q.includes('finance') || q.includes('afford') || q.includes('tax') || q.includes('80eeb') || q.includes('20/4/10')) {
+      intent = 'finance';
+    } else if (q.includes('safe') || q.includes('crash') || q.includes('ncap') || q.includes('airbag') || q.includes('adas') || q.includes('protection')) {
+      intent = 'safety';
+    } else if (q.includes('ev') || q.includes('electric') || q.includes('battery') || q.includes('range') || q.includes('charging') || q.includes('charging')) {
+      intent = 'ev_tech';
+    } else if (q.includes('mileage') || q.includes('hybrid') || q.includes('kmpl') || q.includes('fuel') || q.includes('economy') || q.includes('petrol') || q.includes('diesel')) {
+      intent = 'mileage';
+    } else if (q.includes('pdi') || q.includes('delivery') || q.includes('inspection') || q.includes('buying') || q.includes('purchase')) {
+      intent = 'faq';
+    }
+
+    // Override domain with detected intent when domain is 'all'
+    const effectiveDomain: RagDomain =
+      domain !== 'all' ? domain :
+      intent === 'safety' ? 'safety' :
+      intent === 'ev_tech' ? 'ev' :
+      intent === 'mileage' ? 'mileage' :
+      intent === 'finance' ? 'finance' :
+      intent === 'comparison' ? 'comparison' :
+      'all';
+
+    const citations = this.searchChunks(query, effectiveDomain, 4);
+    const matchedVehicles = this.matchVehicles(query, 3);
+    const answer = this.buildAnswer(query, intent, citations, matchedVehicles);
+    const followups = this.buildFollowups(intent, matchedVehicles, query);
+
+    const latencyMs = Math.max(18, Math.round(performance.now() - startTime + 15));
+    const avgConf = citations.length > 0
+      ? Math.round(citations.reduce((s, c) => s + c.relevanceScore, 0) / citations.length)
+      : 90;
 
     return {
       answer,
-      confidenceScore: avgConfidence,
+      confidenceScore: avgConf,
       latencyMs,
       sources: citations,
       matchedVehicles,
-      suggestedFollowups,
-      domainUsed: domain,
+      suggestedFollowups: followups,
+      domainUsed: effectiveDomain,
       intent,
     };
   }
 
-  private generateGroundedAnswer(
-    query: string,
-    intent: string,
-    citations: Citation[],
-    vehicles: Vehicle[]
-  ): string {
+  private buildAnswer(query: string, intent: string, citations: Citation[], vehicles: Vehicle[]): string {
     const q = query.toLowerCase();
 
-    // INTENT: COMPARISON
-    if (intent === 'comparison') {
-      if (vehicles.length >= 2) {
-        const v1 = vehicles[0];
-        const v2 = vehicles[1];
-        return (
-          `### ⚔️ Grounded Comparison Analysis: **${v1.brand.name} ${v1.model_name}** vs **${v2.brand.name} ${v2.model_name}**\n\n` +
-          `Based on verified ARAI telemetry and Bharat NCAP test data in the CarIQ RAG Index:\n\n` +
-          `* **Safety & Crashworthiness**: ${v1.model_name} offers **${v1.safety_rating || 5}-Star NCAP** protection with standard ${v1.safety_features?.[1] || '6 Airbags'}, while ${v2.model_name} provides **${v2.safety_rating || 5}-Star NCAP**.\n` +
-          `* **Performance & Drivetrain**: ${v1.model_name} delivers **${v1.horsepower || 120} bhp** (${v1.transmission}), compared to ${v2.model_name}'s **${v2.horsepower || 115} bhp**.\n` +
-          `* **Fuel Economy / Efficiency**: ${v1.model_name} returns **${v1.mileage_kmpl ? `${v1.mileage_kmpl} km/l` : `${v1.ev_range_km} km range`}**, while ${v2.model_name} returns **${v2.mileage_kmpl ? `${v2.mileage_kmpl} km/l` : `${v2.ev_range_km} km range`}**.\n` +
-          `* **Pricing Value**: ${v1.model_name} starts at **₹${(v1.ex_showroom_price / 100000).toFixed(2)} Lakh**, versus **₹${(v2.ex_showroom_price / 100000).toFixed(2)} Lakh** for ${v2.model_name}.\n\n` +
-          `**CarIQ Verdict**: Choose the **${v1.model_name}** if your priority is ${v1.features?.[0] || 'maximum road presence and robust structural safety'}. Choose the **${v2.model_name}** if you want ${v2.features?.[0] || 'smoother city driving and lowest long-term maintenance costs'}.`
-        );
-      }
+    if (intent === 'comparison' && vehicles.length >= 2) {
+      const v1 = vehicles[0];
+      const v2 = vehicles[1];
+      return (
+        `### Comparison: ${v1.brand.name} ${v1.model_name} vs ${v2.brand.name} ${v2.model_name}\n\n` +
+        `Based on verified ARAI telemetry and Bharat NCAP test data:\n\n` +
+        `- **Safety Rating**: ${v1.model_name} — ${v1.safety_rating || 5}★ NCAP | ${v2.model_name} — ${v2.safety_rating || 5}★ NCAP\n` +
+        `- **Power Output**: ${v1.model_name} — ${v1.horsepower || 120} bhp (${v1.transmission}) | ${v2.model_name} — ${v2.horsepower || 115} bhp\n` +
+        `- **Fuel Efficiency**: ${v1.model_name} — ${v1.mileage_kmpl ? `${v1.mileage_kmpl} km/l` : `${v1.ev_range_km || 400} km range`} | ${v2.model_name} — ${v2.mileage_kmpl ? `${v2.mileage_kmpl} km/l` : `${v2.ev_range_km || 400} km range`}\n` +
+        `- **Price**: ${v1.model_name} — ₹${(v1.ex_showroom_price / 100000).toFixed(2)} Lakh | ${v2.model_name} — ₹${(v2.ex_showroom_price / 100000).toFixed(2)} Lakh\n\n` +
+        `**Verdict**: Choose **${v1.model_name}** if you prioritize ${v1.features?.[0] || 'premium cabin tech and road presence'}. Choose **${v2.model_name}** for ${v2.features?.[0] || 'lower running cost and urban efficiency'}.`
+      );
     }
 
-    // INTENT: SAFETY
     if (intent === 'safety') {
-      const topSafe = vehicles.filter((v) => (v.safety_rating || 0) >= 5);
-      const vehicleList = topSafe.length > 0 ? topSafe : vehicles;
+      const safeList = vehicles.length > 0 ? vehicles : this.vehicles.sort((a, b) => (b.safety_rating || 0) - (a.safety_rating || 0)).slice(0, 3);
       return (
-        `### 🛡️ Verified Bharat NCAP & Crash Safety Findings\n\n` +
-        `According to the verified crash test protocols from **Bharat NCAP and Global NCAP (2024)**, occupant protection is evaluated through 64 km/h frontal offset deformable barrier impacts and 50 km/h side barrier collisions.\n\n` +
-        `**Top 5-Star Rated Recommendations Matching Your Query:**\n` +
-        vehicleList
-          .map(
-            (v) =>
-              `* **${v.brand.name} ${v.model_name}**: Rated **5 Stars** for adult protection. Features reinforced hot-stamped boron steel pillars, ${v.safety_features?.[0] || '6 Airbags Standard'}, and Electronic Stability Program (ESP) with roll-over mitigation.`
-          )
-          .join('\n') +
-        `\n\n` +
-        `> 💡 **Technical Note**: Under new 2024 testing protocols, side pole impact at 29 km/h is mandatory for 5-star ratings to verify curtain airbag protection against direct side trauma.`
+        `### Verified Bharat NCAP Crash Safety Report\n\n` +
+        `Crash testing evaluates occupant protection at **64 km/h frontal offset** and **50 km/h side barrier** impacts per Bharat NCAP 2024 protocols.\n\n` +
+        `**Top-Rated Models Matching Your Search:**\n` +
+        safeList.map(v => `- **${v.brand.name} ${v.model_name}**: ${v.safety_rating || 5}★ NCAP | ${v.safety_features?.[0] || '6 Standard Airbags'} | ${v.safety_features?.[1] || 'Electronic Stability Control'}`).join('\n') +
+        `\n\n> Note: Under 2024 protocols, side pole impact at 29 km/h is mandatory for 5-star certification to verify curtain airbag protection.`
       );
     }
 
-    // INTENT: EV & BATTERY
     if (intent === 'ev_tech') {
+      const evVehicles = vehicles.filter(v => v.fuel_type === 'electric' || (v.ev_range_km && v.ev_range_km > 0));
+      const evList = evVehicles.length > 0 ? evVehicles : vehicles;
       return (
-        `### ⚡ Verified Electric Vehicle Telemetry & Battery Health\n\n` +
-        `From our CarIQ RAG technical benchmarks on Indian EV driving conditions:\n\n` +
-        `* **Battery Longevity**: Modern Indian mass-market EVs use **LFP (Lithium-Iron-Phosphate)** prismatic cells capable of **1,500 - 2,000 charge cycles**. This yields **300,000 to 450,000 km** of real-world service life before dropping below 80% State of Health (SoH).\n` +
-        `* **Warranty Protection**: Standard OEM warranties guarantee the battery pack and PMSM drive motor for **8 Years or 160,000 km**.\n` +
-        `* **Real-World vs ARAI Range**: Expect **65% - 72% of ARAI certified range** during highway driving with full climate control (e.g. Tata Nexon EV achieves ~300 km real-world vs 465 km ARAI).\n` +
-        `* **Running Cost Advantage**: Residential AC charging costs approximately **₹1.10 - ₹1.40 per km**, generating over **₹4.5 Lakh in fuel savings** over 60,000 km compared to equivalent petrol SUVs.`
+        `### Electric Vehicle Technical Report\n\n` +
+        `From CarIQ verified EV benchmarks and Indian driving telemetry:\n\n` +
+        `- **Battery Technology**: Indian EVs use LFP (Lithium-Iron-Phosphate) prismatic cells with high thermal stability up to 55°C, supporting **1,500–2,000 full charge cycles** (300,000–450,000 km life).\n` +
+        `- **OEM Warranty**: Battery and motor covered for **8 Years or 160,000 km** across all major OEMs.\n` +
+        `- **Real-World Range**: Expect **65–72% of ARAI range** in highway conditions with full AC. The Nexon EV achieves ~300 km real-world vs 465 km ARAI certified.\n` +
+        `- **Running Cost**: Home AC charging costs **₹1.10–₹1.40/km**, saving ₹4.5+ Lakh over 60,000 km vs petrol equivalents.\n` +
+        (evList.length > 0 ? `\n**Matching EVs in Database:**\n` + evList.map(v => `- ${v.brand.name} ${v.model_name}: ${v.ev_range_km || 400} km range | ₹${(v.ex_showroom_price / 100000).toFixed(2)} Lakh`).join('\n') : '')
       );
     }
 
-    // INTENT: FINANCE & EMI
     if (intent === 'finance') {
+      const price = vehicles.length > 0 ? vehicles[0].ex_showroom_price : 1500000;
+      const downPayment = price * 0.20;
+      const loanAmount = price - downPayment;
+      const rate = 0.0899 / 12;
+      const n = 48;
+      const emi = Math.round(loanAmount * rate * Math.pow(1 + rate, n) / (Math.pow(1 + rate, n) - 1));
       return (
-        `### 💰 Automotive Financial Advisory: 20/4/10 Rule & Tax Savings\n\n` +
-        `To ensure financial sustainability, CarIQ calculates your purchase using the verified **20/4/10 Rule**:\n\n` +
-        `1. **20% Down Payment**: Protects against depreciation and immediate negative loan equity.\n` +
-        `2. **4-Year Tenure (48 Months)**: Keeps cumulative interest under 18% of the loan amount at prevailing 8.75% - 9.25% p.a. rates.\n` +
-        `3. **10% Income Cap**: Total vehicle costs (monthly EMI + fuel + insurance) should not exceed 10% of monthly household earnings.\n\n` +
-        `> 💡 **Tax Benefit for EVs**: Under **Section 80EEB**, individual taxpayers financing an electric vehicle qualify for up to **₹1,50,000 income tax deduction** on loan interest paid across the loan tenure.`
+        `### Automotive Finance Advisory\n\n` +
+        `**The 20/4/10 Rule for Smart Car Buying:**\n\n` +
+        `- **20% Down Payment**: Prevents negative equity from day-one depreciation\n` +
+        `- **4-Year Max Tenure**: Limits total interest to under 18% at 8.99% p.a.\n` +
+        `- **10% Income Ceiling**: All vehicle expenses must not exceed 10% of household income\n\n` +
+        (vehicles.length > 0 ?
+          `**Sample Calculation for ${vehicles[0].brand.name} ${vehicles[0].model_name} (₹${(price / 100000).toFixed(2)} Lakh):**\n` +
+          `- Down Payment (20%): ₹${(downPayment / 100000).toFixed(2)} Lakh\n` +
+          `- Loan Amount: ₹${(loanAmount / 100000).toFixed(2)} Lakh @ 8.99% p.a.\n` +
+          `- Monthly EMI (48 months): **₹${emi.toLocaleString('en-IN')}**\n\n`
+        : '') +
+        `> Tax Benefit (EVs only): Section 80EEB allows up to **₹1,50,000 income tax deduction** on EV loan interest paid during the tenure.`
       );
     }
 
-    // INTENT: MILEAGE & FUEL
     if (intent === 'mileage') {
       return (
-        `### ⛽ ARAI vs Real-World Fuel Economy Telemetry\n\n` +
-        `Our verified real-world telemetry logs establish the following benchmarks across Indian driving conditions:\n\n` +
-        `* **Strong Hybrid (Grand Vitara / Hyryder)**: Delivers **22 - 25 km/l in heavy city traffic** and **20 - 22 km/l on highways** by utilizing its electric e-motor for up to 55% of low-speed urban transit.\n` +
-        `* **Turbo-Petrol Automatics (Creta / Seltos / Nexon)**: Yield **11 - 13 km/l in dense bumper-to-bumper city traffic** and **16 - 18 km/l during relaxed 90 km/h expressway cruising**.\n` +
-        `* **Diesel Powertrains**: Best suited if your running exceeds **1,500 km per month**, offering consistent **19 - 22 km/l highway economy** with superior low-end pulling torque.`
+        `### Real-World vs ARAI Fuel Economy Report\n\n` +
+        `Verified benchmarks across Indian road conditions:\n\n` +
+        `- **Strong Hybrid** (Grand Vitara / Hyryder): **22–25 km/l city | 20–22 km/l highway**. Runs 50–55% urban distance in pure EV mode. No plug-in charging needed.\n` +
+        `- **Turbo-Petrol Automatic** (Creta / Seltos / Nexon): **11–13 km/l city** (stop-and-go) | **16–18 km/l highway** (90 km/h cruise).\n` +
+        `- **Diesel** (Creta / Nexon / XUV700): **19–22 km/l highway**. Break-even vs petrol at **1,500+ km/month** commute.\n` +
+        `- **Pure Electric** (Nexon EV / Punch EV): **₹1.10–1.40/km** running cost. ARAI range 65–72% achievable in highway conditions.`
       );
     }
 
-    // DEFAULT / GENERAL RECOMMENDATIONS
-    if (vehicles.length > 0) {
-      const primary = vehicles[0];
+    if (intent === 'faq') {
       return (
-        `### 🎯 CarIQ Intelligence: Verified Recommendation for "${query}"\n\n` +
-        `We cross-referenced your query across our verified database of 23 models and 9 technical engineering documents. Here is the optimal automotive match:\n\n` +
-        `#### 🥇 **${primary.brand.name} ${primary.model_name}** (Ex-Showroom: ₹${(primary.ex_showroom_price / 100000).toFixed(2)} Lakh)\n` +
-        `* **Why It Matches**: ${primary.description}\n` +
-        `* **Key Specifications**: ${primary.mileage_kmpl ? `${primary.mileage_kmpl} km/l Mileage` : `${primary.ev_range_km} km Range`} • ${primary.horsepower} bhp Power • ${primary.safety_rating || 5}★ NCAP Rating • ${primary.transmission} Transmission\n` +
-        `* **Highlights**: ${primary.features?.slice(0, 3).join(', ')}\n` +
-        `* **Verified Safety**: ${primary.safety_features?.slice(0, 3).join(', ')}\n\n` +
-        `Our RAG knowledge base confirms that this model offers the best balance of crash safety, ride compliance, and long-term resale value in this category.`
+        `### Car Buying & Pre-Delivery Inspection Guide\n\n` +
+        `Before accepting delivery of your new vehicle:\n\n` +
+        `- **Verify VIN**: Check 17-digit Vehicle Identification Number for manufacturing month and year\n` +
+        `- **Odometer Reading**: Must be under 50–70 km for genuine new delivery\n` +
+        `- **Panel Inspection**: Inspect all door gaps and paint surfaces in bright daylight for transit damage repairs\n` +
+        `- **Electrical Check**: Test AC, sunroof seals, all speakers, infotainment, camera views, and power windows\n` +
+        `- **Documentation**: Confirm original warranty booklet, toolkit, spare tire, and all accessories\n\n` +
+        `> Important: Do not release full payment or register the vehicle before completing and signing the PDI checklist.`
+      );
+    }
+
+    // Default recommendation
+    if (vehicles.length > 0) {
+      const v = vehicles[0];
+      return (
+        `### CarIQ Recommendation for "${query}"\n\n` +
+        `Based on cross-referencing our verified database of 23 models and technical manuals:\n\n` +
+        `#### Best Match: ${v.brand.name} ${v.model_name}\n` +
+        `- **Price**: ₹${(v.ex_showroom_price / 100000).toFixed(2)} Lakh ex-showroom\n` +
+        `- **Efficiency**: ${v.mileage_kmpl ? `${v.mileage_kmpl} km/l` : `${v.ev_range_km} km range`}\n` +
+        `- **Power**: ${v.horsepower || 120} bhp | ${v.transmission} transmission\n` +
+        `- **Safety**: ${v.safety_rating || 5}★ NCAP | ${v.seating_capacity}-seater\n` +
+        `- **Key Features**: ${v.features?.slice(0, 3).join(', ') || 'Premium Infotainment, ADAS, Sunroof'}\n\n` +
+        `${v.description || 'This model offers a strong balance of safety, efficiency, and premium features for Indian road conditions.'}\n\n` +
+        (vehicles.length > 1 ? `**Also Consider**: ${vehicles.slice(1).map(v2 => `${v2.brand.name} ${v2.model_name} (₹${(v2.ex_showroom_price / 100000).toFixed(2)} Lakh)`).join(', ')}` : '')
       );
     }
 
     return (
-      `### 🔍 CarIQ RAG Intelligence Insights\n\n` +
-      `We analyzed our verified automotive knowledge base regarding your question: *"${query}"*.\n\n` +
-      `* **Safety Protocol**: All recommendations comply with 2024 Bharat NCAP and Global NCAP 5-star crash testing guidelines.\n` +
-      `* **Telemetry Grounding**: Real-world mileage figures are normalized against ARAI certified laboratory numbers to give you accurate ownership projections.\n` +
-      `* **Total Cost of Ownership**: Maintenance estimates factor in 5-year scheduled service intervals, parts availability, and warranty conditions.\n\n` +
-      `Feel free to ask for a specific comparison, EMI calculation, or crash test breakdown!`
+      `### CarIQ Intelligence Response\n\n` +
+      `I analyzed our verified automotive knowledge base for: "${query}"\n\n` +
+      `Our database covers 23 verified models across Tata, Hyundai, Maruti Suzuki, Mahindra, Toyota, and Kia with full NCAP, ARAI, and OEM spec data.\n\n` +
+      `Try asking about:\n` +
+      `- Specific models: "Tell me about Tata Nexon safety"\n` +
+      `- Comparisons: "Nexon vs Creta"\n` +
+      `- Budget: "SUV under 15 lakh automatic"\n` +
+      `- Finance: "EMI calculation for 18 lakh car"`
     );
   }
 
-  private generateFollowups(intent: string, vehicles: Vehicle[], query: string): string[] {
-    const primary = vehicles[0];
-    const secondary = vehicles[1];
+  private buildFollowups(intent: string, vehicles: Vehicle[], query: string): string[] {
+    const v1 = vehicles[0];
+    const v2 = vehicles[1];
 
-    if (intent === 'comparison' && primary && secondary) {
+    if (intent === 'comparison' && v1 && v2) {
       return [
-        `What is the 5-year maintenance cost of ${primary.model_name}?`,
-        `Calculate monthly EMI for ${secondary.model_name}`,
-        `Show real-world fuel economy in bumper-to-bumper city traffic`,
-        `Compare boot space and rear seat legroom`,
+        `What are the long-term maintenance costs of ${v1.model_name}?`,
+        `Calculate 48-month EMI for ${v2.model_name}`,
+        `Which has better real-world city mileage?`,
+        `${v1.model_name} vs ${v2.model_name}: boot space and legroom`,
       ];
     }
-
     if (intent === 'safety') {
       return [
-        `Which car has Level 2 ADAS under 20 Lakh?`,
-        `Difference between Bharat NCAP and Global NCAP?`,
-        `Does 6 airbags come standard on base variants?`,
-        `What is the crash test score of Tata Nexon vs Creta?`,
+        `Which SUVs have Level 2 ADAS under ₹20 Lakh?`,
+        `Bharat NCAP vs Global NCAP: what is the difference?`,
+        `Do base variants include 6 airbags as standard?`,
+        `Tata Nexon vs Hyundai Creta crash test score comparison`,
       ];
     }
-
     if (intent === 'ev_tech') {
       return [
-        `How long does the battery last in Indian summer heat?`,
-        `Real-world highway range of Tata Nexon EV at 100 km/h`,
+        `Real-world highway range of Nexon EV at 100 km/h`,
         `How to claim Section 80EEB tax rebate on EV loan?`,
-        `Cost of installing a 7.2 kW home AC fast charger`,
+        `Does fast charging degrade LFP battery over time?`,
+        `Cost of installing a 7.2 kW home AC charger in India`,
       ];
     }
-
     if (intent === 'finance') {
       return [
-        `Calculate EMI for ₹15 Lakh car with 20% down payment`,
-        `Is an 8-year car loan a smart financial decision?`,
-        `What are the hidden on-road price charges to avoid?`,
-        `Compare car lease vs loan for salaried employees`,
+        `Calculate EMI for ₹20 Lakh car with 20% down payment`,
+        `Is a 7-year car loan a smart financial decision?`,
+        `What are hidden on-road price charges to watch out for?`,
+        `EV loan vs petrol car loan: which saves more over 5 years?`,
       ];
     }
-
-    if (primary) {
+    if (intent === 'mileage') {
       return [
-        `Compare ${primary.model_name} with top segment competitor`,
-        `What is the real-world mileage of ${primary.model_name}?`,
-        `Calculate 48-month EMI for ${primary.model_name}`,
-        `What are the verified pros and cons of ${primary.model_name}?`,
+        `Strong Hybrid vs diesel: which is better for 2,000 km/month?`,
+        `Real-world city mileage of Hyundai Creta Turbo in traffic`,
+        `Maruti Grand Vitara hybrid vs Toyota Hyryder: which is better?`,
+        `What is the break-even km/month for diesel over petrol?`,
       ];
     }
-
+    if (v1) {
+      return [
+        `Compare ${v1.model_name} with the top segment competitor`,
+        `Real-world mileage of ${v1.model_name} in Indian city traffic`,
+        `Calculate 48-month EMI for ${v1.model_name}`,
+        `${v1.model_name} pros, cons, and 5-year maintenance estimate`,
+      ];
+    }
     return [
-      `Safest family SUV under 20 Lakh with 5-Star NCAP`,
-      `Best strong hybrid car for high daily city commute`,
-      `Tata Nexon vs Hyundai Creta detailed comparison`,
-      `Explain the 20/4/10 car buying rule`,
+      `Safest automatic SUV under ₹20 Lakh`,
+      `Compare Tata Nexon vs Hyundai Creta`,
+      `Best EV with 300+ km real-world range`,
+      `Explain the 20/4/10 car loan rule`,
     ];
   }
 
@@ -622,10 +1076,13 @@ export class RagKnowledgeEngine {
   }
 }
 
+// Minimal stop-word set — keep automotive terms
 const STOP_WORDS = new Set([
-  'the', 'and', 'for', 'with', 'that', 'this', 'from', 'have', 'are', 'was', 'were', 'will',
-  'what', 'which', 'who', 'how', 'when', 'where', 'why', 'can', 'could', 'should', 'would',
-  'about', 'into', 'over', 'after', 'under', 'give', 'tell', 'show', 'please', 'car', 'cars',
+  'the', 'and', 'for', 'with', 'that', 'this', 'from', 'have', 'are', 'was',
+  'were', 'will', 'what', 'which', 'who', 'how', 'when', 'where', 'why',
+  'can', 'could', 'should', 'would', 'about', 'into', 'over', 'after',
+  'give', 'tell', 'show', 'please', 'does', 'its', 'per', 'than', 'more',
+  'all', 'any', 'some', 'has', 'had', 'been', 'not', 'also',
 ]);
 
 export const ragEngine = new RagKnowledgeEngine();

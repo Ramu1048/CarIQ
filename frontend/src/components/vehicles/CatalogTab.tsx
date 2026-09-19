@@ -1,4 +1,4 @@
-﻿import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo } from 'react';
 import {
   Box,
   Container,
@@ -59,22 +59,22 @@ const FUEL_OPTIONS = ['petrol', 'diesel', 'cng', 'ev', 'hybrid'];
 const BODY_OPTIONS = ['suv', 'sedan', 'hatchback', 'muv'];
 const TRANSMISSION_OPTIONS = ['manual', 'automatic'];
 
-// Per-brand accent colors
-const BRAND_COLORS: Record<string, { from: string; to: string; border: string }> = {
-  'Tata Motors':   { from: '#0f2d6e', to: '#1a4599', border: '#3b82f6' },
-  'Hyundai':       { from: '#002c5f', to: '#003f85', border: '#60a5fa' },
-  'Maruti Suzuki': { from: '#1a1a2e', to: '#16213e', border: '#f87171' },
-  'Mahindra':      { from: '#6b0000', to: '#9b1515', border: '#ef4444' },
-  'Honda':         { from: '#7b0000', to: '#cc0000', border: '#fca5a5' },
-  'Toyota':        { from: '#1a0a00', to: '#3d1a00', border: '#fbbf24' },
-  'Kia':           { from: '#05141f', to: '#0a2540', border: '#22d3ee' },
-  'MG Motors':     { from: '#4a0f14', to: '#7a1520', border: '#fb7185' },
-  'Volkswagen':    { from: '#001030', to: '#001e50', border: '#a5b4fc' },
-  'Skoda':         { from: '#0a1f0a', to: '#1e4620', border: '#4ade80' },
-  'Renault':       { from: '#1a1400', to: '#2e2400', border: '#fde047' },
-  'Jeep':          { from: '#0d1b2a', to: '#1b2e45', border: '#34d399' },
+// Per-brand accent colors (professional light palette)
+const BRAND_COLORS: Record<string, { accent: string; bg: string; border: string }> = {
+  'Tata Motors':   { accent: '#1e40af', bg: '#eff6ff', border: '#bfdbfe' },
+  'Hyundai':       { accent: '#1e3a5f', bg: '#f0f6ff', border: '#c7d7eb' },
+  'Maruti Suzuki': { accent: '#b45309', bg: '#fffbeb', border: '#fde68a' },
+  'Mahindra':      { accent: '#dc2626', bg: '#fef2f2', border: '#fecaca' },
+  'Honda':         { accent: '#9f1239', bg: '#fff1f2', border: '#fecdd3' },
+  'Toyota':        { accent: '#92400e', bg: '#fffbeb', border: '#fde68a' },
+  'Kia':           { accent: '#0e7490', bg: '#ecfeff', border: '#a5f3fc' },
+  'MG Motors':     { accent: '#7c3aed', bg: '#f5f3ff', border: '#ddd6fe' },
+  'Volkswagen':    { accent: '#1e3a5f', bg: '#eff6ff', border: '#bfdbfe' },
+  'Skoda':         { accent: '#065f46', bg: '#f0fdf4', border: '#bbf7d0' },
+  'Renault':       { accent: '#b45309', bg: '#fffbeb', border: '#fde68a' },
+  'Jeep':          { accent: '#065f46', bg: '#f0fdf4', border: '#bbf7d0' },
 };
-const DEFAULT_COLOR = { from: '#0f172a', to: '#1e293b', border: '#63b3ed' };
+const DEFAULT_COLOR = { accent: '#1e3a5f', bg: '#eff6ff', border: '#bfdbfe' };
 
 export const CatalogTab: React.FC<CatalogTabProps> = ({
   vehicles,
@@ -176,40 +176,31 @@ export const CatalogTab: React.FC<CatalogTabProps> = ({
     clearFilters();
   };
 
-  // â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”
-  // PHASE 1 â€” BRAND GRID
-  // â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”
+  // ==========================================
+  // PHASE 1 — BRAND GRID
+  // ==========================================
   if (!selectedBrand) {
     return (
-      <Container maxWidth="xl" sx={{ py: 4 }}>
+      <Container maxWidth="xl" sx={{ py: 6, bgcolor: '#f8fafc', minHeight: '100vh' }}>
         {/* Header */}
-        <Box sx={{ mb: 5, textAlign: 'center' }}>
+        <Box sx={{ mb: 6, textAlign: 'center' }}>
           <Chip
-            label="ðŸ­ CHOOSE A BRAND"
+            label="BROWSE BY MANUFACTURER"
             size="small"
             sx={{
-              bgcolor: 'rgba(99,179,237,0.12)',
-              color: '#63b3ed',
-              fontWeight: 800,
-              letterSpacing: 1.5,
-              fontSize: '0.7rem',
-              border: '1px solid rgba(99,179,237,0.25)',
-              mb: 1.5,
+              bgcolor: '#eff6ff',
+              color: '#1e3a5f',
+              fontWeight: 700,
+              letterSpacing: 1.2,
+              fontSize: '0.68rem',
+              border: '1px solid #bfdbfe',
+              mb: 2,
             }}
           />
-          <Typography
-            variant="h3"
-            sx={{
-              fontWeight: 900,
-              background: 'linear-gradient(135deg, #ffffff 0%, #63b3ed 60%, #a855f7 100%)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              mb: 1,
-            }}
-          >
+          <Typography variant="h3" sx={{ fontWeight: 900, color: '#0f172a', mb: 1.5 }}>
             Discover by Brand
           </Typography>
-          <Typography variant="body1" sx={{ color: '#64748b', maxWidth: 520, mx: 'auto' }}>
+          <Typography variant="body1" sx={{ color: '#64748b', maxWidth: 500, mx: 'auto', lineHeight: 1.7 }}>
             Select a manufacturer to explore all its models, compare specs, and find your perfect car.
           </Typography>
         </Box>
@@ -218,47 +209,45 @@ export const CatalogTab: React.FC<CatalogTabProps> = ({
         <Box
           onClick={() => handleBrandSelect('ALL')}
           sx={{
-            mb: 3,
+            mb: 4,
             p: 3,
-            borderRadius: '20px',
-            background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)',
-            border: '1px solid rgba(99,179,237,0.18)',
+            borderRadius: '16px',
+            bgcolor: '#ffffff',
+            border: '1.5px solid #e2e8f0',
+            boxShadow: '0 2px 12px rgba(15,23,42,0.06)',
             display: 'flex',
             alignItems: 'center',
             gap: 3,
             cursor: 'pointer',
             transition: 'all 0.25s ease',
             '&:hover': {
-              border: '1px solid #63b3ed',
-              boxShadow: '0 0 30px rgba(99,179,237,0.12)',
+              borderColor: '#1e3a5f',
+              boxShadow: '0 8px 24px rgba(30,58,95,0.1)',
               transform: 'translateY(-2px)',
             },
           }}
         >
           <Box
             sx={{
-              width: 60,
-              height: 60,
+              width: 56,
+              height: 56,
               borderRadius: '14px',
-              background: 'linear-gradient(135deg, #3b82f6, #8b5cf6)',
+              background: 'linear-gradient(135deg, #1e3a5f 0%, #2d5a9e 100%)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               flexShrink: 0,
             }}
           >
-            <AppsIcon sx={{ fontSize: 28, color: '#fff' }} />
+            <AppsIcon sx={{ fontSize: 26, color: '#fff' }} />
           </Box>
           <Box sx={{ flex: 1 }}>
-            <Typography variant="h6" sx={{ fontWeight: 800, color: '#f1f5f9' }}>All Brands</Typography>
+            <Typography variant="h6" sx={{ fontWeight: 800, color: '#0f172a' }}>All Brands</Typography>
             <Typography variant="body2" sx={{ color: '#64748b' }}>
               Browse all {vehicles.length} vehicles across {brands.length} manufacturers
             </Typography>
           </Box>
-          <Chip
-            label={`${vehicles.length} cars`}
-            sx={{ bgcolor: 'rgba(99,179,237,0.12)', color: '#63b3ed', fontWeight: 700 }}
-          />
+          <Chip label={`${vehicles.length} cars`} sx={{ bgcolor: '#eff6ff', color: '#1e3a5f', fontWeight: 700, border: '1px solid #bfdbfe' }} />
         </Box>
 
         {/* Brand cards */}
@@ -270,31 +259,32 @@ export const CatalogTab: React.FC<CatalogTabProps> = ({
                 <Box
                   onClick={() => handleBrandSelect(brand.name)}
                   sx={{
-                    borderRadius: '24px',
+                    borderRadius: '20px',
                     overflow: 'hidden',
                     cursor: 'pointer',
                     position: 'relative',
-                    border: `1px solid ${c.border}28`,
-                    background: `linear-gradient(135deg, ${c.from} 0%, ${c.to} 100%)`,
+                    bgcolor: '#ffffff',
+                    border: `1.5px solid ${c.border}`,
+                    boxShadow: '0 2px 10px rgba(15,23,42,0.05)',
                     transition: 'all 0.3s cubic-bezier(0.4,0,0.2,1)',
                     '&:hover': {
                       transform: 'translateY(-5px)',
-                      border: `1px solid ${c.border}70`,
-                      boxShadow: `0 16px 48px ${c.border}22`,
+                      boxShadow: `0 16px 40px ${c.border}88`,
+                      borderColor: c.accent,
                     },
-                    '&:hover .brand-img': { transform: 'scale(1.08) translateX(-5px)' },
+                    '&:hover .brand-img': { transform: 'scale(1.06)' },
                   }}
                 >
                   {/* Car image area */}
                   <Box
                     sx={{
-                      height: 165,
+                      height: 170,
                       position: 'relative',
                       overflow: 'hidden',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
-                      background: `radial-gradient(circle at 70% 50%, ${c.border}12 0%, transparent 70%)`,
+                      bgcolor: c.bg,
                     }}
                   >
                     <Box
@@ -304,70 +294,57 @@ export const CatalogTab: React.FC<CatalogTabProps> = ({
                       className="brand-img"
                       onError={(e: any) => { e.target.onerror = null; e.target.src = '/images/cars/creta.png'; }}
                       sx={{
-                        height: '88%',
-                        maxWidth: '88%',
+                        height: '85%',
+                        maxWidth: '90%',
                         objectFit: 'contain',
                         transition: 'transform 0.4s ease',
-                        filter: `drop-shadow(0 10px 24px ${c.border}40)`,
+                        filter: 'drop-shadow(0 8px 16px rgba(15,23,42,0.12))',
                       }}
                     />
 
                     {/* Model count badge */}
-                    <Box
-                      sx={{
-                        position: 'absolute', top: 12, right: 12,
-                        bgcolor: `${c.border}22`, backdropFilter: 'blur(8px)',
-                        border: `1px solid ${c.border}38`, px: 1.2, py: 0.4, borderRadius: '20px',
-                      }}
-                    >
-                      <Typography sx={{ fontSize: '0.68rem', fontWeight: 800, color: c.border }}>
+                    <Box sx={{ position: 'absolute', top: 12, right: 12, bgcolor: '#ffffff', border: `1px solid ${c.border}`, px: 1.2, py: 0.4, borderRadius: '20px', boxShadow: '0 1px 4px rgba(15,23,42,0.1)' }}>
+                      <Typography sx={{ fontSize: '0.66rem', fontWeight: 700, color: c.accent }}>
                         {brand.count} {brand.count === 1 ? 'model' : 'models'}
                       </Typography>
                     </Box>
 
                     {/* EV badge */}
                     {brand.hasEV && (
-                      <Box
-                        sx={{
-                          position: 'absolute', top: 12, left: 12,
-                          bgcolor: 'rgba(74,222,128,0.14)', border: '1px solid rgba(74,222,128,0.38)',
-                          px: 1, py: 0.3, borderRadius: '20px',
-                          display: 'flex', alignItems: 'center', gap: 0.4,
-                        }}
-                      >
-                        <ElectricBoltIcon sx={{ fontSize: 11, color: '#4ade80' }} />
-                        <Typography sx={{ fontSize: '0.64rem', fontWeight: 800, color: '#4ade80' }}>EV</Typography>
+                      <Box sx={{ position: 'absolute', top: 12, left: 12, bgcolor: '#f0fdf4', border: '1px solid #bbf7d0', px: 1, py: 0.3, borderRadius: '20px', display: 'flex', alignItems: 'center', gap: 0.4 }}>
+                        <ElectricBoltIcon sx={{ fontSize: 11, color: '#10b981' }} />
+                        <Typography sx={{ fontSize: '0.62rem', fontWeight: 700, color: '#10b981' }}>EV</Typography>
                       </Box>
                     )}
                   </Box>
 
                   {/* Brand info */}
-                  <Box sx={{ px: 2.5, py: 2, borderTop: `1px solid ${c.border}18` }}>
-                    <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 0.6 }}>
-                      <Typography variant="h6" sx={{ fontWeight: 900, color: '#f1f5f9', fontSize: '1.05rem' }}>
+                  <Box sx={{ px: 2.5, py: 2, borderTop: `1px solid ${c.border}` }}>
+                    <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 0.5 }}>
+                      <Typography variant="h6" sx={{ fontWeight: 800, color: '#0f172a', fontSize: '1rem' }}>
                         {brand.name}
                       </Typography>
                       <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.4 }}>
-                        <SecurityIcon sx={{ fontSize: 13, color: '#fbbf24' }} />
-                        <Typography sx={{ fontSize: '0.7rem', fontWeight: 700, color: '#fbbf24' }}>
-                          {brand.maxSafety}â˜…
+                        <SecurityIcon sx={{ fontSize: 13, color: '#f59e0b' }} />
+                        <Typography sx={{ fontSize: '0.7rem', fontWeight: 700, color: '#f59e0b' }}>
+                          {brand.maxSafety}★
                         </Typography>
                       </Box>
                     </Box>
                     <Typography variant="body2" sx={{ color: '#64748b', fontSize: '0.78rem', mb: 2 }}>
-                      â‚¹{(brand.minPrice / 100000).toFixed(1)}L â€“ â‚¹{(brand.maxPrice / 100000).toFixed(1)}L
+                      ₹{(brand.minPrice / 100000).toFixed(1)}L – ₹{(brand.maxPrice / 100000).toFixed(1)}L
                     </Typography>
 
                     <Box
                       sx={{
-                        py: 0.9, textAlign: 'center', borderRadius: '10px',
-                        background: `linear-gradient(135deg, ${c.border}16, ${c.border}06)`,
-                        border: `1px solid ${c.border}28`,
-                        '&:hover': { background: `linear-gradient(135deg, ${c.border}28, ${c.border}12)` },
+                        py: 1, textAlign: 'center', borderRadius: '10px',
+                        bgcolor: c.bg,
+                        border: `1px solid ${c.border}`,
+                        '&:hover': { bgcolor: c.border },
                       }}
                     >
-                      <Typography sx={{ fontSize: '0.72rem', fontWeight: 800, color: c.border, letterSpacing: 0.8 }}>
-                        EXPLORE {brand.count} VEHICLES â†’
+                      <Typography sx={{ fontSize: '0.72rem', fontWeight: 700, color: c.accent, letterSpacing: 0.6 }}>
+                        EXPLORE {brand.count} VEHICLES →
                       </Typography>
                     </Box>
                   </Box>
@@ -380,23 +357,23 @@ export const CatalogTab: React.FC<CatalogTabProps> = ({
     );
   }
 
-  // â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”
-  // PHASE 2 â€” BRAND VEHICLES
-  // â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”
+  // ==========================================
+  // PHASE 2 — BRAND VEHICLES
+  // ==========================================
   const bc = BRAND_COLORS[selectedBrand] || DEFAULT_COLOR;
 
   return (
-    <Container maxWidth="xl" sx={{ py: 4 }}>
+    <Container maxWidth="xl" sx={{ py: 4, bgcolor: '#f8fafc', minHeight: '100vh' }}>
       {/* Back + Title row */}
       <Box sx={{ mb: 4 }}>
         <Button
           startIcon={<ArrowBackIcon />}
           onClick={handleBack}
           sx={{
-            color: '#63b3ed', fontWeight: 700, mb: 2, px: 2, py: 0.8,
-            borderRadius: '10px', bgcolor: 'rgba(99,179,237,0.08)',
-            border: '1px solid rgba(99,179,237,0.2)',
-            '&:hover': { bgcolor: 'rgba(99,179,237,0.15)' },
+            color: '#1e3a5f', fontWeight: 700, mb: 2, px: 2, py: 0.8,
+            borderRadius: '10px', bgcolor: '#eff6ff',
+            border: '1px solid #bfdbfe',
+            '&:hover': { bgcolor: '#dbeafe', borderColor: '#1e3a5f' },
           }}
         >
           All Brands
@@ -404,17 +381,7 @@ export const CatalogTab: React.FC<CatalogTabProps> = ({
 
         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 2 }}>
           <Box>
-            <Typography
-              variant="h4"
-              sx={{
-                fontWeight: 900,
-                background: selectedBrand === 'ALL'
-                  ? 'linear-gradient(135deg, #ffffff 0%, #63b3ed 100%)'
-                  : `linear-gradient(135deg, #ffffff 0%, ${bc.border} 100%)`,
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-              }}
-            >
+            <Typography variant="h4" sx={{ fontWeight: 900, color: '#0f172a' }}>
               {selectedBrand === 'ALL' ? 'All Vehicles' : `${selectedBrand} Vehicles`}
             </Typography>
             <Typography variant="body2" sx={{ color: '#64748b', mt: 0.3 }}>
@@ -440,16 +407,17 @@ export const CatalogTab: React.FC<CatalogTabProps> = ({
         <Grid size={{ xs: 12, md: 3.5 }}>
           <Paper
             sx={{
-              p: 3, borderRadius: '20px',
-              border: `1px solid ${bc.border}22`,
+              p: 3, borderRadius: '16px',
+              border: '1.5px solid #e2e8f0',
+              boxShadow: '0 2px 12px rgba(15,23,42,0.06)',
               position: 'sticky', top: 90,
             }}
           >
-            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
-              <Typography variant="h6" sx={{ fontWeight: 700, display: 'flex', alignItems: 'center', gap: 1 }}>
-                <FilterListIcon sx={{ color: bc.border }} /> Filters
+            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2.5 }}>
+              <Typography variant="h6" sx={{ fontWeight: 700, color: '#0f172a', display: 'flex', alignItems: 'center', gap: 1 }}>
+                <FilterListIcon sx={{ color: '#1e3a5f', fontSize: 20 }} /> Filters
               </Typography>
-              <Button size="small" onClick={clearFilters} sx={{ color: bc.border }}>Reset All</Button>
+              <Button size="small" onClick={clearFilters} sx={{ color: '#64748b', fontWeight: 600, '&:hover': { color: '#1e3a5f' } }}>Reset</Button>
             </Box>
 
             <TextField
@@ -460,53 +428,52 @@ export const CatalogTab: React.FC<CatalogTabProps> = ({
             />
 
             <Box sx={{ mb: 3 }}>
-              <Typography variant="body2" sx={{ fontWeight: 600, mb: 1 }}>Price Range</Typography>
+              <Typography variant="body2" sx={{ fontWeight: 600, mb: 1.5, color: '#374151' }}>Price Range</Typography>
               <Slider
                 value={priceRange} onChange={(_, v) => setPriceRange(v as number[])}
                 min={500000} max={4000000} step={50000}
-                valueLabelDisplay="auto" valueLabelFormat={(v) => `â‚¹${(v / 100000).toFixed(1)}L`}
-                sx={{ color: bc.border }}
+                valueLabelDisplay="auto" valueLabelFormat={(v) => `₹${(v / 100000).toFixed(1)}L`}
               />
               <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                <Typography variant="caption" sx={{ color: 'text.secondary' }}>â‚¹{(priceRange[0] / 100000).toFixed(1)}L</Typography>
-                <Typography variant="caption" sx={{ color: 'text.secondary' }}>â‚¹{(priceRange[1] / 100000).toFixed(1)}L</Typography>
+                <Typography variant="caption" sx={{ color: '#64748b', fontWeight: 600 }}>₹{(priceRange[0] / 100000).toFixed(1)}L</Typography>
+                <Typography variant="caption" sx={{ color: '#64748b', fontWeight: 600 }}>₹{(priceRange[1] / 100000).toFixed(1)}L</Typography>
               </Box>
             </Box>
 
             <Box sx={{ mb: 3 }}>
-              <Typography variant="body2" sx={{ fontWeight: 600, mb: 1 }}>Fuel Type</Typography>
+              <Typography variant="body2" sx={{ fontWeight: 600, mb: 1.5, color: '#374151' }}>Fuel Type</Typography>
               <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.8 }}>
                 {FUEL_OPTIONS.map((fuel) => {
                   const sel = selectedFuels.includes(fuel);
                   return (
                     <Chip key={fuel} label={fuel.toUpperCase()} size="small" clickable onClick={() => handleFuelToggle(fuel)}
-                      sx={{ bgcolor: sel ? bc.border : 'rgba(255,255,255,0.05)', color: sel ? '#000' : 'text.primary', fontWeight: sel ? 700 : 500, border: sel ? `1px solid ${bc.border}` : '1px solid rgba(255,255,255,0.1)' }} />
+                      sx={{ bgcolor: sel ? '#1e3a5f' : '#f8fafc', color: sel ? '#fff' : '#475569', fontWeight: sel ? 700 : 500, border: sel ? '1px solid #1e3a5f' : '1px solid #e2e8f0', '&:hover': { borderColor: '#1e3a5f', color: sel ? '#fff' : '#1e3a5f' } }} />
                   );
                 })}
               </Box>
             </Box>
 
             <Box sx={{ mb: 3 }}>
-              <Typography variant="body2" sx={{ fontWeight: 600, mb: 1 }}>Body Style</Typography>
+              <Typography variant="body2" sx={{ fontWeight: 600, mb: 1.5, color: '#374151' }}>Body Style</Typography>
               <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.8 }}>
                 {BODY_OPTIONS.map((body) => {
                   const sel = selectedBodies.includes(body);
                   return (
                     <Chip key={body} label={body.toUpperCase()} size="small" clickable onClick={() => handleBodyToggle(body)}
-                      sx={{ bgcolor: sel ? bc.border : 'rgba(255,255,255,0.05)', color: sel ? '#000' : 'text.primary', fontWeight: sel ? 700 : 500, border: sel ? `1px solid ${bc.border}` : '1px solid rgba(255,255,255,0.1)' }} />
+                      sx={{ bgcolor: sel ? '#1e3a5f' : '#f8fafc', color: sel ? '#fff' : '#475569', fontWeight: sel ? 700 : 500, border: sel ? '1px solid #1e3a5f' : '1px solid #e2e8f0', '&:hover': { borderColor: '#1e3a5f', color: sel ? '#fff' : '#1e3a5f' } }} />
                   );
                 })}
               </Box>
             </Box>
 
             <Box sx={{ mb: 3 }}>
-              <Typography variant="body2" sx={{ fontWeight: 600, mb: 1 }}>Transmission</Typography>
+              <Typography variant="body2" sx={{ fontWeight: 600, mb: 1.5, color: '#374151' }}>Transmission</Typography>
               <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.8 }}>
                 {TRANSMISSION_OPTIONS.map((tr) => {
                   const sel = selectedTransmissions.includes(tr);
                   return (
                     <Chip key={tr} label={tr.toUpperCase()} size="small" clickable onClick={() => handleTransmissionToggle(tr)}
-                      sx={{ bgcolor: sel ? bc.border : 'rgba(255,255,255,0.05)', color: sel ? '#000' : 'text.primary', fontWeight: sel ? 700 : 500, border: sel ? `1px solid ${bc.border}` : '1px solid rgba(255,255,255,0.1)' }} />
+                      sx={{ bgcolor: sel ? '#1e3a5f' : '#f8fafc', color: sel ? '#fff' : '#475569', fontWeight: sel ? 700 : 500, border: sel ? '1px solid #1e3a5f' : '1px solid #e2e8f0', '&:hover': { borderColor: '#1e3a5f', color: sel ? '#fff' : '#1e3a5f' } }} />
                   );
                 })}
               </Box>
@@ -514,8 +481,8 @@ export const CatalogTab: React.FC<CatalogTabProps> = ({
 
             <FormGroup>
               <FormControlLabel
-                control={<Checkbox checked={sunroofOnly} onChange={(e) => setSunroofOnly(e.target.checked)} sx={{ color: bc.border, '&.Mui-checked': { color: bc.border } }} />}
-                label={<Typography variant="body2">Sunroof Only</Typography>}
+                control={<Checkbox checked={sunroofOnly} onChange={(e) => setSunroofOnly(e.target.checked)} sx={{ color: '#1e3a5f', '&.Mui-checked': { color: '#1e3a5f' } }} />}
+                label={<Typography variant="body2" sx={{ color: '#374151' }}>Sunroof Only</Typography>}
               />
             </FormGroup>
           </Paper>
@@ -542,78 +509,78 @@ export const CatalogTab: React.FC<CatalogTabProps> = ({
                     <Card
                       sx={{
                         height: '100%', display: 'flex', flexDirection: 'column',
-                        position: 'relative', borderRadius: '20px',
-                        border: `1px solid ${bc.border}18`,
+                        position: 'relative', borderRadius: '16px',
+                        border: '1.5px solid #e2e8f0',
                         transition: 'all 0.25s ease',
-                        '&:hover': { border: `1px solid ${bc.border}55`, boxShadow: `0 8px 32px ${bc.border}12`, transform: 'translateY(-3px)' },
+                        '&:hover': { borderColor: '#c7d7eb', boxShadow: '0 8px 28px rgba(30,58,95,0.1)', transform: 'translateY(-3px)' },
                       }}
                     >
                       {/* Floating icons */}
                       <Box sx={{ position: 'absolute', top: 12, right: 12, zIndex: 5, display: 'flex', gap: 0.5 }}>
                         <Tooltip title={inCompare ? 'Remove from Compare' : 'Add to Compare'}>
                           <IconButton size="small" onClick={() => toggleCompare(vehicle)}
-                            sx={{ bgcolor: inCompare ? bc.border : 'rgba(15,23,42,0.75)', color: inCompare ? '#000' : '#fff', backdropFilter: 'blur(8px)', '&:hover': { bgcolor: bc.border, color: '#000' } }}>
+                            sx={{ bgcolor: inCompare ? '#1e3a5f' : 'rgba(255,255,255,0.92)', color: inCompare ? '#fff' : '#475569', boxShadow: '0 2px 6px rgba(15,23,42,0.12)', '&:hover': { bgcolor: '#1e3a5f', color: '#fff' } }}>
                             <CompareArrowsIcon fontSize="small" />
                           </IconButton>
                         </Tooltip>
-                        <Tooltip title={inWishlist ? 'Remove from Wishlist' : 'Add to Wishlist'}>
+                        <Tooltip title={inWishlist ? 'Remove from Wishlist' : 'Save to Wishlist'}>
                           <IconButton size="small" onClick={() => inWishlist ? removeFromWishlist(vehicle.id) : addToWishlist(vehicle)}
-                            sx={{ bgcolor: inWishlist ? '#ff3366' : 'rgba(15,23,42,0.75)', color: '#fff', backdropFilter: 'blur(8px)', '&:hover': { bgcolor: '#ff3366' } }}>
+                            sx={{ bgcolor: inWishlist ? '#fef2f2' : 'rgba(255,255,255,0.92)', color: inWishlist ? '#ef4444' : '#475569', boxShadow: '0 2px 6px rgba(15,23,42,0.12)', '&:hover': { bgcolor: '#fef2f2', color: '#ef4444' } }}>
                             {inWishlist ? <FavoriteIcon fontSize="small" /> : <FavoriteBorderIcon fontSize="small" />}
                           </IconButton>
                         </Tooltip>
                       </Box>
 
                       {isEV && (
-                        <Box sx={{ position: 'absolute', top: 12, left: 12, zIndex: 5, bgcolor: 'rgba(74,222,128,0.14)', border: '1px solid rgba(74,222,128,0.38)', px: 1, py: 0.3, borderRadius: '20px', display: 'flex', alignItems: 'center', gap: 0.4 }}>
-                          <ElectricBoltIcon sx={{ fontSize: 11, color: '#4ade80' }} />
-                          <Typography sx={{ fontSize: '0.64rem', fontWeight: 800, color: '#4ade80' }}>EV</Typography>
+                        <Box sx={{ position: 'absolute', top: 12, left: 12, zIndex: 5, bgcolor: '#f0fdf4', border: '1px solid #bbf7d0', px: 1, py: 0.3, borderRadius: '20px', display: 'flex', alignItems: 'center', gap: 0.4 }}>
+                          <ElectricBoltIcon sx={{ fontSize: 11, color: '#10b981' }} />
+                          <Typography sx={{ fontSize: '0.62rem', fontWeight: 700, color: '#10b981' }}>EV</Typography>
                         </Box>
                       )}
 
                       <CardMedia
-                        component="img" height="190"
+                        component="img" height="185"
                         image={vehicle.primary_image_url || '/images/cars/creta.png'}
                         alt={vehicle.model_name}
-                        sx={{ objectFit: 'cover', cursor: 'pointer' }}
+                        sx={{ objectFit: 'cover', cursor: 'pointer', bgcolor: '#f8fafc' }}
                         onClick={() => setSelectedDetailVehicle(vehicle)}
                         onError={(e: any) => { e.target.onerror = null; e.target.src = '/images/cars/creta.png'; }}
                       />
 
                       <CardContent sx={{ flexGrow: 1, p: 2.5 }}>
                         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 0.5 }}>
-                          <Typography variant="caption" sx={{ color: bc.border, fontWeight: 700, textTransform: 'uppercase', fontSize: '0.7rem' }}>
+                          <Typography variant="caption" sx={{ color: '#94a3b8', fontWeight: 600, textTransform: 'uppercase', fontSize: '0.68rem', letterSpacing: 0.6 }}>
                             {vehicle.brand?.name}
                           </Typography>
-                          <Chip label={`${vehicle.safety_rating || 5}â˜… Safety`} size="small"
-                            sx={{ bgcolor: 'rgba(0,230,118,0.12)', color: '#00e676', fontWeight: 700, fontSize: '0.68rem' }} />
+                          <Chip label={`${vehicle.safety_rating || 5}★ Safety`} size="small"
+                            sx={{ bgcolor: '#f0fdf4', color: '#10b981', fontWeight: 700, fontSize: '0.66rem', border: '1px solid #bbf7d0' }} />
                         </Box>
 
-                        <Typography variant="h6" sx={{ fontWeight: 800, cursor: 'pointer', '&:hover': { color: bc.border } }}
+                        <Typography variant="h6" sx={{ fontWeight: 800, cursor: 'pointer', color: '#0f172a', '&:hover': { color: '#1e3a5f' } }}
                           onClick={() => setSelectedDetailVehicle(vehicle)}>
                           {vehicle.model_name}
                         </Typography>
 
                         <Box sx={{ display: 'flex', gap: 1, my: 1.5, flexWrap: 'wrap' }}>
-                          <Chip icon={<LocalGasStationIcon sx={{ fontSize: 13 }} />} label={vehicle.fuel_type.toUpperCase()} size="small" variant="outlined" />
-                          <Chip icon={<SpeedIcon sx={{ fontSize: 13 }} />} label={vehicle.transmission.toUpperCase()} size="small" variant="outlined" />
-                          <Chip label={vehicle.ev_range_km ? `${vehicle.ev_range_km} km` : `${vehicle.mileage_kmpl || 18.5} km/l`} size="small" variant="outlined" />
+                          <Chip icon={<LocalGasStationIcon sx={{ fontSize: 13 }} />} label={vehicle.fuel_type.toUpperCase()} size="small" variant="outlined" sx={{ fontSize: '0.68rem' }} />
+                          <Chip icon={<SpeedIcon sx={{ fontSize: 13 }} />} label={vehicle.transmission.toUpperCase()} size="small" variant="outlined" sx={{ fontSize: '0.68rem' }} />
+                          <Chip label={vehicle.ev_range_km ? `${vehicle.ev_range_km} km` : `${vehicle.mileage_kmpl || 18.5} km/l`} size="small" variant="outlined" sx={{ fontSize: '0.68rem' }} />
                         </Box>
 
-                        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', pt: 1.5, borderTop: '1px solid rgba(255,255,255,0.08)' }}>
+                        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', pt: 1.5, borderTop: '1px solid #f1f5f9' }}>
                           <Box>
-                            <Typography variant="caption" sx={{ color: 'text.secondary', display: 'block', lineHeight: 1 }}>EX-SHOWROOM</Typography>
-                            <Typography variant="h6" sx={{ fontWeight: 800, color: bc.border }}>
-                              â‚¹{(vehicle.ex_showroom_price / 100000).toFixed(2)} Lakh
+                            <Typography variant="caption" sx={{ color: '#94a3b8', display: 'block', lineHeight: 1, fontWeight: 600 }}>EX-SHOWROOM</Typography>
+                            <Typography variant="h6" sx={{ fontWeight: 800, color: '#1e3a5f' }}>
+                              ₹{(vehicle.ex_showroom_price / 100000).toFixed(2)} Lakh
                             </Typography>
                           </Box>
                           <Box sx={{ display: 'flex', gap: 1 }}>
                             <Button variant="outlined" size="small" onClick={() => setSelectedDetailVehicle(vehicle)}
-                              sx={{ fontWeight: 600, borderColor: `${bc.border}50`, color: bc.border }}>
+                              sx={{ fontWeight: 600, borderColor: '#e2e8f0', color: '#475569', '&:hover': { borderColor: '#1e3a5f', color: '#1e3a5f' } }}>
                               Specs
                             </Button>
                             <Button variant="contained" size="small" onClick={() => onStartPurchase(vehicle)}
-                              sx={{ fontWeight: 700, background: `linear-gradient(135deg, ${bc.border}, ${bc.border}bb)`, color: '#000' }}>
+                              sx={{ fontWeight: 700 }}>
                               Book
                             </Button>
                           </Box>
@@ -630,68 +597,67 @@ export const CatalogTab: React.FC<CatalogTabProps> = ({
 
       {/* Vehicle Detail Modal */}
       <Dialog open={Boolean(selectedDetailVehicle)} onClose={() => setSelectedDetailVehicle(null)} maxWidth="md" fullWidth
-        slotProps={{ paper: { sx: { borderRadius: '24px', bgcolor: 'background.paper', border: `1px solid ${bc.border}28`, p: 1 } } }}>
+        slotProps={{ paper: { sx: { borderRadius: '20px', bgcolor: '#ffffff', border: '1.5px solid #e2e8f0', p: 1 } } }}>
         {selectedDetailVehicle && (
           <>
-            <DialogTitle sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <DialogTitle sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', pb: 1 }}>
               <Box>
-                <Typography variant="caption" sx={{ color: bc.border, fontWeight: 700, textTransform: 'uppercase' }}>
+                <Typography variant="caption" sx={{ color: '#94a3b8', fontWeight: 600, textTransform: 'uppercase', letterSpacing: 1 }}>
                   {selectedDetailVehicle.brand?.name}
                 </Typography>
-                <Typography variant="h5" sx={{ fontWeight: 800 }}>{selectedDetailVehicle.model_name}</Typography>
+                <Typography variant="h5" sx={{ fontWeight: 800, color: '#0f172a' }}>{selectedDetailVehicle.model_name}</Typography>
               </Box>
-              <IconButton onClick={() => setSelectedDetailVehicle(null)}><CloseIcon /></IconButton>
+              <IconButton onClick={() => setSelectedDetailVehicle(null)} sx={{ color: '#64748b' }}><CloseIcon /></IconButton>
             </DialogTitle>
 
-            <DialogContent dividers>
+            <DialogContent dividers sx={{ borderColor: '#f1f5f9' }}>
               <Box component="img" src={selectedDetailVehicle.primary_image_url} alt={selectedDetailVehicle.model_name}
                 onError={(e: any) => { e.target.onerror = null; e.target.src = '/images/cars/creta.png'; }}
-                sx={{ width: '100%', height: 260, objectFit: 'cover', borderRadius: '16px', mb: 3 }} />
+                sx={{ width: '100%', height: 240, objectFit: 'cover', borderRadius: '14px', mb: 3, bgcolor: '#f8fafc' }} />
 
-              <Typography variant="body1" sx={{ color: 'text.secondary', mb: 3 }}>
+              <Typography variant="body1" sx={{ color: '#475569', mb: 3, lineHeight: 1.7 }}>
                 {selectedDetailVehicle.description || "India's benchmark vehicle in its segment offering cutting-edge convenience, advanced driver assistance systems, and exceptional safety engineering."}
               </Typography>
 
-              <Typography variant="h6" sx={{ fontWeight: 700, mb: 1.5 }}>Technical Specifications</Typography>
+              <Typography variant="h6" sx={{ fontWeight: 700, mb: 2, color: '#0f172a' }}>Technical Specifications</Typography>
               <Table size="small" sx={{ mb: 3 }}>
                 <TableBody>
-                  <TableRow>
-                    <TableCell sx={{ fontWeight: 600, color: 'text.secondary' }}>Ex-Showroom Price</TableCell>
-                    <TableCell sx={{ fontWeight: 700, color: bc.border }}>â‚¹{(selectedDetailVehicle.ex_showroom_price / 100000).toFixed(2)} Lakh</TableCell>
-                    <TableCell sx={{ fontWeight: 600, color: 'text.secondary' }}>Approx. On-Road Price</TableCell>
-                    <TableCell sx={{ fontWeight: 700 }}>â‚¹{((selectedDetailVehicle.on_road_price_approx || selectedDetailVehicle.ex_showroom_price * 1.15) / 100000).toFixed(2)} Lakh</TableCell>
+                  <TableRow sx={{ '&:nth-of-type(odd)': { bgcolor: '#f8fafc' } }}>
+                    <TableCell sx={{ fontWeight: 600, color: '#64748b', border: 'none', py: 1.2 }}>Ex-Showroom Price</TableCell>
+                    <TableCell sx={{ fontWeight: 700, color: '#1e3a5f', border: 'none' }}>₹{(selectedDetailVehicle.ex_showroom_price / 100000).toFixed(2)} Lakh</TableCell>
+                    <TableCell sx={{ fontWeight: 600, color: '#64748b', border: 'none' }}>Approx. On-Road Price</TableCell>
+                    <TableCell sx={{ fontWeight: 700, color: '#0f172a', border: 'none' }}>₹{((selectedDetailVehicle.on_road_price_approx || selectedDetailVehicle.ex_showroom_price * 1.15) / 100000).toFixed(2)} Lakh</TableCell>
                   </TableRow>
                   <TableRow>
-                    <TableCell sx={{ fontWeight: 600, color: 'text.secondary' }}>Fuel Type</TableCell>
-                    <TableCell sx={{ textTransform: 'uppercase' }}>{selectedDetailVehicle.fuel_type}</TableCell>
-                    <TableCell sx={{ fontWeight: 600, color: 'text.secondary' }}>Transmission</TableCell>
-                    <TableCell sx={{ textTransform: 'uppercase' }}>{selectedDetailVehicle.transmission}</TableCell>
+                    <TableCell sx={{ fontWeight: 600, color: '#64748b', border: 'none', py: 1.2 }}>Fuel Type</TableCell>
+                    <TableCell sx={{ textTransform: 'uppercase', fontWeight: 600, border: 'none' }}>{selectedDetailVehicle.fuel_type}</TableCell>
+                    <TableCell sx={{ fontWeight: 600, color: '#64748b', border: 'none' }}>Transmission</TableCell>
+                    <TableCell sx={{ textTransform: 'uppercase', fontWeight: 600, border: 'none' }}>{selectedDetailVehicle.transmission}</TableCell>
+                  </TableRow>
+                  <TableRow sx={{ '&:nth-of-type(odd)': { bgcolor: '#f8fafc' } }}>
+                    <TableCell sx={{ fontWeight: 600, color: '#64748b', border: 'none', py: 1.2 }}>Safety Benchmark</TableCell>
+                    <TableCell sx={{ color: '#10b981', fontWeight: 700, border: 'none' }}>{selectedDetailVehicle.safety_rating || 5}★ Crash Tested</TableCell>
+                    <TableCell sx={{ fontWeight: 600, color: '#64748b', border: 'none' }}>Seating Capacity</TableCell>
+                    <TableCell sx={{ fontWeight: 600, border: 'none' }}>{selectedDetailVehicle.seating_capacity} Persons</TableCell>
                   </TableRow>
                   <TableRow>
-                    <TableCell sx={{ fontWeight: 600, color: 'text.secondary' }}>Safety Benchmark</TableCell>
-                    <TableCell sx={{ color: '#00e676', fontWeight: 700 }}>{selectedDetailVehicle.safety_rating || 5}â˜… Crash Tested</TableCell>
-                    <TableCell sx={{ fontWeight: 600, color: 'text.secondary' }}>Seating Capacity</TableCell>
-                    <TableCell>{selectedDetailVehicle.seating_capacity} Persons</TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell sx={{ fontWeight: 600, color: 'text.secondary' }}>Horsepower & Torque</TableCell>
-                    <TableCell>{selectedDetailVehicle.horsepower || 140} HP â€¢ {selectedDetailVehicle.torque_nm || 220} Nm</TableCell>
-                    <TableCell sx={{ fontWeight: 600, color: 'text.secondary' }}>Ground Clearance</TableCell>
-                    <TableCell>{selectedDetailVehicle.ground_clearance_mm || 190} mm</TableCell>
+                    <TableCell sx={{ fontWeight: 600, color: '#64748b', border: 'none', py: 1.2 }}>Horsepower & Torque</TableCell>
+                    <TableCell sx={{ fontWeight: 600, border: 'none' }}>{selectedDetailVehicle.horsepower || 140} HP • {selectedDetailVehicle.torque_nm || 220} Nm</TableCell>
+                    <TableCell sx={{ fontWeight: 600, color: '#64748b', border: 'none' }}>Ground Clearance</TableCell>
+                    <TableCell sx={{ fontWeight: 600, border: 'none' }}>{selectedDetailVehicle.ground_clearance_mm || 190} mm</TableCell>
                   </TableRow>
                 </TableBody>
               </Table>
 
-              <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', pt: 2 }}>
+              <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', pt: 2, borderTop: '1px solid #f1f5f9' }}>
                 <Button variant="outlined" startIcon={<CalculateIcon />}
-                  onClick={() => { onNavigateToEMI(selectedDetailVehicle.ex_showroom_price); setSelectedDetailVehicle(null); }}
-                  sx={{ color: bc.border, borderColor: bc.border }}>
+                  onClick={() => { onNavigateToEMI(selectedDetailVehicle.ex_showroom_price); setSelectedDetailVehicle(null); }}>
                   Calculate EMI
                 </Button>
                 <Button variant="contained" size="large"
                   onClick={() => { const v = selectedDetailVehicle; setSelectedDetailVehicle(null); onStartPurchase(v); }}
-                  sx={{ fontWeight: 700, px: 4, background: `linear-gradient(135deg, ${bc.border}, ${bc.border}bb)`, color: '#000' }}>
-                  Start Purchase / Booking
+                  sx={{ fontWeight: 700, px: 4 }}>
+                  Book This Vehicle
                 </Button>
               </Box>
             </DialogContent>

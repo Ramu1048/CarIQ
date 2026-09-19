@@ -5,19 +5,34 @@ import { ragEngine, RagResponse, RagDomain } from './ragKnowledgeEngine';
 
 export const aiService = {
   async askRag(query: string, domain: RagDomain = 'all'): Promise<RagResponse> {
+    // 1. Process query through RAG Knowledge Engine first
+    const localRag = await ragEngine.processRagQuery(query, domain);
+
+    // If query is off-topic, return immediately with off-topic rejection
+    if (localRag.isOffTopic) {
+      return localRag;
+    }
+
+    // If it's a direct spec lookup or greeting, return the verified data
+    if (localRag.intent === 'specific_lookup' || localRag.intent === 'greeting') {
+      return localRag;
+    }
+
+    // 2. For general questions, try backend LLM if reachable
     try {
       const response = await api.post('/ai/chat', { message: query });
-      if (response.data && response.data.reply) {
-        const localRag = await ragEngine.processRagQuery(query, domain);
+      const backendAnswer = response.data?.data?.answer || response.data?.reply;
+      if (backendAnswer && typeof backendAnswer === 'string' && backendAnswer.trim().length > 20) {
         return {
           ...localRag,
-          answer: response.data.reply,
+          answer: backendAnswer,
         };
       }
     } catch {
       // Graceful fallback to client-side RAG Knowledge Engine
     }
-    return await ragEngine.processRagQuery(query, domain);
+
+    return localRag;
   },
   async chat(message: string, history: ChatMessage[] = [], contextVehicleIds?: string[]): Promise<AIChatResponse> {
     try {

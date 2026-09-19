@@ -124,8 +124,9 @@ export const CylinderCarCarousel: React.FC<CylinderCarCarouselProps> = ({
         my: 4,
         borderRadius: { xs: 0, md: '28px' },
         overflow: 'hidden',
-        background: 'linear-gradient(135deg, #0a0e1a 0%, #0d1b2a 50%, #0a1628 100%)',
-        border: '1px solid rgba(255,255,255,0.07)',
+        background: 'linear-gradient(135deg, #ffffff 0%, #f8fafc 50%, #f1f5f9 100%)',
+        border: '1px solid #e2e8f0',
+        boxShadow: '0 16px 40px rgba(15, 23, 42, 0.06)',
         position: 'relative',
       }}
     >
@@ -138,7 +139,7 @@ export const CylinderCarCarousel: React.FC<CylinderCarCarouselProps> = ({
           width: 320,
           height: 320,
           borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(99,179,237,0.12) 0%, transparent 70%)',
+          background: 'radial-gradient(circle, rgba(37,99,235,0.06) 0%, transparent 70%)',
           pointerEvents: 'none',
           zIndex: 0,
         }}
@@ -151,7 +152,7 @@ export const CylinderCarCarousel: React.FC<CylinderCarCarouselProps> = ({
           width: 280,
           height: 280,
           borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(168,85,247,0.1) 0%, transparent 70%)',
+          background: 'radial-gradient(circle, rgba(99,102,241,0.05) 0%, transparent 70%)',
           pointerEvents: 'none',
           zIndex: 0,
         }}
@@ -172,15 +173,15 @@ export const CylinderCarCarousel: React.FC<CylinderCarCarouselProps> = ({
       >
         <Box>
           <Chip
-            label="ðŸ”¥ FEATURED VEHICLES"
+            label="🔥 FEATURED VEHICLES"
             size="small"
             sx={{
-              bgcolor: 'rgba(99,179,237,0.12)',
-              color: '#63b3ed',
+              bgcolor: '#eff6ff',
+              color: '#1e3a5f',
               fontWeight: 800,
               letterSpacing: 1.5,
               fontSize: '0.68rem',
-              border: '1px solid rgba(99,179,237,0.25)',
+              border: '1px solid #bfdbfe',
               mb: 1,
             }}
           />
@@ -189,7 +190,7 @@ export const CylinderCarCarousel: React.FC<CylinderCarCarouselProps> = ({
             sx={{
               fontWeight: 900,
               fontSize: { xs: '1.5rem', md: '2rem' },
-              background: 'linear-gradient(135deg, #ffffff 0%, #63b3ed 60%, #a855f7 100%)',
+              background: 'linear-gradient(135deg, #0f172a 0%, #1e3a5f 100%)',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
               lineHeight: 1.2,
@@ -198,7 +199,7 @@ export const CylinderCarCarousel: React.FC<CylinderCarCarouselProps> = ({
             Top Picks for You
           </Typography>
           <Typography variant="body2" sx={{ color: '#64748b', mt: 0.5 }}>
-            {activeIndex + 1} of {total} vehicles â€” swipe or use arrows
+            {activeIndex + 1} of {total} vehicles — swipe or use arrows
           </Typography>
         </Box>
 
@@ -209,15 +210,16 @@ export const CylinderCarCarousel: React.FC<CylinderCarCarouselProps> = ({
           onClick={() => setIsAutoPlaying((p) => !p)}
           startIcon={isAutoPlaying ? <PauseIcon /> : <PlayArrowIcon />}
           sx={{
-            borderColor: 'rgba(99,179,237,0.3)',
-            color: '#63b3ed',
+            borderColor: '#cbd5e1',
+            color: '#1e3a5f',
             borderRadius: 50,
             fontSize: '0.75rem',
             fontWeight: 700,
             px: 2,
             py: 0.7,
-            backdropFilter: 'blur(8px)',
-            '&:hover': { borderColor: '#63b3ed', bgcolor: 'rgba(99,179,237,0.1)' },
+            bgcolor: '#ffffff',
+            boxShadow: '0 2px 6px rgba(0,0,0,0.03)',
+            '&:hover': { borderColor: '#1e3a5f', bgcolor: '#eff6ff' },
           }}
         >
           {isAutoPlaying ? 'Pause' : 'Auto'}
@@ -230,10 +232,10 @@ export const CylinderCarCarousel: React.FC<CylinderCarCarouselProps> = ({
           variant="determinate"
           value={progress}
           sx={{
-            height: 2,
-            bgcolor: 'rgba(255,255,255,0.05)',
+            height: 3,
+            bgcolor: '#e2e8f0',
             '& .MuiLinearProgress-bar': {
-              background: 'linear-gradient(90deg, #63b3ed, #a855f7)',
+              background: 'linear-gradient(90deg, #1e3a5f, #2563eb)',
               borderRadius: 1,
             },
           }}
@@ -260,7 +262,7 @@ export const CylinderCarCarousel: React.FC<CylinderCarCarouselProps> = ({
             position: 'relative',
             minHeight: { xs: 240, sm: 300, md: 400 },
             overflow: 'hidden',
-            background: 'linear-gradient(135deg, rgba(15,23,42,0.9) 0%, rgba(10,14,26,0.8) 100%)',
+            background: 'linear-gradient(135deg, #f8fafc 0%, #edf2f7 100%)',
           }}
         >
           {/* Animated car image */}
@@ -296,7 +298,7 @@ export const CylinderCarCarousel: React.FC<CylinderCarCarouselProps> = ({
                 maxHeight: { xs: 190, sm: 250, md: 300 },
                 maxWidth: '100%',
                 objectFit: 'contain',
-                filter: 'drop-shadow(0 20px 50px rgba(99,179,237,0.28)) drop-shadow(0 0 80px rgba(99,179,237,0.08))',
+                filter: 'drop-shadow(0 20px 25px rgba(15,23,42,0.12))',
               }}
             />
           </Box>
@@ -307,25 +309,26 @@ export const CylinderCarCarousel: React.FC<CylinderCarCarouselProps> = ({
               label={activeCar.brand?.name || 'CarIQ'}
               size="small"
               sx={{
-                bgcolor: 'rgba(0,0,0,0.6)',
-                color: '#e2e8f0',
+                bgcolor: 'rgba(255,255,255,0.92)',
+                color: '#0f172a',
                 fontWeight: 700,
                 fontSize: '0.72rem',
-                border: '1px solid rgba(255,255,255,0.15)',
+                border: '1px solid #cbd5e1',
+                boxShadow: '0 2px 8px rgba(0,0,0,0.06)',
                 backdropFilter: 'blur(8px)',
               }}
             />
             {isEV && (
               <Chip
-                icon={<ElectricBoltIcon sx={{ fontSize: '13px !important', color: '#4ade80 !important' }} />}
+                icon={<ElectricBoltIcon sx={{ fontSize: '13px !important', color: '#059669 !important' }} />}
                 label="EV"
                 size="small"
                 sx={{
-                  bgcolor: 'rgba(74,222,128,0.15)',
-                  color: '#4ade80',
+                  bgcolor: '#ecfdf5',
+                  color: '#059669',
                   fontWeight: 700,
                   fontSize: '0.7rem',
-                  border: '1px solid rgba(74,222,128,0.3)',
+                  border: '1px solid #a7f3d0',
                   backdropFilter: 'blur(8px)',
                 }}
               />
@@ -340,7 +343,7 @@ export const CylinderCarCarousel: React.FC<CylinderCarCarouselProps> = ({
               left: 0,
               right: 0,
               height: 80,
-              background: 'linear-gradient(to top, rgba(10,14,26,1) 0%, transparent 100%)',
+              background: 'linear-gradient(to top, #edf2f7 0%, transparent 100%)',
               pointerEvents: 'none',
             }}
           />
@@ -355,7 +358,7 @@ export const CylinderCarCarousel: React.FC<CylinderCarCarouselProps> = ({
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'space-between',
-            borderLeft: { md: '1px solid rgba(255,255,255,0.06)' },
+            borderLeft: { md: '1px solid #e2e8f0' },
             animation: `${direction === 'next' ? 'infoSlideUp' : 'infoSlideDown'} 0.45s cubic-bezier(0.22, 1, 0.36, 1) both`,
             '@keyframes infoSlideUp': {
               '0%': { opacity: 0, transform: 'translateY(28px)' },
@@ -373,7 +376,7 @@ export const CylinderCarCarousel: React.FC<CylinderCarCarouselProps> = ({
               sx={{
                 fontWeight: 900,
                 fontSize: { xs: '1.6rem', md: '2rem' },
-                color: '#f1f5f9',
+                color: '#0f172a',
                 lineHeight: 1.15,
                 mb: 0.5,
               }}
@@ -390,14 +393,14 @@ export const CylinderCarCarousel: React.FC<CylinderCarCarouselProps> = ({
                 sx={{
                   fontWeight: 900,
                   fontSize: { xs: '1.5rem', md: '1.75rem' },
-                  background: 'linear-gradient(135deg, #63b3ed, #a855f7)',
+                  background: 'linear-gradient(135deg, #1e3a5f, #2563eb)',
                   WebkitBackgroundClip: 'text',
                   WebkitTextFillColor: 'transparent',
                 }}
               >
                 ₹{(activeCar.ex_showroom_price / 100000).toFixed(2)} L
               </Typography>
-              <Typography variant="caption" sx={{ color: '#475569' }}>
+              <Typography variant="caption" sx={{ color: '#64748b' }}>
                 ex-showroom
               </Typography>
             </Box>
@@ -410,11 +413,11 @@ export const CylinderCarCarousel: React.FC<CylinderCarCarouselProps> = ({
                     key={i}
                     sx={{
                       fontSize: 15,
-                      color: i < Math.floor(activeCar.safety_rating!) ? '#fbbf24' : 'rgba(255,255,255,0.12)',
+                      color: i < Math.floor(activeCar.safety_rating!) ? '#fbbf24' : '#e2e8f0',
                     }}
                   />
                 ))}
-                <Typography variant="caption" sx={{ color: '#94a3b8', ml: 0.5 }}>
+                <Typography variant="caption" sx={{ color: '#64748b', ml: 0.5 }}>
                   {activeCar.safety_rating} NCAP
                 </Typography>
               </Box>
@@ -422,42 +425,42 @@ export const CylinderCarCarousel: React.FC<CylinderCarCarouselProps> = ({
 
             {/* Key Specs 2x2 Grid */}
             <Box sx={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 1.2, mb: 3 }}>
-              <Box sx={{ p: 1.5, borderRadius: '12px', bgcolor: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.07)' }}>
+              <Box sx={{ p: 1.5, borderRadius: '12px', bgcolor: '#ffffff', border: '1px solid #e2e8f0', boxShadow: '0 2px 6px rgba(0,0,0,0.02)' }}>
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5, mb: 0.4 }}>
-                  {isEV ? <ElectricBoltIcon sx={{ fontSize: 13, color: '#4ade80' }} /> : <LocalGasStationIcon sx={{ fontSize: 13, color: '#fbbf24' }} />}
+                  {isEV ? <ElectricBoltIcon sx={{ fontSize: 13, color: '#059669' }} /> : <LocalGasStationIcon sx={{ fontSize: 13, color: '#fbbf24' }} />}
                   <Typography variant="caption" sx={{ color: '#64748b', fontSize: '0.65rem', textTransform: 'uppercase', letterSpacing: 0.8 }}>
                     {isEV ? 'Range' : 'Mileage'}
                   </Typography>
                 </Box>
-                <Typography sx={{ fontWeight: 800, color: '#e2e8f0', fontSize: '0.95rem' }}>
+                <Typography sx={{ fontWeight: 800, color: '#0f172a', fontSize: '0.95rem' }}>
                   {isEV ? `${activeCar.ev_range_km || 420} km` : `${activeCar.mileage_kmpl || '--'} km/l`}
                 </Typography>
               </Box>
 
               {activeCar.horsepower != null && (
-                <Box sx={{ p: 1.5, borderRadius: '12px', bgcolor: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.07)' }}>
+                <Box sx={{ p: 1.5, borderRadius: '12px', bgcolor: '#ffffff', border: '1px solid #e2e8f0', boxShadow: '0 2px 6px rgba(0,0,0,0.02)' }}>
                   <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5, mb: 0.4 }}>
-                    <SpeedIcon sx={{ fontSize: 13, color: '#63b3ed' }} />
+                    <SpeedIcon sx={{ fontSize: 13, color: '#1e3a5f' }} />
                     <Typography variant="caption" sx={{ color: '#64748b', fontSize: '0.65rem', textTransform: 'uppercase', letterSpacing: 0.8 }}>Power</Typography>
                   </Box>
-                  <Typography sx={{ fontWeight: 800, color: '#e2e8f0', fontSize: '0.95rem' }}>{activeCar.horsepower} bhp</Typography>
+                  <Typography sx={{ fontWeight: 800, color: '#0f172a', fontSize: '0.95rem' }}>{activeCar.horsepower} bhp</Typography>
                 </Box>
               )}
 
-              <Box sx={{ p: 1.5, borderRadius: '12px', bgcolor: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.07)' }}>
+              <Box sx={{ p: 1.5, borderRadius: '12px', bgcolor: '#ffffff', border: '1px solid #e2e8f0', boxShadow: '0 2px 6px rgba(0,0,0,0.02)' }}>
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5, mb: 0.4 }}>
-                  <SettingsIcon sx={{ fontSize: 13, color: '#a78bfa' }} />
+                  <SettingsIcon sx={{ fontSize: 13, color: '#6366f1' }} />
                   <Typography variant="caption" sx={{ color: '#64748b', fontSize: '0.65rem', textTransform: 'uppercase', letterSpacing: 0.8 }}>Gearbox</Typography>
                 </Box>
-                <Typography sx={{ fontWeight: 800, color: '#e2e8f0', fontSize: '0.95rem', textTransform: 'capitalize' }}>{activeCar.transmission}</Typography>
+                <Typography sx={{ fontWeight: 800, color: '#0f172a', fontSize: '0.95rem', textTransform: 'capitalize' }}>{activeCar.transmission}</Typography>
               </Box>
 
-              <Box sx={{ p: 1.5, borderRadius: '12px', bgcolor: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.07)' }}>
+              <Box sx={{ p: 1.5, borderRadius: '12px', bgcolor: '#ffffff', border: '1px solid #e2e8f0', boxShadow: '0 2px 6px rgba(0,0,0,0.02)' }}>
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5, mb: 0.4 }}>
-                  <SecurityIcon sx={{ fontSize: 13, color: '#34d399' }} />
+                  <SecurityIcon sx={{ fontSize: 13, color: '#059669' }} />
                   <Typography variant="caption" sx={{ color: '#64748b', fontSize: '0.65rem', textTransform: 'uppercase', letterSpacing: 0.8 }}>Airbags</Typography>
                 </Box>
-                <Typography sx={{ fontWeight: 800, color: '#e2e8f0', fontSize: '0.95rem' }}>{(activeCar as any).num_airbags || 6} Airbags</Typography>
+                <Typography sx={{ fontWeight: 800, color: '#0f172a', fontSize: '0.95rem' }}>{(activeCar as any).num_airbags || 6} Airbags</Typography>
               </Box>
             </Box>
           </Box>
@@ -476,12 +479,13 @@ export const CylinderCarCarousel: React.FC<CylinderCarCarouselProps> = ({
                 fontWeight: 800,
                 fontSize: '0.8rem',
                 borderRadius: '10px',
-                background: 'linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%)',
-                boxShadow: '0 4px 20px rgba(59,130,246,0.3)',
+                background: 'linear-gradient(135deg, #1e3a5f 0%, #2563eb 100%)',
+                boxShadow: '0 4px 15px rgba(30,58,95,0.2)',
+                color: '#ffffff',
                 '&:hover': {
-                  background: 'linear-gradient(135deg, #60a5fa 0%, #a78bfa 100%)',
+                  background: 'linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%)',
                   transform: 'translateY(-1px)',
-                  boxShadow: '0 6px 25px rgba(59,130,246,0.4)',
+                  boxShadow: '0 6px 20px rgba(30,58,95,0.3)',
                 },
                 transition: 'all 0.2s ease',
               }}
@@ -493,11 +497,11 @@ export const CylinderCarCarousel: React.FC<CylinderCarCarouselProps> = ({
               <IconButton
                 onClick={() => toggleCompare(activeCar)}
                 sx={{
-                  bgcolor: isInCompare(activeCar.id) ? 'rgba(99,179,237,0.2)' : 'rgba(255,255,255,0.06)',
-                  color: isInCompare(activeCar.id) ? '#63b3ed' : '#94a3b8',
-                  border: '1px solid rgba(255,255,255,0.1)',
+                  bgcolor: isInCompare(activeCar.id) ? '#eff6ff' : '#ffffff',
+                  color: isInCompare(activeCar.id) ? '#1e3a5f' : '#64748b',
+                  border: '1px solid #e2e8f0',
                   borderRadius: '10px',
-                  '&:hover': { bgcolor: 'rgba(99,179,237,0.2)', color: '#63b3ed' },
+                  '&:hover': { bgcolor: '#eff6ff', color: '#1e3a5f' },
                   transition: 'all 0.2s ease',
                 }}
               >
@@ -509,11 +513,11 @@ export const CylinderCarCarousel: React.FC<CylinderCarCarouselProps> = ({
               <IconButton
                 onClick={() => onStartPurchase(activeCar)}
                 sx={{
-                  bgcolor: 'rgba(251,191,36,0.1)',
-                  color: '#fbbf24',
-                  border: '1px solid rgba(251,191,36,0.25)',
+                  bgcolor: '#fffbeb',
+                  color: '#d97706',
+                  border: '1px solid #fde68a',
                   borderRadius: '10px',
-                  '&:hover': { bgcolor: 'rgba(251,191,36,0.2)', transform: 'scale(1.05)' },
+                  '&:hover': { bgcolor: '#fef3c7', transform: 'scale(1.05)' },
                   transition: 'all 0.2s ease',
                 }}
               >
@@ -524,7 +528,7 @@ export const CylinderCarCarousel: React.FC<CylinderCarCarouselProps> = ({
         </Box>
       </Box>
 
-      {/* Bottom Navigation Row â€” dots + arrows */}
+      {/* Bottom Navigation Row — dots + arrows */}
       <Box
         sx={{
           display: 'flex',
@@ -532,7 +536,7 @@ export const CylinderCarCarousel: React.FC<CylinderCarCarouselProps> = ({
           justifyContent: 'space-between',
           px: { xs: 3, md: 5 },
           py: 2.5,
-          borderTop: '1px solid rgba(255,255,255,0.05)',
+          borderTop: '1px solid #e2e8f0',
           position: 'relative',
           zIndex: 1,
         }}
@@ -547,10 +551,10 @@ export const CylinderCarCarousel: React.FC<CylinderCarCarouselProps> = ({
                 width: i === activeIndex ? 28 : 8,
                 height: 8,
                 borderRadius: 50,
-                bgcolor: i === activeIndex ? '#63b3ed' : 'rgba(255,255,255,0.15)',
+                bgcolor: i === activeIndex ? '#1e3a5f' : '#cbd5e1',
                 cursor: 'pointer',
                 transition: 'all 0.35s cubic-bezier(0.4, 0, 0.2, 1)',
-                '&:hover': { bgcolor: i === activeIndex ? '#63b3ed' : 'rgba(255,255,255,0.35)' },
+                '&:hover': { bgcolor: i === activeIndex ? '#1e3a5f' : '#94a3b8' },
               }}
             />
           ))}
@@ -562,11 +566,11 @@ export const CylinderCarCarousel: React.FC<CylinderCarCarouselProps> = ({
             onClick={goPrev}
             size="small"
             sx={{
-              bgcolor: 'rgba(255,255,255,0.06)',
-              color: '#94a3b8',
-              border: '1px solid rgba(255,255,255,0.1)',
+              bgcolor: '#ffffff',
+              color: '#1e3a5f',
+              border: '1px solid #e2e8f0',
               borderRadius: '10px',
-              '&:hover': { bgcolor: 'rgba(99,179,237,0.15)', color: '#63b3ed', borderColor: 'rgba(99,179,237,0.3)' },
+              '&:hover': { bgcolor: '#eff6ff', color: '#1e3a5f', borderColor: '#bfdbfe' },
               transition: 'all 0.2s ease',
             }}
           >
@@ -576,11 +580,11 @@ export const CylinderCarCarousel: React.FC<CylinderCarCarouselProps> = ({
             onClick={goNext}
             size="small"
             sx={{
-              bgcolor: 'rgba(255,255,255,0.06)',
-              color: '#94a3b8',
-              border: '1px solid rgba(255,255,255,0.1)',
+              bgcolor: '#ffffff',
+              color: '#1e3a5f',
+              border: '1px solid #e2e8f0',
               borderRadius: '10px',
-              '&:hover': { bgcolor: 'rgba(99,179,237,0.15)', color: '#63b3ed', borderColor: 'rgba(99,179,237,0.3)' },
+              '&:hover': { bgcolor: '#eff6ff', color: '#1e3a5f', borderColor: '#bfdbfe' },
               transition: 'all 0.2s ease',
             }}
           >
@@ -589,7 +593,7 @@ export const CylinderCarCarousel: React.FC<CylinderCarCarouselProps> = ({
         </Box>
       </Box>
 
-      {/* Horizontal Thumbnail Strip â€” cars one after another */}
+      {/* Horizontal Thumbnail Strip — cars one after another */}
       <Box
         sx={{
           px: { xs: 2, md: 4 },
@@ -615,12 +619,12 @@ export const CylinderCarCarousel: React.FC<CylinderCarCarouselProps> = ({
               overflow: 'hidden',
               cursor: 'pointer',
               position: 'relative',
-              border: i === activeIndex ? '2px solid #63b3ed' : '2px solid rgba(255,255,255,0.07)',
-              boxShadow: i === activeIndex ? '0 0 18px rgba(99,179,237,0.3)' : 'none',
+              border: i === activeIndex ? '2px solid #1e3a5f' : '1px solid #e2e8f0',
+              boxShadow: i === activeIndex ? '0 4px 14px rgba(30,58,95,0.15)' : 'none',
               transition: 'all 0.3s ease',
-              bgcolor: 'rgba(255,255,255,0.04)',
+              bgcolor: '#ffffff',
               '&:hover': {
-                border: '2px solid rgba(99,179,237,0.5)',
+                border: '2px solid #2563eb',
                 transform: 'translateY(-2px)',
               },
             }}
@@ -639,7 +643,7 @@ export const CylinderCarCarousel: React.FC<CylinderCarCarouselProps> = ({
                 objectFit: 'contain',
                 p: 0.5,
                 pt: 0.8,
-                filter: i === activeIndex ? 'none' : 'grayscale(40%) opacity(0.65)',
+                filter: i === activeIndex ? 'none' : 'grayscale(30%) opacity(0.7)',
                 transition: 'filter 0.3s ease',
               }}
             />
@@ -651,7 +655,8 @@ export const CylinderCarCarousel: React.FC<CylinderCarCarouselProps> = ({
                 right: 0,
                 py: 0.35,
                 px: 0.8,
-                bgcolor: 'rgba(0,0,0,0.75)',
+                bgcolor: 'rgba(255, 255, 255, 0.95)',
+                borderTop: '1px solid #f1f5f9',
                 backdropFilter: 'blur(4px)',
               }}
             >
@@ -660,7 +665,7 @@ export const CylinderCarCarousel: React.FC<CylinderCarCarouselProps> = ({
                 sx={{
                   fontSize: '0.6rem',
                   fontWeight: 700,
-                  color: i === activeIndex ? '#63b3ed' : '#94a3b8',
+                  color: i === activeIndex ? '#1e3a5f' : '#475569',
                   textAlign: 'center',
                 }}
               >

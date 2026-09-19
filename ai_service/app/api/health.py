@@ -24,7 +24,11 @@ async def health_check() -> Dict[str, Any]:
         "components": {
             "llm": llm_health,
             "vector_store": {
-                "type": settings.VECTOR_STORE_TYPE,
+                "type": "chroma_cloud" if getattr(vector_store, "is_cloud", False) else settings.VECTOR_STORE_TYPE,
+                "mode": "cloud" if getattr(vector_store, "is_cloud", False) else "local_disk",
+                "host": settings.CHROMA_HOST if getattr(vector_store, "is_cloud", False) else "local_disk",
+                "tenant": settings.CHROMA_TENANT if getattr(vector_store, "is_cloud", False) else None,
+                "database": settings.CHROMA_DATABASE if getattr(vector_store, "is_cloud", False) else None,
                 "total_chunks_indexed": vector_store.count(),
                 "embedding_provider": settings.EMBEDDING_PROVIDER,
             },

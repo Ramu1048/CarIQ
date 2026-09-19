@@ -58,16 +58,16 @@ export const Car3DViewer: React.FC<Car3DViewerProps> = ({
     containerRef.current.appendChild(renderer.domElement);
 
     // Grid Platform
-    const grid = new THREE.GridHelper(24, 24, 0x00e5ff, 0x1e293b);
+    const grid = new THREE.GridHelper(24, 24, 0x1e3a5f, 0xcfd8dc);
     grid.position.y = -0.65;
     scene.add(grid);
 
-    // Glowing Circular Pedestal
+    // Light Studio Circular Pedestal
     const pedestalGeo = new THREE.CylinderGeometry(3.6, 3.8, 0.1, 48);
     const pedestalMat = new THREE.MeshStandardMaterial({
-      color: 0x0b1329,
-      roughness: 0.3,
-      metalness: 0.8,
+      color: 0xffffff,
+      roughness: 0.2,
+      metalness: 0.5,
     });
     const pedestal = new THREE.Mesh(pedestalGeo, pedestalMat);
     pedestal.position.y = -0.7;
@@ -75,7 +75,7 @@ export const Car3DViewer: React.FC<Car3DViewerProps> = ({
 
     const ringGeo = new THREE.RingGeometry(3.5, 3.65, 48);
     ringGeo.rotateX(-Math.PI / 2);
-    const ringMat = new THREE.MeshBasicMaterial({ color: 0x00e5ff, side: THREE.DoubleSide });
+    const ringMat = new THREE.MeshBasicMaterial({ color: 0x1e3a5f, side: THREE.DoubleSide });
     const ring = new THREE.Mesh(ringGeo, ringMat);
     ring.position.y = -0.64;
     scene.add(ring);
@@ -100,11 +100,11 @@ export const Car3DViewer: React.FC<Car3DViewerProps> = ({
     // Aerodynamic Cabin / Glass Canopy
     const cabinGeo = new THREE.BoxGeometry(1.65, 0.48, 2.2);
     const cabinMat = new THREE.MeshStandardMaterial({
-      color: 0x050c1a,
+      color: 0x1e3a5f,
       roughness: 0.1,
       metalness: 0.9,
       transparent: true,
-      opacity: 0.85,
+      opacity: 0.5,
       wireframe: wireframeMode,
     });
     const cabinMesh = new THREE.Mesh(cabinGeo, cabinMat);
@@ -129,7 +129,7 @@ export const Car3DViewer: React.FC<Car3DViewerProps> = ({
     const beamGeo = new THREE.CylinderGeometry(0.05, 0.6, 3.2, 16);
     beamGeo.rotateX(Math.PI / 2);
     const beamMat = new THREE.MeshBasicMaterial({
-      color: 0x00f2fe,
+      color: 0x0284c7,
       transparent: true,
       opacity: headlightsOn ? 0.45 : 0.0,
     });
@@ -293,9 +293,9 @@ export const Car3DViewer: React.FC<Car3DViewerProps> = ({
         height: { xs: 400, md: 520 },
         borderRadius: '24px',
         overflow: 'hidden',
-        background: 'radial-gradient(ellipse at bottom, #0f1c3f 0%, #080e1a 60%, #030712 100%)',
-        border: '1px solid rgba(0, 229, 255, 0.2)',
-        boxShadow: '0 20px 50px rgba(0, 0, 0, 0.5), inset 0 0 40px rgba(0, 229, 255, 0.05)',
+        background: 'radial-gradient(ellipse at bottom, #f1f5f9 0%, #f8fafc 60%, #ffffff 100%)',
+        border: '1px solid #e2e8f0',
+        boxShadow: '0 16px 40px rgba(15, 23, 42, 0.08)',
       }}
     >
       {/* 3D Canvas Mount Point */}
@@ -320,21 +320,22 @@ export const Car3DViewer: React.FC<Car3DViewerProps> = ({
         }}
       >
         <Chip
-          icon={<ThreeDRotationIcon sx={{ color: '#00e5ff !important' }} />}
+          icon={<ThreeDRotationIcon sx={{ color: '#1e3a5f !important' }} />}
           label="INTERACTIVE 360° WEBGL STUDIO"
           sx={{
-            bgcolor: 'rgba(15, 23, 42, 0.85)',
+            bgcolor: 'rgba(255, 255, 255, 0.95)',
             backdropFilter: 'blur(10px)',
-            color: '#00e5ff',
+            color: '#1e3a5f',
             fontWeight: 700,
-            border: '1px solid rgba(0, 229, 255, 0.3)',
+            border: '1px solid #bfdbfe',
             mb: 1,
+            boxShadow: '0 2px 8px rgba(0,0,0,0.05)',
           }}
         />
-        <Typography variant="h5" sx={{ fontWeight: 800, color: '#ffffff', textShadow: '0 2px 10px rgba(0,0,0,0.8)' }}>
+        <Typography variant="h5" sx={{ fontWeight: 800, color: '#0f172a' }}>
           {modelName}
         </Typography>
-        <Typography variant="body2" sx={{ color: '#94a3b8' }}>
+        <Typography variant="body2" sx={{ color: '#64748b' }}>
           {brandName} • Drag to inspect aerodynamics
         </Typography>
       </Box>
@@ -358,18 +359,19 @@ export const Car3DViewer: React.FC<Car3DViewerProps> = ({
             display: 'flex',
             alignItems: 'center',
             gap: 1.5,
-            bgcolor: 'rgba(15, 23, 42, 0.85)',
+            bgcolor: 'rgba(255, 255, 255, 0.92)',
             backdropFilter: 'blur(12px)',
-            border: '1px solid rgba(255, 255, 255, 0.1)',
+            border: '1px solid #e2e8f0',
             borderRadius: '12px',
+            boxShadow: '0 4px 14px rgba(0,0,0,0.04)',
           }}
         >
-          <SpeedIcon sx={{ color: '#00e5ff', fontSize: 20 }} />
+          <SpeedIcon sx={{ color: '#1e3a5f', fontSize: 20 }} />
           <Box>
-            <Typography variant="caption" sx={{ color: '#94a3b8', display: 'block', lineHeight: 1 }}>
+            <Typography variant="caption" sx={{ color: '#64748b', display: 'block', lineHeight: 1 }}>
               0-100 KM/H
             </Typography>
-            <Typography variant="body2" sx={{ fontWeight: 700, color: '#ffffff' }}>
+            <Typography variant="body2" sx={{ fontWeight: 700, color: '#0f172a' }}>
               6.8 SECONDS
             </Typography>
           </Box>
@@ -382,18 +384,19 @@ export const Car3DViewer: React.FC<Car3DViewerProps> = ({
             display: 'flex',
             alignItems: 'center',
             gap: 1.5,
-            bgcolor: 'rgba(15, 23, 42, 0.85)',
+            bgcolor: 'rgba(255, 255, 255, 0.92)',
             backdropFilter: 'blur(12px)',
-            border: '1px solid rgba(255, 255, 255, 0.1)',
+            border: '1px solid #e2e8f0',
             borderRadius: '12px',
+            boxShadow: '0 4px 14px rgba(0,0,0,0.04)',
           }}
         >
-          <SecurityIcon sx={{ color: '#00e676', fontSize: 20 }} />
+          <SecurityIcon sx={{ color: '#059669', fontSize: 20 }} />
           <Box>
-            <Typography variant="caption" sx={{ color: '#94a3b8', display: 'block', lineHeight: 1 }}>
+            <Typography variant="caption" sx={{ color: '#64748b', display: 'block', lineHeight: 1 }}>
               SAFETY BENCHMARK
             </Typography>
-            <Typography variant="body2" sx={{ fontWeight: 700, color: '#00e676' }}>
+            <Typography variant="body2" sx={{ fontWeight: 700, color: '#059669' }}>
               5-STAR NCAP
             </Typography>
           </Box>
@@ -406,18 +409,19 @@ export const Car3DViewer: React.FC<Car3DViewerProps> = ({
             display: 'flex',
             alignItems: 'center',
             gap: 1.5,
-            bgcolor: 'rgba(15, 23, 42, 0.85)',
+            bgcolor: 'rgba(255, 255, 255, 0.92)',
             backdropFilter: 'blur(12px)',
-            border: '1px solid rgba(255, 255, 255, 0.1)',
+            border: '1px solid #e2e8f0',
             borderRadius: '12px',
+            boxShadow: '0 4px 14px rgba(0,0,0,0.04)',
           }}
         >
-          <BatteryChargingFullIcon sx={{ color: '#ffb703', fontSize: 20 }} />
+          <BatteryChargingFullIcon sx={{ color: '#d97706', fontSize: 20 }} />
           <Box>
-            <Typography variant="caption" sx={{ color: '#94a3b8', display: 'block', lineHeight: 1 }}>
+            <Typography variant="caption" sx={{ color: '#64748b', display: 'block', lineHeight: 1 }}>
               ARAI RANGE
             </Typography>
-            <Typography variant="body2" sx={{ fontWeight: 700, color: '#ffffff' }}>
+            <Typography variant="body2" sx={{ fontWeight: 700, color: '#d97706' }}>
               465 KM PER CHARGE
             </Typography>
           </Box>
@@ -447,13 +451,14 @@ export const Car3DViewer: React.FC<Car3DViewerProps> = ({
             gap: 1.2,
             p: 1,
             px: 2,
-            bgcolor: 'rgba(15, 23, 42, 0.85)',
+            bgcolor: 'rgba(255, 255, 255, 0.92)',
             backdropFilter: 'blur(12px)',
             borderRadius: '50px',
-            border: '1px solid rgba(255, 255, 255, 0.15)',
+            border: '1px solid #e2e8f0',
+            boxShadow: '0 4px 14px rgba(0,0,0,0.05)',
           }}
         >
-          <Typography variant="caption" sx={{ color: '#94a3b8', fontWeight: 600, mr: 0.5 }}>
+          <Typography variant="caption" sx={{ color: '#475569', fontWeight: 600, mr: 0.5 }}>
             PAINT FINISH:
           </Typography>
           {COLOR_PRESETS.map((color) => (
@@ -466,9 +471,9 @@ export const Car3DViewer: React.FC<Car3DViewerProps> = ({
                   borderRadius: '50%',
                   bgcolor: color.hex,
                   cursor: 'pointer',
-                  border: selectedColor.name === color.name ? '2px solid #00e5ff' : '2px solid rgba(255,255,255,0.3)',
+                  border: selectedColor.name === color.name ? '2px solid #1e3a5f' : '2px solid #cbd5e1',
                   transform: selectedColor.name === color.name ? 'scale(1.2)' : 'scale(1)',
-                  boxShadow: selectedColor.name === color.name ? '0 0 12px #00e5ff' : 'none',
+                  boxShadow: selectedColor.name === color.name ? '0 0 10px rgba(30,58,95,0.4)' : 'none',
                   transition: 'all 0.2s',
                   '&:hover': { transform: 'scale(1.2)' },
                 }}
@@ -484,17 +489,18 @@ export const Car3DViewer: React.FC<Car3DViewerProps> = ({
             alignItems: 'center',
             gap: 1,
             p: 0.8,
-            bgcolor: 'rgba(15, 23, 42, 0.85)',
+            bgcolor: 'rgba(255, 255, 255, 0.92)',
             backdropFilter: 'blur(12px)',
             borderRadius: '50px',
-            border: '1px solid rgba(255, 255, 255, 0.15)',
+            border: '1px solid #e2e8f0',
+            boxShadow: '0 4px 14px rgba(0,0,0,0.05)',
           }}
         >
           <Tooltip title={isRotating ? 'Pause Auto-Spin' : 'Resume Auto-Spin'}>
             <IconButton
               onClick={() => setIsRotating(!isRotating)}
               size="small"
-              sx={{ color: isRotating ? '#00e5ff' : '#94a3b8' }}
+              sx={{ color: isRotating ? '#1e3a5f' : '#94a3b8' }}
             >
               {isRotating ? <PauseCircleIcon /> : <PlayCircleIcon />}
             </IconButton>
@@ -504,7 +510,7 @@ export const Car3DViewer: React.FC<Car3DViewerProps> = ({
             <IconButton
               onClick={handleToggleHeadlights}
               size="small"
-              sx={{ color: headlightsOn ? '#00e5ff' : '#94a3b8' }}
+              sx={{ color: headlightsOn ? '#1e3a5f' : '#94a3b8' }}
             >
               <LightbulbIcon />
             </IconButton>
@@ -514,7 +520,7 @@ export const Car3DViewer: React.FC<Car3DViewerProps> = ({
             <IconButton
               onClick={handleToggleWireframe}
               size="small"
-              sx={{ color: wireframeMode ? '#00e5ff' : '#94a3b8' }}
+              sx={{ color: wireframeMode ? '#1e3a5f' : '#94a3b8' }}
             >
               <GridViewIcon />
             </IconButton>

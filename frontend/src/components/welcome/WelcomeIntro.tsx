@@ -24,10 +24,10 @@ interface WelcomeIntroProps {
 }
 
 const THEME_ACCENTS = [
-  { name: 'Cyber Cyan', hex: 0x00e5ff, color: '#00e5ff' },
-  { name: 'Hyper Orange', hex: 0xffb703, color: '#ffb703' },
-  { name: 'Neon Crimson', hex: 0xff0055, color: '#ff0055' },
-  { name: 'Matrix Green', hex: 0x00ff88, color: '#00ff88' },
+  { name: 'Cobalt Navy', hex: 0x1e3a5f, color: '#1e3a5f' },
+  { name: 'Electric Blue', hex: 0x0284c7, color: '#0284c7' },
+  { name: 'Amber Gold', hex: 0xd97706, color: '#d97706' },
+  { name: 'Emerald Green', hex: 0x059669, color: '#059669' },
 ];
 
 export const WelcomeIntro: React.FC<WelcomeIntroProps> = ({ onComplete }) => {
@@ -88,7 +88,7 @@ export const WelcomeIntro: React.FC<WelcomeIntroProps> = ({ onComplete }) => {
     }
   };
 
-  // Three.js 3D Futuristic Wireframe Speed Car & Warp Tunnel
+  // Three.js 3D Futuristic Wireframe Speed Car & Warp Tunnel in Light Studio Theme
   useEffect(() => {
     if (!mountRef.current) return;
 
@@ -96,7 +96,7 @@ export const WelcomeIntro: React.FC<WelcomeIntroProps> = ({ onComplete }) => {
     const height = mountRef.current.clientHeight || window.innerHeight;
 
     const scene = new THREE.Scene();
-    scene.fog = new THREE.FogExp2(0x020712, 0.05);
+    scene.fog = new THREE.FogExp2(0xf1f5f9, 0.035);
 
     const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000);
     camera.position.set(0, 2.3, 7.5);
@@ -106,13 +106,13 @@ export const WelcomeIntro: React.FC<WelcomeIntroProps> = ({ onComplete }) => {
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     mountRef.current.appendChild(renderer.domElement);
 
-    // Grid Floor
+    // Grid Floor (Light Studio Grid)
     const gridColor = THEME_ACCENTS[accentIdx].hex;
-    const gridHelper = new THREE.GridHelper(60, 60, gridColor, 0x091b33);
+    const gridHelper = new THREE.GridHelper(60, 60, gridColor, 0xcfd8dc);
     gridHelper.position.y = -1;
     scene.add(gridHelper);
 
-    // Warp Speed Stars / Particles
+    // Warp Speed Stars / Light Specks
     const starGeo = new THREE.BufferGeometry();
     const starCount = 600;
     const starPositions = new Float32Array(starCount * 3);
@@ -123,10 +123,10 @@ export const WelcomeIntro: React.FC<WelcomeIntroProps> = ({ onComplete }) => {
     }
     starGeo.setAttribute('position', new THREE.BufferAttribute(starPositions, 3));
     const starMat = new THREE.PointsMaterial({
-      color: 0x00e5ff,
+      color: 0x0284c7,
       size: 0.12,
       transparent: true,
-      opacity: 0.8,
+      opacity: 0.65,
     });
     const starField = new THREE.Points(starGeo, starMat);
     scene.add(starField);
@@ -134,23 +134,23 @@ export const WelcomeIntro: React.FC<WelcomeIntroProps> = ({ onComplete }) => {
     // Car Group
     const carGroup = new THREE.Group();
 
-    // Sleek Sports Body Geometry
+    // Sleek Pearl White / Silver Metallic Sports Body
     const bodyGeo = new THREE.BoxGeometry(2.3, 0.55, 4.8);
     const bodyMat = new THREE.MeshStandardMaterial({
-      color: 0x040a14,
-      roughness: 0.1,
-      metalness: 0.9,
+      color: 0xffffff,
+      roughness: 0.15,
+      metalness: 0.75,
     });
     const bodyMesh = new THREE.Mesh(bodyGeo, bodyMat);
     bodyMesh.position.y = 0.1;
     carGroup.add(bodyMesh);
 
-    // Neon Wireframe Overlay
+    // Colored Wireframe Overlay Accent
     const wireMat = new THREE.MeshBasicMaterial({
       color: gridColor,
       wireframe: true,
       transparent: true,
-      opacity: 0.75,
+      opacity: 0.45,
     });
     const wireMesh = new THREE.Mesh(bodyGeo, wireMat);
     wireMesh.position.y = 0.1;
@@ -159,11 +159,11 @@ export const WelcomeIntro: React.FC<WelcomeIntroProps> = ({ onComplete }) => {
     // Cockpit Roof
     const cabinGeo = new THREE.BoxGeometry(1.7, 0.5, 2.3);
     const cabinMat = new THREE.MeshStandardMaterial({
-      color: gridColor,
+      color: 0x1e3a5f,
       transparent: true,
-      opacity: 0.35,
+      opacity: 0.45,
       roughness: 0.1,
-      metalness: 0.8,
+      metalness: 0.85,
     });
     const cabinMesh = new THREE.Mesh(cabinGeo, cabinMat);
     cabinMesh.position.set(0, 0.55, -0.2);
@@ -173,9 +173,9 @@ export const WelcomeIntro: React.FC<WelcomeIntroProps> = ({ onComplete }) => {
     const lightGeo = new THREE.CylinderGeometry(0.08, 0.9, 4.5, 16);
     lightGeo.rotateX(Math.PI / 2);
     const lightMat = new THREE.MeshBasicMaterial({
-      color: gridColor,
+      color: 0x0284c7,
       transparent: true,
-      opacity: 0.45,
+      opacity: 0.35,
     });
     const leftBeam = new THREE.Mesh(lightGeo, lightMat);
     leftBeam.position.set(-0.85, 0.1, 4.4);
@@ -191,17 +191,17 @@ export const WelcomeIntro: React.FC<WelcomeIntroProps> = ({ onComplete }) => {
     const underglowMat = new THREE.MeshBasicMaterial({
       color: gridColor,
       transparent: true,
-      opacity: 0.7,
+      opacity: 0.35,
       side: THREE.DoubleSide,
     });
     const underglow = new THREE.Mesh(underglowGeo, underglowMat);
     underglow.position.y = -0.92;
     carGroup.add(underglow);
 
-    // Wheels with Neon Rims
+    // Wheels with Alloy Rims
     const wheelGeo = new THREE.CylinderGeometry(0.38, 0.38, 0.3, 24);
     wheelGeo.rotateZ(Math.PI / 2);
-    const wheelMat = new THREE.MeshStandardMaterial({ color: 0x050505, roughness: 0.4 });
+    const wheelMat = new THREE.MeshStandardMaterial({ color: 0x334155, roughness: 0.3 });
     const rimMat = new THREE.MeshBasicMaterial({ color: gridColor, wireframe: true });
 
     const wheelPositions = [
@@ -224,15 +224,15 @@ export const WelcomeIntro: React.FC<WelcomeIntroProps> = ({ onComplete }) => {
 
     scene.add(carGroup);
 
-    // Lights
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
+    // Bright Studio Lighting
+    const ambientLight = new THREE.AmbientLight(0xffffff, 1.2);
     scene.add(ambientLight);
 
-    const dirLight = new THREE.DirectionalLight(0xffffff, 1.5);
+    const dirLight = new THREE.DirectionalLight(0xffffff, 2.0);
     dirLight.position.set(5, 10, 7);
     scene.add(dirLight);
 
-    const pointLight = new THREE.PointLight(gridColor, 3, 15);
+    const pointLight = new THREE.PointLight(gridColor, 2, 18);
     pointLight.position.set(0, 2, 2);
     scene.add(pointLight);
 
@@ -367,7 +367,7 @@ export const WelcomeIntro: React.FC<WelcomeIntroProps> = ({ onComplete }) => {
         width: '100vw',
         height: '100vh',
         zIndex: 9999,
-        background: 'linear-gradient(180deg, #020617 0%, #030a1a 60%, #051428 100%)',
+        background: 'linear-gradient(180deg, #f8fafc 0%, #eef2f6 50%, #e2e8f0 100%)',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-between',
@@ -400,7 +400,9 @@ export const WelcomeIntro: React.FC<WelcomeIntroProps> = ({ onComplete }) => {
           justifyContent: 'space-between',
           alignItems: 'center',
           zIndex: 10,
-          backdropFilter: 'blur(8px)',
+          backdropFilter: 'blur(12px)',
+          bgcolor: 'rgba(255, 255, 255, 0.75)',
+          borderBottom: '1px solid rgba(226, 232, 240, 0.8)',
         }}
       >
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
@@ -409,18 +411,18 @@ export const WelcomeIntro: React.FC<WelcomeIntroProps> = ({ onComplete }) => {
               width: 42,
               height: 42,
               borderRadius: '12px',
-              bgcolor: 'rgba(0, 229, 255, 0.15)',
-              border: `1px solid ${accentColor}`,
+              bgcolor: '#eff6ff',
+              border: '1px solid #bfdbfe',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              boxShadow: `0 0 20px ${accentColor}44`,
+              boxShadow: '0 4px 12px rgba(30, 58, 95, 0.08)',
             }}
           >
-            <SpeedIcon sx={{ color: accentColor, fontSize: 26 }} />
+            <SpeedIcon sx={{ color: '#1e3a5f', fontSize: 26 }} />
           </Box>
           <Box>
-            <Typography variant="h6" sx={{ fontWeight: 900, letterSpacing: 2, color: '#ffffff' }}>
+            <Typography variant="h6" sx={{ fontWeight: 900, letterSpacing: 2, color: '#0f172a' }}>
               Car<span style={{ color: accentColor }}>IQ</span>
             </Typography>
             <Typography variant="caption" sx={{ color: '#64748b', display: 'block', fontSize: '0.68rem', letterSpacing: 1 }}>
@@ -431,7 +433,7 @@ export const WelcomeIntro: React.FC<WelcomeIntroProps> = ({ onComplete }) => {
 
         {/* Top Controls: Sound & Theme Accents */}
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
-          <Box sx={{ display: { xs: 'none', sm: 'flex' }, gap: 0.8, bgcolor: 'rgba(15,23,42,0.8)', p: 0.6, borderRadius: 50, border: '1px solid rgba(255,255,255,0.1)' }}>
+          <Box sx={{ display: { xs: 'none', sm: 'flex' }, gap: 0.8, bgcolor: 'rgba(255,255,255,0.95)', p: 0.6, borderRadius: 50, border: '1px solid #e2e8f0', boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}>
             {THEME_ACCENTS.map((acc, i) => (
               <Tooltip key={acc.name} title={acc.name}>
                 <Box
@@ -443,7 +445,7 @@ export const WelcomeIntro: React.FC<WelcomeIntroProps> = ({ onComplete }) => {
                     bgcolor: acc.color,
                     cursor: 'pointer',
                     boxShadow: accentIdx === i ? `0 0 10px ${acc.color}` : 'none',
-                    border: accentIdx === i ? '2px solid #fff' : 'none',
+                    border: accentIdx === i ? '2px solid #0f172a' : 'none',
                     transition: 'transform 0.2s',
                     '&:hover': { transform: 'scale(1.2)' },
                   }}
@@ -458,9 +460,11 @@ export const WelcomeIntro: React.FC<WelcomeIntroProps> = ({ onComplete }) => {
               setIsMuted(!isMuted);
             }}
             sx={{
-              bgcolor: 'rgba(15, 23, 42, 0.8)',
-              border: `1px solid ${accentColor}44`,
-              color: isMuted ? '#64748b' : accentColor,
+              bgcolor: 'rgba(255, 255, 255, 0.95)',
+              border: '1px solid #e2e8f0',
+              boxShadow: '0 2px 8px rgba(0,0,0,0.05)',
+              color: isMuted ? '#94a3b8' : '#1e3a5f',
+              '&:hover': { bgcolor: '#f1f5f9' },
             }}
           >
             {isMuted ? <VolumeOffIcon /> : <VolumeUpIcon />}
@@ -487,8 +491,8 @@ export const WelcomeIntro: React.FC<WelcomeIntroProps> = ({ onComplete }) => {
             px: 2.5,
             py: 0.8,
             borderRadius: 50,
-            bgcolor: 'rgba(0, 229, 255, 0.1)',
-            border: `1px solid ${accentColor}55`,
+            bgcolor: '#eff6ff',
+            border: '1px solid #bfdbfe',
             mb: 2,
           }}
         >
@@ -505,17 +509,16 @@ export const WelcomeIntro: React.FC<WelcomeIntroProps> = ({ onComplete }) => {
             fontWeight: 900,
             lineHeight: 1.1,
             mb: 2,
-            background: 'linear-gradient(180deg, #ffffff 0%, #cbd5e1 60%, #64748b 100%)',
+            background: 'linear-gradient(180deg, #0f172a 0%, #1e3a5f 60%, #334155 100%)',
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent',
-            textShadow: `0 0 50px ${accentColor}44`,
           }}
         >
           Discover. Compare. <br />
           <span style={{ color: accentColor, WebkitTextFillColor: accentColor }}>Own Smarter.</span>
         </Typography>
 
-        <Typography variant="body1" sx={{ color: '#94a3b8', maxWidth: 640, mx: 'auto', mb: 3.5, fontSize: { xs: '0.9rem', md: '1.05rem' } }}>
+        <Typography variant="body1" sx={{ color: '#475569', maxWidth: 640, mx: 'auto', mb: 3.5, fontSize: { xs: '0.9rem', md: '1.05rem' } }}>
           Real-time AI recommendations, 3D holographic vehicle orbits, multi-variant spec matching, and instant digital booking.
         </Typography>
 
@@ -535,8 +538,9 @@ export const WelcomeIntro: React.FC<WelcomeIntroProps> = ({ onComplete }) => {
             sx={{
               p: { xs: 1.5, sm: 2 },
               borderRadius: '16px',
-              bgcolor: 'rgba(15, 23, 42, 0.85)',
-              border: `1px solid ${accentColor}44`,
+              bgcolor: 'rgba(255, 255, 255, 0.92)',
+              border: '1px solid #e2e8f0',
+              boxShadow: '0 10px 25px rgba(15, 23, 42, 0.06)',
               minWidth: { xs: 110, sm: 150 },
               backdropFilter: 'blur(16px)',
               cursor: 'pointer',
@@ -544,10 +548,10 @@ export const WelcomeIntro: React.FC<WelcomeIntroProps> = ({ onComplete }) => {
               '&:hover': { transform: 'scale(1.05)' },
             }}
           >
-            <Typography variant="caption" sx={{ color: '#94a3b8', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 0.5 }}>
+            <Typography variant="caption" sx={{ color: '#64748b', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 0.5, fontWeight: 700 }}>
               <SpeedIcon sx={{ fontSize: 16, color: accentColor }} /> RPM (TAP TO REV)
             </Typography>
-            <Typography variant="h4" sx={{ fontWeight: 900, color: rpm > 6500 ? '#ff3366' : accentColor, my: 0.5, fontSize: { xs: '1.4rem', sm: '2rem' } }}>
+            <Typography variant="h4" sx={{ fontWeight: 900, color: rpm > 6500 ? '#e11d48' : '#1e3a5f', my: 0.5, fontSize: { xs: '1.4rem', sm: '2rem' } }}>
               {rpm.toLocaleString()}
             </Typography>
             <LinearProgress
@@ -556,8 +560,8 @@ export const WelcomeIntro: React.FC<WelcomeIntroProps> = ({ onComplete }) => {
               sx={{
                 height: 5,
                 borderRadius: 3,
-                bgcolor: 'rgba(255, 255, 255, 0.1)',
-                '& .MuiLinearProgress-bar': { bgcolor: rpm > 6500 ? '#ff3366' : accentColor },
+                bgcolor: 'rgba(0, 0, 0, 0.06)',
+                '& .MuiLinearProgress-bar': { bgcolor: rpm > 6500 ? '#e11d48' : '#1e3a5f' },
               }}
             />
           </Box>
@@ -567,16 +571,17 @@ export const WelcomeIntro: React.FC<WelcomeIntroProps> = ({ onComplete }) => {
             sx={{
               p: { xs: 1.5, sm: 2 },
               borderRadius: '16px',
-              bgcolor: 'rgba(15, 23, 42, 0.85)',
-              border: '1px solid rgba(255, 183, 3, 0.35)',
+              bgcolor: 'rgba(255, 255, 255, 0.92)',
+              border: '1px solid rgba(217, 119, 6, 0.25)',
+              boxShadow: '0 10px 25px rgba(15, 23, 42, 0.06)',
               minWidth: { xs: 110, sm: 150 },
               backdropFilter: 'blur(16px)',
             }}
           >
-            <Typography variant="caption" sx={{ color: '#94a3b8', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 0.5 }}>
-              <FlashOnIcon sx={{ fontSize: 16, color: '#ffb703' }} /> SPEED KM/H
+            <Typography variant="caption" sx={{ color: '#64748b', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 0.5, fontWeight: 700 }}>
+              <FlashOnIcon sx={{ fontSize: 16, color: '#d97706' }} /> SPEED KM/H
             </Typography>
-            <Typography variant="h4" sx={{ fontWeight: 900, color: '#ffb703', my: 0.5, fontSize: { xs: '1.4rem', sm: '2rem' } }}>
+            <Typography variant="h4" sx={{ fontWeight: 900, color: '#d97706', my: 0.5, fontSize: { xs: '1.4rem', sm: '2rem' } }}>
               {speed}
             </Typography>
             <LinearProgress
@@ -585,8 +590,8 @@ export const WelcomeIntro: React.FC<WelcomeIntroProps> = ({ onComplete }) => {
               sx={{
                 height: 5,
                 borderRadius: 3,
-                bgcolor: 'rgba(255, 255, 255, 0.1)',
-                '& .MuiLinearProgress-bar': { bgcolor: '#ffb703' },
+                bgcolor: 'rgba(0, 0, 0, 0.06)',
+                '& .MuiLinearProgress-bar': { bgcolor: '#d97706' },
               }}
             />
           </Box>
@@ -596,16 +601,17 @@ export const WelcomeIntro: React.FC<WelcomeIntroProps> = ({ onComplete }) => {
             sx={{
               p: { xs: 1.5, sm: 2 },
               borderRadius: '16px',
-              bgcolor: 'rgba(15, 23, 42, 0.85)',
-              border: '1px solid rgba(0, 255, 136, 0.35)',
+              bgcolor: 'rgba(255, 255, 255, 0.92)',
+              border: '1px solid rgba(5, 150, 105, 0.25)',
+              boxShadow: '0 10px 25px rgba(15, 23, 42, 0.06)',
               minWidth: { xs: 110, sm: 140 },
               backdropFilter: 'blur(16px)',
             }}
           >
-            <Typography variant="caption" sx={{ color: '#94a3b8', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 0.5 }}>
-              <TuneIcon sx={{ fontSize: 16, color: '#00ff88' }} /> TURBO BOOST
+            <Typography variant="caption" sx={{ color: '#64748b', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 0.5, fontWeight: 700 }}>
+              <TuneIcon sx={{ fontSize: 16, color: '#059669' }} /> TURBO BOOST
             </Typography>
-            <Typography variant="h4" sx={{ fontWeight: 900, color: '#00ff88', my: 0.5, fontSize: { xs: '1.4rem', sm: '2rem' } }}>
+            <Typography variant="h4" sx={{ fontWeight: 900, color: '#059669', my: 0.5, fontSize: { xs: '1.4rem', sm: '2rem' } }}>
               {boost} BAR
             </Typography>
             <LinearProgress
@@ -614,8 +620,8 @@ export const WelcomeIntro: React.FC<WelcomeIntroProps> = ({ onComplete }) => {
               sx={{
                 height: 5,
                 borderRadius: 3,
-                bgcolor: 'rgba(255, 255, 255, 0.1)',
-                '& .MuiLinearProgress-bar': { bgcolor: '#00ff88' },
+                bgcolor: 'rgba(0, 0, 0, 0.06)',
+                '& .MuiLinearProgress-bar': { bgcolor: '#059669' },
               }}
             />
           </Box>
@@ -629,19 +635,20 @@ export const WelcomeIntro: React.FC<WelcomeIntroProps> = ({ onComplete }) => {
             startIcon={<PowerSettingsNewIcon />}
             sx={{
               borderColor: accentColor,
-              color: '#ffffff',
+              color: accentColor,
               borderRadius: 50,
               px: 3.5,
               py: 1,
               fontWeight: 800,
               letterSpacing: 1.5,
-              bgcolor: 'rgba(0, 229, 255, 0.15)',
-              boxShadow: `0 0 25px ${accentColor}55`,
+              bgcolor: '#ffffff',
+              boxShadow: '0 4px 20px rgba(30, 58, 95, 0.12)',
               animation: 'pulse 1.8s infinite',
+              '&:hover': { bgcolor: '#eff6ff', borderColor: accentColor },
               '@keyframes pulse': {
-                '0%': { transform: 'scale(1)', boxShadow: `0 0 20px ${accentColor}44` },
-                '50%': { transform: 'scale(1.05)', boxShadow: `0 0 35px ${accentColor}88` },
-                '100%': { transform: 'scale(1)', boxShadow: `0 0 20px ${accentColor}44` },
+                '0%': { transform: 'scale(1)', boxShadow: '0 4px 15px rgba(30, 58, 95, 0.15)' },
+                '50%': { transform: 'scale(1.04)', boxShadow: '0 6px 25px rgba(30, 58, 95, 0.25)' },
+                '100%': { transform: 'scale(1)', boxShadow: '0 4px 15px rgba(30, 58, 95, 0.15)' },
               },
             }}
           >
@@ -672,13 +679,13 @@ export const WelcomeIntro: React.FC<WelcomeIntroProps> = ({ onComplete }) => {
             fontWeight: 900,
             letterSpacing: 1.5,
             borderRadius: 50,
-            background: `linear-gradient(135deg, ${accentColor} 0%, #0072ff 100%)`,
-            boxShadow: `0 0 40px ${accentColor}77, inset 0 0 15px rgba(255, 255, 255, 0.4)`,
-            color: '#000000',
+            background: 'linear-gradient(135deg, #1e3a5f 0%, #2563eb 100%)',
+            boxShadow: '0 8px 30px rgba(30, 58, 95, 0.25)',
+            color: '#ffffff',
             '&:hover': {
-              background: `linear-gradient(135deg, #ffffff 0%, ${accentColor} 100%)`,
+              background: 'linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%)',
               transform: 'scale(1.04)',
-              boxShadow: `0 0 55px ${accentColor}`,
+              boxShadow: '0 10px 35px rgba(30, 58, 95, 0.35)',
             },
           }}
         >
@@ -695,8 +702,8 @@ export const WelcomeIntro: React.FC<WelcomeIntroProps> = ({ onComplete }) => {
             justifyContent: 'center',
             gap: 0.5,
             cursor: 'pointer',
-            color: accentColor,
-            opacity: 0.85,
+            color: '#1e3a5f',
+            opacity: 0.9,
             animation: 'bounce 1.5s infinite',
             '@keyframes bounce': {
               '0%, 100%': { transform: 'translateY(0)' },

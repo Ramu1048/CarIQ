@@ -6,8 +6,16 @@ interface AuthContextType {
   user: User | null;
   isAuthenticated: boolean;
   isAdmin: boolean;
-  login: (formData: FormData) => Promise<void>;
-  register: (data: { email: string; password: string; first_name: string; last_name: string }) => Promise<void>;
+  login: (formData: FormData, explicitRole?: UserRole) => Promise<void>;
+  register: (data: {
+    email: string;
+    password: string;
+    full_name?: string;
+    first_name?: string;
+    last_name?: string;
+    phone?: string;
+    location_city?: string;
+  }) => Promise<void>;
   logout: () => Promise<void>;
   toggleRole: () => void;
 }
@@ -37,20 +45,20 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     return () => window.removeEventListener('cariq_auth_expired', handleExpired);
   }, []);
 
-  const login = async (formData: FormData) => {
+  const login = async (formData: FormData, explicitRole?: UserRole) => {
     const tokens = await authService.login(formData);
     localStorage.setItem('cariq_access_token', tokens.access_token);
     localStorage.setItem('cariq_refresh_token', tokens.refresh_token);
 
     const email = formData.get('username') as string;
-    const role: UserRole = email?.toLowerCase().includes('admin') ? 'admin' : 'customer';
+    const role: UserRole = explicitRole || (email?.toLowerCase().includes('admin') ? 'admin' : 'customer');
 
     const currentUser: User = {
       id: 'usr-' + Date.now(),
-      email: email || 'demo@cariq.in',
-      first_name: email?.split('@')[0] || 'Rahul',
-      last_name: 'Sharma',
-      full_name: (email?.split('@')[0] || 'Rahul') + ' Sharma',
+      email: email || (role === 'admin' ? 'admin@cariq.in' : 'demo@cariq.in'),
+      first_name: role === 'admin' ? 'Admin' : (email?.split('@')[0] || 'Rahul'),
+      last_name: role === 'admin' ? 'Officer' : 'Sharma',
+      full_name: role === 'admin' ? 'System Administrator' : ((email?.split('@')[0] || 'Rahul') + ' Sharma'),
       role,
       is_active: true,
       is_verified: true,
@@ -61,7 +69,15 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     localStorage.setItem('cariq_user', JSON.stringify(currentUser));
   };
 
-  const register = async (data: { email: string; password: string; first_name: string; last_name: string }) => {
+  const register = async (data: {
+    email: string;
+    password: string;
+    full_name?: string;
+    first_name?: string;
+    last_name?: string;
+    phone?: string;
+    location_city?: string;
+  }) => {
     const newUser = await authService.register(data);
     setUser(newUser);
     localStorage.setItem('cariq_user', JSON.stringify(newUser));

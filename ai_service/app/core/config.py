@@ -5,7 +5,11 @@ from pydantic import Field
 
 
 class Settings(BaseSettings):
-    model_config = SettingsConfigDict(case_sensitive=True, env_file=".env", extra="allow")
+    model_config = SettingsConfigDict(
+        case_sensitive=False,
+        env_file=(".env", "../.env", "../backend/.env", "ai_service/.env"),
+        extra="allow",
+    )
 
     # Application & Environment
     PROJECT_NAME: str = "CarIQ AI Intelligence Service"
@@ -46,7 +50,15 @@ class Settings(BaseSettings):
         default="postgresql+asyncpg://postgres:postgres@localhost:5432/cariq_vectors",
         validation_alias="VECTOR_DATABASE_URL",
     )
-    VECTOR_STORE_TYPE: str = Field(default="memory", validation_alias="VECTOR_STORE_TYPE")  # memory, pgvector, chromadb
+    VECTOR_STORE_TYPE: str = Field(default="chromadb", validation_alias="VECTOR_STORE_TYPE")  # chromadb, memory, pgvector
+
+    # ChromaDB Configuration (Local or Chroma Cloud)
+    CHROMA_HOST: Optional[str] = Field(default=None, validation_alias="CHROMA_HOST")
+    CHROMA_PORT: Optional[int] = Field(default=None, validation_alias="CHROMA_PORT")
+    CHROMA_API_KEY: Optional[str] = Field(default=None, validation_alias="CHROMA_API_KEY")
+    CHROMA_TENANT: Optional[str] = Field(default=None, validation_alias="CHROMA_TENANT")
+    CHROMA_DATABASE: Optional[str] = Field(default=None, validation_alias="CHROMA_DATABASE")
+    CHROMA_SSL: bool = Field(default=True, validation_alias="CHROMA_SSL")
 
     # Redis Caching
     REDIS_URL: str = Field(default="redis://localhost:6379/0", validation_alias="REDIS_URL")

@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Snackbar, Alert } from '@mui/material';
+import { Box, Snackbar, Alert, Button, Typography } from '@mui/material';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import SecurityIcon from '@mui/icons-material/Security';
 
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { WishlistProvider, useWishlist } from './context/WishlistContext';
@@ -164,7 +166,64 @@ const MainApp: React.FC = () => {
           />
         )}
 
-        {currentTab === 7 && isAdmin && <AdminTab />}
+        {currentTab === 7 && (
+          isAdmin ? (
+            <AdminTab />
+          ) : (
+            <Box sx={{ maxWidth: 540, mx: 'auto', py: 10, px: 2, textAlign: 'center' }}>
+              <Box
+                sx={{
+                  p: { xs: 3, sm: 5 },
+                  borderRadius: '24px',
+                  bgcolor: '#ffffff',
+                  border: '1px solid #e2e8f0',
+                  boxShadow: '0 16px 40px rgba(15, 23, 42, 0.08)',
+                }}
+              >
+                <Box
+                  sx={{
+                    width: 64,
+                    height: 64,
+                    borderRadius: '16px',
+                    bgcolor: '#eff6ff',
+                    color: '#2563eb',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    mx: 'auto',
+                    mb: 2.5,
+                  }}
+                >
+                  <LockOutlinedIcon sx={{ fontSize: 34 }} />
+                </Box>
+                <Typography variant="h5" sx={{ fontWeight: 800, color: '#0f172a', mb: 1 }}>
+                  Admin Authorization Required
+                </Typography>
+                <Typography variant="body2" sx={{ color: '#64748b', mb: 3.5, lineHeight: 1.6 }}>
+                  The CarIQ Admin Control Center is restricted to dealership operators, inventory managers, and system administrators.
+                </Typography>
+                <Button
+                  variant="contained"
+                  size="large"
+                  onClick={() => window.dispatchEvent(new CustomEvent('cariq_open_admin_auth'))}
+                  startIcon={<SecurityIcon />}
+                  sx={{
+                    borderRadius: '12px',
+                    fontWeight: 800,
+                    px: 3.5,
+                    py: 1.3,
+                    background: 'linear-gradient(135deg, #1e3a5f 0%, #2563eb 100%)',
+                    color: '#ffffff',
+                    boxShadow: '0 4px 18px rgba(30, 58, 95, 0.25)',
+                    '&:hover': { background: 'linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%)' },
+                  }}
+                >
+                  Open Admin Login Portal
+                </Button>
+              </Box>
+            </Box>
+          )
+        )}
       </Box>
 
       {/* Purchase Flow Multi-Step Modal */}
@@ -198,11 +257,12 @@ const MainApp: React.FC = () => {
           severity="info"
           sx={{
             width: '100%',
-            bgcolor: '#0f172a',
-            color: '#00e5ff',
-            border: '1px solid rgba(0, 229, 255, 0.4)',
+            bgcolor: '#ffffff',
+            color: '#1e3a5f',
+            border: '1px solid #bfdbfe',
             borderRadius: '12px',
-            boxShadow: '0 10px 25px rgba(0, 229, 255, 0.2)',
+            boxShadow: '0 8px 24px rgba(30, 58, 95, 0.12)',
+            fontWeight: 600,
           }}
         >
           {snackbarMessage}
